@@ -1,0 +1,17 @@
+@font-face {
+    font-family: "Nauman Regular";
+    src: url(../assets/fonts/Nauman-Regular.ttf);
+  }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Nauman Regular";
+}
+
+html,body {
+    height: 100%;
+    width: 100%;
+    background-color: #fff8dce1;
+}
