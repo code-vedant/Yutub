@@ -4,13 +4,20 @@
     box-sizing: border-box;
 }
 
-.main{
+.app-main{
   position: relative;
   font-family: "nauman regular";
   height: 6.5vh;
+  display: flex;
+  /* overflow-x: hidden; */
 }
 
 .header{
   position: fixed;
   height: 6.5vh;
+}
+
+.appMain{
+  width: 100%;
+  height: auto;
 }

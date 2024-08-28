@@ -1,17 +1,250 @@
-.login-main{
-    width: 100%;
-    height: 93.5vh;
-    /* background-color: red; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.Login-box {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #fffefe;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.box{
-    width: 90%;
-    height: 95%;
-    background-color: #DEB887;
+.Login-box-left {
+  width: 32%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 5vh 5vh;
+  background-color: #fffefe;
+}
+
+.Login-logo-link {
+  color: #fff;
+  text-decoration: none;
+  width: 35%;
+  height: 5%;
+  margin-bottom: 3vh;
+}
+
+.LP-logo {
+  /* background-color: aqua; */
+  width: 100%;
+  height: 100%;
+}
+
+.LP-logo img {
+  width: 100%;
+  height: 100%;
+  filter: invert(0.4) sepia(1) saturate(100000) hue-rotate(0deg);
+}
+
+.Login-box-left h1 {
+  color: #090909;
+  font-size: 5vh;
+  font-weight: 700;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 3vh;
+
+}
+
+.Login-box-left h3 {
+  color: #090909;
+  font-size: 2vh;
+  font-weight: 700;
+  width: 100%;
+}
+
+.Login-box-left p {
+  color: rgb(180, 0, 0);
+  font-size: 1em;
+  margin: 2vh 0;
+}
+
+.LoginForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.LoginLabel {
+  color: #000;
+  font-weight: 600;
+  margin-bottom: 0.5vh;
+  margin-top: 4vh;
+  font-size: 2vh;
+}
+
+.LoginInput {
+  color: #000;
+  font-weight: 600;
+  font-size: 2vh;
+  padding: 1.2vh 0.5vh;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  background-color: #ececec;
+}
+
+.LoginForm span {
+  display: flex;
+  align-items: center;
+  margin: 2vh 0;
+}
+.LoginForm span input {
+  margin-right: 1.5vh;
+  transform: scale(1.4);
+}
+
+.LoginForm span h4 {
+  font-size: 2vh;
+  display: flex;
+  align-items: center;
+}
+
+.LoginForm button {
+  width: 100%;
+  font-size: 3vh;
+  padding: 1.2vh 5vh;
+  padding-bottom: 1.4vh;
+  background-color: rgb(248, 36, 36);
+  color: #fffefe;
+  border: none;
+  border-radius: 50px;
+  margin-top: 5vh;
+}
+
+.LoginForm button:hover {
+  background-color: #7c7474;
+  color: #111111;
+  cursor: pointer;
+  border: 2px solid #7c7474;
+}
+
+.Login-box-left h5{
+  font-size: 1.6vh;
+  color: #090909;
+  margin-top: 3vh;
+}
+
+.Login-box-center {
+  width: 0.5%;
+  height: 100%;
+  box-shadow: 5px 2px 12px rgb(153, 153, 153);
+}
+
+.Login-box-center img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.Login-box-right {
+  width: 67%;
+  height: 100%;
+  padding: 4vh 2vh;
+}
+
+
+@media screen and (max-width : 600px) {
+  .Login-box {
+    width: 100%;
+    height: 100vh;
+    display: block;
+  }
+
+  .Login-box-left {
+    width: 100%;
+    height: 85%; 
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 2vh 5vw;
+    background-color: #fffefe;
+  }
+
+  .Login-box-left h1 {
+    font-size: 3vh;
+  }
+
+  .Login-box-left h3 {
+    font-size: 1.5vh; 
+  }
+
+  .LoginForm {
+    width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    margin-top: 1vh;
+  }
+  
+  .su-imgHolder {
+    width: 17vw;
+    height: 17vw;
+    margin-left: 16vh;
+  }
+  
+  .LoginLabel {
+    font-size: 1.7vh;
+  }
+  
+  .LoginInput {
+    color: #000;
+    font-weight: 600;
+    font-size: 1.7vh;
+    padding: 01vh 0.7vh;
+    margin-bottom: 3vh;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    background-color: #ececec;
+  }
+  
+  .LoginForm span {
+    display: flex;
     align-items: center;
+    margin-bottom: 1.3vh 0;
+  }
+  .LoginForm span input {
+    margin-right: 1vh;
+    transform: scale(1);
+  }
+  
+  .LoginForm span h4 {
+    font-size: 1.4vh;
+    display: flex;
+    align-items: center;
+  }
+  
+  .LoginForm button {
+    width: 100%;
+    font-size: 1.8vh;
+    padding: 1.2vh 5vh;
+    padding-bottom: 1.4vh;
+    background-color: rgb(248, 36, 36);
+    color: #fffefe;
+    border: none;
+    border-radius: 50px;
+  }
+  
+  .LoginForm button:hover {
+    background-color: #7c7474;
+    color: #111111;
+    cursor: pointer;
+    border: 2px solid #7c7474;
+  }
+  
+
+  .Login-box-right {
+    display: none;
+
+  }
+
+  .Login-box-center {
+    width: 100%;
+    height: 15%;
+  }
+
 }

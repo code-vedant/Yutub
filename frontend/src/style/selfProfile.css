@@ -1,0 +1,255 @@
+.selfProfileMain{
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    /* background: #000; */
+    background: #fffefe;
+    padding: 6.5vh 10vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.selfcoverImageContainer{
+    /* background: #ff0000; */
+    width: 100%;
+    height: 30vh;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.selfcoverImageContainer img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.selfprofileDataContainer{
+    /* background: #ff0000; */
+    width: 100%;
+    height: 26vh;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+}
+
+.selfprofileImage{
+    width: 13%;
+    height: 100%;
+    /* background-color: aqua; */
+    position: relative;
+    padding: 01vh 0;
+
+}
+
+.selfprofileImageHolder{
+    width: 100%;
+    height: 100%;
+}
+
+.selfprofileImage img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.selfprofileDetail{
+    width: 90%;
+    height: 100%;
+    /* background-color: rgb(0, 255, 89); */
+}
+
+.selfprofileDetailText{
+    width: 100%;
+    /* background-color: yellowgreen; */
+    height: 65%;
+    padding: 0.2vh 2vh;
+}
+
+.selfprofileDetailText h2{
+    font-size: 5.5vh;
+    color: #333;
+}
+
+.selfprofileDetailText h5{
+    font-size: 2vh;
+    color: #272727;
+    margin-top: -0.5vh;
+    margin-bottom: 1.5vh;
+    margin-left: 0.3vh;
+}
+
+.selfprofileDetailText h4{
+    font-size: 2.5vh;
+    color: #333333;
+}
+
+.selfprofileubscribeButton{
+    width: 50%;
+    height: 35%;
+    padding-left: 3vh;
+    padding-top: 1.2vh;
+    /* background-color: #ededed; */
+    display: flex;
+    justify-content: flex-start;
+    align-items:center ;
+    gap: 2vh;
+}
+
+.selfprofileubscribeButton button{
+    background-color: #333;
+    color: #ededed;
+    border: none;
+    border-radius: 30px;
+    font-size: 2.1vh;
+    line-height: 2.1vh;
+    height: 7vh;
+    width: 20vh;
+    text-align: center;
+    cursor: pointer;
+}
+
+.selfprofilePageList{
+    width: 100%;
+    height: auto;
+    padding: 0;
+    border-bottom: 1.5px solid #000;
+}
+
+.selfprofilePageList ul{
+    list-style: none;
+    margin: 0;
+    width: 30%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 2vh;
+}
+
+.selfprofilePageList li{
+    padding: 1vh 0;
+
+}
+
+.selfprofilePageList li:hover{
+    border-bottom: 2px solid #1f1f1f87;
+}
+
+
+.selfprofilePageList ul li.active {
+    border-bottom: 2px solid #000;
+    font-weight: bold;
+  }
+
+ .SPTabData{
+    width: 100%;
+    /* background-color: #000; */
+    height: auto;
+  display: flex;
+  justify-content: center;
+ } 
+
+ .SPVideoTabContainer{
+    width: 100%;
+ }
+
+ .SPVideoTab{
+    width: 100%;
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    place-items: center;
+    padding-top: 3vh;
+    gap: 5vh;
+    /* background-color: #d14343; */
+ }
+
+ .SPvideoTabItem{
+    width: 100%;
+    height: 35vh;
+ }
+
+ @media screen and (max-width: 600px) {
+    .selfprofileMain{
+        padding: 6.5vh 0.1vh;
+    }
+    
+    .selfcoverImageContainer{
+        height: 13vh;
+        border-radius: 5px;
+    }
+    
+    .selfprofileDataContainer{
+        height: 15vh;
+        border-radius: 5px;
+    }
+    
+    .selfprofileImage{
+        width: 25%;
+        height: 85%;
+        margin-left: 1vh;
+    }
+        
+    .profileDetail{
+        width: 90%;
+        height: 100%;
+    }
+    
+    .profileDetailText{
+        height: 60%;
+        padding: 0.2vh 2vh;
+    }
+    
+    .profileDetailText h2{
+        font-size: 3.5vh;
+    }
+    
+    .profileDetailText h5{
+        font-size: 1.5vh;
+        margin-bottom: 0.4vh;
+
+    }
+    
+    .profileDetailText h4{
+        font-size: 2vh;
+    }
+    
+    .profileubscribeButton{
+        padding-left: 2vh;
+        padding-top: 0vh;
+    }
+
+    .profilePageList{
+        width: 100%;
+        height: auto;
+        padding: 0;
+        border-bottom: 1.5px solid #000;
+    }
+    
+    .profilePageList ul{
+        padding: 0 1vh;
+        width: 100%;
+        gap: 2vh;
+        justify-content: space-between;
+    }
+   
+     .TabData{
+        width: 100%;
+        min-height: 100vh;
+     } 
+    
+     .VideoTab{
+        width: 100%;
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        place-items: center;
+        padding-top: 3vh;
+        gap: 1vh;
+     }
+    
+     .videoTabItem{
+        height: 42vh;
+     }
+ }

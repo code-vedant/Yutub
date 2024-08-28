@@ -1,0 +1,14 @@
+.c404page{
+   width: 100vw; 
+   height: 100vh;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background: #000;
+
+   h1{
+    color: #ff0000;
+    font-size: 24vh;
+    font-weight: bold;
+   }
+}

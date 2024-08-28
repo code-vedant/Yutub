@@ -1,0 +1,242 @@
+.profileMain{
+    width: 100vw;
+    min-height: 100vh;
+    position: relative;
+    /* background: #000; */
+    background: #fffefe;
+    padding: 6.5vh 10vh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.coverImageContainer{
+    /* background: #ff0000; */
+    width: 100%;
+    height: 30vh;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.coverImageContainer img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profileDataContainer{
+    /* background: #ff0000; */
+    width: 100%;
+    height: 26vh;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+}
+
+.profileImage{
+    width: 13%;
+    height: 100%;
+    /* background-color: aqua; */
+    position: relative;
+    padding: 01vh 0;
+
+}
+
+.profileImageHolder{
+    width: 100%;
+    height: 100%;
+}
+
+.profileImage img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.profileDetail{
+    width: 90%;
+    height: 100%;
+    /* background-color: rgb(0, 255, 89); */
+}
+
+.profileDetailText{
+    width: 100%;
+    /* background-color: yellowgreen; */
+    height: 65%;
+    padding: 0.2vh 2vh;
+}
+
+.profileDetailText h2{
+    font-size: 5.5vh;
+    color: #333;
+}
+
+.profileDetailText h5{
+    font-size: 2vh;
+    color: #272727;
+    margin-top: -0.5vh;
+    margin-bottom: 1.5vh;
+    margin-left: 0.3vh;
+}
+
+.profileDetailText h4{
+    font-size: 2.5vh;
+    color: #333333;
+}
+
+.profileubscribeButton{
+    width: 30%;
+    height: 35%;
+    padding-left: 3vh;
+    padding-top: 1.2vh;
+}
+
+.profileubscribeButton button{
+    background-color: #333;
+    color: #ededed;
+    border: none;
+    border-radius: 30px;
+    font-size: 2.1vh;
+    line-height: 2.1vh;
+    height: 5vh;
+    width: 16vh;
+    text-align: center;
+    cursor: pointer;
+}
+
+.profilePageList{
+    width: 100%;
+    height: auto;
+    padding: 0;
+    border-bottom: 1.5px solid #000;
+}
+
+.profilePageList ul{
+    list-style: none;
+    margin: 0;
+    width: 30%;
+    display: flex;
+    justify-content: flex-start;
+    gap: 2vh;
+}
+
+.profilePageList li{
+    padding: 1vh 0;
+
+}
+
+.profilePageList li:hover{
+    border-bottom: 2px solid #1f1f1f87;
+}
+
+
+.profilePageList ul li.active {
+    border-bottom: 2px solid #000;
+    font-weight: bold;
+  }
+
+ .TabData{
+    width: 100%;
+    min-height: 100vh;
+ } 
+
+ .VideoTab{
+    width: 100%;
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    place-items: center;
+    padding-top: 3vh;
+    gap: 5vh;
+ }
+
+ .videoTabItem{
+    width: 100%;
+    height: 35vh;
+ }
+
+ @media screen and (max-width: 600px) {
+    .profileMain{
+        padding: 6.5vh 0.1vh;
+    }
+    
+    .coverImageContainer{
+        height: 13vh;
+        border-radius: 5px;
+    }
+    
+    .profileDataContainer{
+        height: 15vh;
+        border-radius: 5px;
+    }
+    
+    .profileImage{
+        width: 25%;
+        height: 85%;
+        margin-left: 1vh;
+    }
+        
+    .profileDetail{
+        width: 90%;
+        height: 100%;
+    }
+    
+    .profileDetailText{
+        height: 60%;
+        padding: 0.2vh 2vh;
+    }
+    
+    .profileDetailText h2{
+        font-size: 3.5vh;
+    }
+    
+    .profileDetailText h5{
+        font-size: 1.5vh;
+        margin-bottom: 0.4vh;
+
+    }
+    
+    .profileDetailText h4{
+        font-size: 2vh;
+    }
+    
+    .profileubscribeButton{
+        padding-left: 2vh;
+        padding-top: 0vh;
+    }
+
+    .profilePageList{
+        width: 100%;
+        height: auto;
+        padding: 0;
+        border-bottom: 1.5px solid #000;
+    }
+    
+    .profilePageList ul{
+        padding: 0 1vh;
+        width: 100%;
+        gap: 2vh;
+        justify-content: space-between;
+    }
+   
+     .TabData{
+        width: 100%;
+        min-height: 100vh;
+     } 
+    
+     .VideoTab{
+        width: 100%;
+        min-height: 100%;
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        place-items: center;
+        padding-top: 3vh;
+        gap: 1vh;
+     }
+    
+     .videoTabItem{
+        height: 42vh;
+     }
+ }

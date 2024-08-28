@@ -1,0 +1,277 @@
+.Dashboard-main{
+    width: 100%;
+    min-height:100vh;
+    margin-top: 6.5vh;
+    padding: 2vh 8vw;
+}
+
+.Dashboard-main nav{
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+.Dm-left{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.5vh 0vw;
+}
+
+.Dm-left h1{
+    font-size: 4vh;
+    font-weight: 900;
+}
+
+.Dm-left h5{
+    font-size: 2vh;
+    font-weight: 700;
+}
+.Dm-right{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0.5vh 0vw;
+}
+
+.Dm-right button{
+    font-size: 2.2vh;
+    padding: 1.5vh 0.2vw;
+    background-color: #e93030;
+    color: rgb(255, 255, 255);
+    border: none;
+    cursor: pointer;
+    border-radius: 2px;
+    position: relative;
+    display: flex;
+    height: 6vh;
+    min-width: 11vw;
+    gap: 1.5vh;
+    font-weight: 900;
+}
+
+.Dm-right button img{
+    width: 11%;
+    height: 70%;
+    filter: invert(1) brightness(0.9) saturate(10000%);
+    object-fit: cover;
+    margin-left: 1vh;
+    margin-top: 0.5vh;
+
+}
+
+.Separator{
+    width: 100%;
+    height: 1px;
+    background-color: rgb(0, 0, 0);
+}
+
+.Stats{
+    width: 100%;
+    height: 25vh;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 2vh 0vw;
+}
+
+.Stat{
+    width: 32%;
+    height: 100%;
+    padding: 0.5vh 0.8vw;
+    /* background-color: azure; */
+    border: 1.5px solid black;
+    border-radius: 5px;
+
+}
+
+.Stat img{
+    width: 5vh;
+    height: 5vh;
+    margin-left: 0vh;
+    margin-top: 1vh;
+    margin-bottom: 3vh;
+    object-fit: cover;
+    filter: brightness(0) saturate(10000%);
+    border-radius: 5px;
+}
+
+.Stat h2{
+    font-size: 2.5vh;
+    font-weight: 600;
+    color: rgb(40, 40, 40);
+    margin-left: 0.5vh;
+}
+
+.Stat h1{
+    font-size: 5vh;
+    font-weight: 600;
+    color: rgb(40, 40, 40);
+    margin-left: 0.5vh;
+}
+
+.Data-table{
+    width: 100%;
+    min-height: 50vh;
+    height: auto;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 1vh 0.5vh;
+}
+
+.Data-table .Dt-header{
+    font-size: 3.5vh;
+    display: flex;
+    font-weight: 900;
+    text-align: center;
+    padding-bottom: 1vh;
+    border-bottom: 1px solid black;
+}
+
+.Data-table .Dt-header .cell{
+    width: 10vw;
+    text-align: center;
+}
+
+.Data-table .Dt-header .cell:nth-child(2){
+    width: 30vw;
+}
+
+.Data-table .Dt-header .cell:nth-child(3){
+    width: 15vw;
+}
+
+.Data-table .Dt-header .cell:nth-child(4){
+    width: 15vw;
+}
+
+.Video-data{
+    width: 100%;
+    height: 7vh;
+    padding: 0.5vh 0.5vw;
+    display: grid;
+    grid-template-columns: 12% 40% 18% 20% 10% ;
+}
+
+.video-status{
+    /* background: #000; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-detail{
+    /* background: #000; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    gap: 2vh;
+    align-items: center;
+}
+
+.video-detail img{
+    height: 5vh;
+}
+
+.video-status-ok{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color:#09721b ;
+}
+
+.video-status{
+    /* background: #000; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    color:#8a1c03 ;
+}
+
+.video-ratings{
+    /* background: #000; */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content:space-evenly;
+    align-items: center;
+}
+
+.likes{
+    height: 5vh;
+    padding:0 2vh;
+    background-color: #00fd2a5c;
+    color: rgb(3, 1, 1);
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.dislikes{
+    height: 5vh;
+    padding:0 2vh;
+    background-color: rgba(255, 42, 0, 0.359);
+    color: rgb(3, 1, 1);
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    border-radius: 20px;
+
+}
+
+.date{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 2.5vh;
+    font-weight: 900;
+    padding-left:7vh;
+}
+
+.fuxnBtns{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.deleteBtn{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.deleteBtn img{
+    width: 60%;
+    height: 60%;
+}
+
+.editBtn{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.editBtn img{
+    width: 55%;
+    height: 60%;
+}

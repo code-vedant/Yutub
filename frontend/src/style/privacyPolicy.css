@@ -1,0 +1,41 @@
+.PrivacyPolicy{
+    width: 100%;
+    height: fit-content;
+    padding: 6.5vh 28vh;
+}
+
+.headPP{
+    width: 100%;
+    height: fit-content;
+    text-align: center;
+}
+
+.headPP p {
+    padding: 0 32vh;
+    text-align: center;
+    margin-top: 2vh;
+}
+
+.headPP h1 {
+    text-align: center;
+    font-weight: bolder;
+    margin-top: 0.5vh;
+}
+
+.headPP h6 {
+    text-align: center;
+    font-weight: bolder;
+    margin-top: 1vh;
+    font-size: 1.8vh;
+}
+
+.PrivacyPolicy h2{
+    color: black;
+    font-size: 4vh;
+    margin: 3vh 0;
+}
+
+.PrivacyPolicy p{
+    margin-bottom: 2vh;
+    font-size: 2vh;
+}

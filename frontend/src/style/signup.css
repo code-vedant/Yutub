@@ -1,0 +1,283 @@
+.Signup-box {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #fffefe;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Signup-box-left {
+  width: 32%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 5vh 5vh;
+  background-color: #fffefe;
+}
+
+.Signup-logo-link {
+  color: #fff;
+  text-decoration: none;
+  width: 25%;
+  height: 3%;
+}
+
+.SU-logo {
+  /* background-color: aqua; */
+  width: 100%;
+  height: 100%;
+}
+
+.SU-logo img {
+  width: 100%;
+  height: 100%;
+  filter: invert(0.4) sepia(1) saturate(100000) hue-rotate(0deg);
+}
+
+.Signup-box-left h1 {
+  color: #090909;
+  font-size: 5vh;
+  font-weight: 700;
+  width: 100%;
+  text-align: center;
+}
+
+.Signup-box-left h3 {
+  color: #090909;
+  font-size: 2.4vh;
+  font-weight: 700;
+  width: 100%;
+}
+
+.Signup-box-left p {
+  color: rgb(180, 0, 0);
+  font-size: 1em;
+  margin: 2vh 0;
+}
+
+.SignupForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1vh;
+}
+
+.su-imgHolder {
+  background-color: #ececec;
+  width: 4.5vw;
+  height: 4.5vw;
+  border-radius: 50%;
+  margin-left: 25vh;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.su-imgHolder img.uploadedImg{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.su-imgHolder img{
+  width: 50%;
+  height: 50%;
+  object-fit: cover;
+}
+
+.profileInput{
+  display: none;
+}
+
+.SignupLabel {
+  color: #000;
+  font-weight: 600;
+  margin-bottom: 0.5vh;
+  font-size: 2vh;
+}
+
+.SignupInput {
+  color: #000;
+  font-weight: 600;
+  font-size: 2vh;
+  padding: 1.2vh 0.5vh;
+  margin-bottom: 4vh;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  background-color: #ececec;
+}
+
+/* .SignupInput:nth-child(8) {
+  color: #000;
+  font-weight: 500;
+  font-size: 2vh;
+  padding: 1.2vh 0.5vh;
+  margin-bottom: 2.5vh;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  background-color: #ececec;
+} */
+
+.SignupForm span {
+  display: flex;
+  align-items: center;
+  margin: 2vh 0;
+}
+.SignupForm span input {
+  margin-right: 1.5vh;
+  transform: scale(1.4);
+}
+
+.SignupForm span h4 {
+  font-size: 2vh;
+  display: flex;
+  align-items: center;
+}
+
+.SignupForm button {
+  width: 100%;
+  font-size: 3vh;
+  padding: 1.2vh 5vh;
+  padding-bottom: 1.4vh;
+  background-color: rgb(248, 36, 36);
+  color: #fffefe;
+  border: none;
+  border-radius: 50px;
+}
+
+.SignupForm button:hover {
+  background-color: #7c7474;
+  color: #111111;
+  cursor: pointer;
+  border: 2px solid #7c7474;
+}
+
+.Signup-box-center {
+  width: 0.5%;
+  height: 100%;
+  box-shadow: 5px 2px 12px rgb(153, 153, 153);
+}
+
+.Signup-box-center img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.Signup-box-right {
+  width: 67%;
+  height: 100%;
+  padding: 4vh 2vh;
+}
+
+
+@media screen and (max-width : 600px) {
+  .Signup-box {
+    width: 100%;
+    height: 100vh;
+    display: block;
+  }
+
+  .Signup-box-left {
+    width: 100%;
+    height: 85%; 
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 2vh 5vw;
+    background-color: #fffefe;
+  }
+
+  .Signup-box-left h1 {
+    font-size: 3vh;
+  }
+
+  .Signup-box-left h3 {
+    font-size: 1.5vh; 
+  }
+
+  .SignupForm {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1vh;
+  }
+  
+  .su-imgHolder {
+    width: 17vw;
+    height: 17vw;
+    margin-left: 16vh;
+  }
+  
+  .SignupLabel {
+    font-size: 1.7vh;
+  }
+  
+  .SignupInput {
+    color: #000;
+    font-weight: 600;
+    font-size: 1.7vh;
+    padding: 01vh 0.7vh;
+    margin-bottom: 3vh;
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    background-color: #ececec;
+  }
+  
+  .SignupForm span {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.3vh 0;
+  }
+  .SignupForm span input {
+    margin-right: 1vh;
+    transform: scale(1);
+  }
+  
+  .SignupForm span h4 {
+    font-size: 1.4vh;
+    display: flex;
+    align-items: center;
+  }
+  
+  .SignupForm button {
+    width: 100%;
+    font-size: 1.8vh;
+    padding: 1.2vh 5vh;
+    padding-bottom: 1.4vh;
+    background-color: rgb(248, 36, 36);
+    color: #fffefe;
+    border: none;
+    border-radius: 50px;
+  }
+  
+  .SignupForm button:hover {
+    background-color: #7c7474;
+    color: #111111;
+    cursor: pointer;
+    border: 2px solid #7c7474;
+  }
+  
+
+  .Signup-box-right {
+    display: none;
+
+  }
+
+  .Signup-box-center {
+    width: 100%;
+    height: 15%;
+  }
+
+}
