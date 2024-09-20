@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+// Initial state without localStorage
 const initialState = {
   status: false,
   userData: null,
@@ -23,10 +24,12 @@ const authSlice = createSlice({
       state.accessToken = null;
       state.refreshToken = null;
     },
+    
+    setAccessToken: (state, action) => {
+      state.accessToken = action.payload;
+    },
   },
 });
 
-export const { login, logout } = authSlice.actions;
-export const selectUser = (state) => state.auth.userData;
-
+export const { login, logout, setAccessToken } = authSlice.actions;
 export default authSlice.reducer;

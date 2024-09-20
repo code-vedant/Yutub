@@ -1,46 +1,84 @@
-// VideoPlayerPage.js
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../style/videoplayerpage.css";
 import VideoPlayer from "../components/VideoPlayer.jsx";
 import VideoInfo from "../components/VideoInfo.jsx";
 import Comments from "../components/Comments.jsx";
 import RelatedVideos from "../components/RelatedVideos.jsx";
+import { useParams } from "react-router-dom";
+import VideoService from "../Service/video.js";
+import { useSelector } from "react-redux";
+import PopupHolder from "../components/PopupHolder.jsx";
+import Loader from "../components/Loader.jsx";
+import CommentService from "../Service/comment.js";
 
 const VideoPlayerPage = () => {
-  const videoData = {
-    url: "https://www.w3schools.com/html/mov_bbb.mp4",
-    title: "Sample Video Lorem ipsum dolor sit amet.",
-    description: "This is a sample video description.",
-    likes: 123,
-    dislikes: 4,
-    channelName: "Sample Channel",
-    subscribed: false,
-  };
+  const [videoData, setVideoData] = useState(null); // Start with null to handle loading
+  const { id: videoId } = useParams();
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  const [loading, setLoading] = useState(false);
+  const [comments, setComments] = useState([]);
 
-  const comments = [
-    { id: 1, user: "John Doe", text: "Great video!" },
-    { id: 2, user: "Jane Smith", text: "Very informative, thanks!" },
-  ];
+  useEffect(() => {
+    const fetchVideo = async () => {
+      setLoading(true);
+      try {
+        const data = await VideoService.getVideoById(accessToken, videoId);
+        if (data) {
+          console.log("Data fetched", data.data);
+          setVideoData(data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching video:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchVideo();
+  }, [videoId]);
 
-  const relatedVideos = [
-    { id: 1, title: "Related Video 1", url: "#" },
-    { id: 2, title: "Related Video 2", url: "#" },
-    { id: 3, title: "Related Video 3", url: "#" },
-    { id: 4, title: "Related Video 4", url: "#" },
-  ];
+  useEffect(() => {
+    const fetchComments = async () => {
+      try {
+        const response = await CommentService.getAllComments(accessToken,videoId);
+        console.log("COmment:",response.data);    
+        setComments(response.data);
+      } catch (error) {
+        console.error(error.message);
+      }
+    };
+
+    fetchComments();
+  }, [videoId]);
 
   return (
     <div className="video-player-page">
+      {loading && (
+        <PopupHolder>
+          <Loader />
+        </PopupHolder>
+      )}
       <div className="left">
-        <VideoPlayer url={videoData.url} />
-        <VideoInfo
-          videoData={videoData}
-        />
-        <Comments comments={comments} />
+        {videoData ? (
+          <>
+            <VideoPlayer
+              url={
+                videoData.videoFile
+                  ? videoData.videoFile
+                  : "https://www.w3schools.com/html/mov_bbb.mp4"
+              }
+            />
+            <VideoInfo videoData={videoData} />
+            <Comments comments={comments} />
+          </>
+        ) : (
+          <div>{loading && (
+            <PopupHolder>
+              <Loader />
+            </PopupHolder>
+          )}</div>
+        )}
       </div>
-      <div className="right">
-        <RelatedVideos videos={relatedVideos} />
-      </div>
+      <div className="right">{/* <RelatedVideos /> */}</div>
     </div>
   );
 };

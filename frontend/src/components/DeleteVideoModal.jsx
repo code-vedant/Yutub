@@ -2,8 +2,23 @@ import React from "react";
 import bin from "../assets/bin.png";
 import "../style/deleteVideo.css";
 import plus from "../assets/plus.png";
+import VideoService from "../Service/video";
 
-function DeleteVideoModal({closeDeleteModal}) {
+function DeleteVideoModal({closeDeleteModal, videoId ,accessToken }) {
+
+  console.log("Video ID to delete: ", videoId);
+
+  const deleteVideo =async ()=> {
+      try {
+        await VideoService.deleteVideo(accessToken,videoId)
+        closeDeleteModal();
+      } catch (error) {
+        console.log(error.message);
+        
+      }
+  }
+
+
   return (
     <section className="DV-main">
       <div className="DV-head">
@@ -26,7 +41,7 @@ function DeleteVideoModal({closeDeleteModal}) {
       <div className="DV-body">
       <div className="DV-btns">
             <button type="cancel" className="CancelBtn" onClick={closeDeleteModal}>Cancel</button>
-            <button type="submit" >Delete</button>
+            <button type="submit" onClick={()=> {deleteVideo()}} >Delete</button>
           </div>
       </div>
     </section>

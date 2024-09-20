@@ -2,50 +2,60 @@ import axios from "axios";
 
 const API_URL = "http://localhost:8000/api/v1/users";
 
+
+// const token = useSelector((state) => state.auth.accessToken);
+
+
+
 const AuthService = {
-  async login({ email, password }) {
+  login: async ({ email, password }) => {
     const response = await axios.post(`${API_URL}/login`, { email, password });
     return response.data;
   },
   signup: async (data) => {
-    const response = await axios.post(`${API_URL}/signup`, data);
-    console.log(response.data);
+    const response = await axios.post(`${API_URL}/register`, data,{
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      }
+    });
     return response.data;
   },
-  logout: async (token) => {
+  logout: async (accessToken) => {
     const response = await axios.post(
       `${API_URL}/logout`,
       {},
       {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       }
     );
-    console.log(response.data);
     return response.data;
   },
-  getUserData: async (token) => {
+  getUserData: async (accessToken) => {
     try {
       const response = await axios.get(`${API_URL}/current-user`, {
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       });
-      return response.data; // Return only the data part of the response
+      return response.data; 
+      
     } catch (error) {
       console.error("Error fetching user data:", error);
-      throw error; // Optionally rethrow the error for further handling
+      throw error;
     }
   },
-  updateProfile: async (token, data) => {
+  updateProfile: async (accessToken,data) => {
+    console.log(data);
+    
     try {
       const response = await axios.patch(
         `${API_URL}/update-account`,
         data,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );
@@ -55,39 +65,76 @@ const AuthService = {
       throw error;
     }
   },
-  updateAvatar: async (token, data) => {
+  updateAvatar: async (accessToken,data) => {
     try {
       const response = await axios.patch(
         `${API_URL}/avatar`,
         data,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${accessToken}`,
             "Content-Type": "multipart/form-data",
           },
         }
       );
+      console.log("Avatar Updated");
+
       return response.data;
     } catch (error) {
-      console.error("Error updating user avatar:", error);
+      console.error("Error updating user avatar:", error.message);
       throw error;
     }
   },
-  updateCoverImage: async (token, data) => {
+  updateCoverImage: async (accessToken,data) => {
     try {
       const response = await axios.patch(
-        `${API_URL}/coverImage`,
+        `${API_URL}/cover-image`,
         data,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${accessToken}`,
             "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("Cover Updated");
+      
+      return response.data;
+    } catch (error) {
+      console.error("Error updating user cover image:", error);
+      throw error;
+    }
+  },
+  getUserById: async (accessToken,data) => {
+    try {
+      const response = await axios.get(
+        `${API_URL}/${data}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       );
       return response.data;
     } catch (error) {
-      console.error("Error updating user cover image:", error);
+      console.error("Error fetching user data:", error);
+      throw error;
+    }
+  },
+  changeCurrentPassword: async (accessToken,data) => {
+    try {
+      const response = await axios.post(
+        `${API_URL}/change-password`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error changing current password:", error);
       throw error;
     }
   }

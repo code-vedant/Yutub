@@ -29,7 +29,6 @@ const generateAccessAndRefreshToken = async (userId) => {
 
 const registerUser = asyncHandler(async (req, res) => {
   const { fullName, email, username, password } = req.body;
-  // console.log("email: " , email);
 
   if (
     [fullName, email, username, password].some((field) => field?.trim() === "")
@@ -46,7 +45,6 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const avatarLocalPath = req.files?.avatar[0]?.path;
-  // const coverImageLocalPath =  req.files?.coverImage[0]?.path
 
   let coverImageLocalPath;
   if (
@@ -77,6 +75,10 @@ const registerUser = asyncHandler(async (req, res) => {
     username: username.toLowerCase(),
   });
 
+  const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
+    user._id
+  );
+
   const createdUser = await User.findById(user._id).select(
     "-password -refreshToken"
   );
@@ -85,9 +87,26 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new apiError(500, "User creation failed");
   }
 
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
+
   return res
     .status(201)
-    .json(new apiResponse(200, createdUser, "User registered successfully"));
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json(
+      new apiResponse(
+        200,
+        {
+          user: createdUser,
+          accessToken,
+          refreshToken,
+        },
+        "User registered successfully"
+      )
+    );
 });
 
 const loginUser = asyncHandler(async (req, res) => {
@@ -233,7 +252,6 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
 });
 
 const getCurrentUser = asyncHandler(async (req, res) => {
-
   const user = await User.findById(req.user._id).select("-password");
 
   return res
@@ -242,15 +260,15 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 });
 
 const updateAccountsDetails = asyncHandler(async (req, res) => {
+  
+
   const { fullName, email } = req.body;
 
   if (!fullName || !email) {
-    throw new apiError(400, "All fields are required");
+    throw new apiError(401, "All fields are required");
+  }
 
-    }
-  
-
-  const user = User.findByIdAndUpdate(
+  const user = await User.findByIdAndUpdate(
     req.user?._id,
     {
       $set: {
@@ -267,7 +285,9 @@ const updateAccountsDetails = asyncHandler(async (req, res) => {
 });
 
 const updateUserAvatar = asyncHandler(async (req, res) => {
-  const avatarLocalPath = req.files?.path;
+  console.log('Received body:', req.file);
+
+  const avatarLocalPath = req.file?.path;
 
   if (!avatarLocalPath) {
     throw new apiError(400, "Avatar is required");
@@ -295,7 +315,9 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
 });
 
 const updateUserCoverImage = asyncHandler(async (req, res) => {
-  const coverImageLocalPath = req.files?.path;
+  console.log('Received body:', req.file);
+
+  const coverImageLocalPath = req.file?.path;
 
   if (!coverImageLocalPath) {
     throw new apiError(400, "coverImage is required");
@@ -304,7 +326,7 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
   const coverImage = await uploadOnCloudinary(coverImageLocalPath);
 
   if (!coverImage.url) {
-    throw new apiError(400, "Error while uploading");
+    throw new apiError(401, "Error while uploading");
   }
 
   const user = await User.findByIdAndUpdate(
@@ -395,6 +417,18 @@ const getUserchannelProfile = asyncHandler(async (req, res) => {
     );
 });
 
+const getUserById = asyncHandler(async(req,res)=>{
+  const { id : userId } = req.params;
+  if (!userId) {
+    throw new apiError(400, "userId is required");
+  }
+  const user = await User.findById(userId).select("-password");
+  if (!user) {
+    throw new apiError(404, "User not found");
+  }
+  return res.status(200).json(new apiResponse(200, user, "User fetched successfully"));
+})
+
 const getWatchHistory = asyncHandler(async (req, res) => {
   const user = await User.aggregate([
     {
@@ -454,5 +488,6 @@ export {
   updateUserAvatar,
   updateUserCoverImage,
   getUserchannelProfile,
+  getUserById,
   getWatchHistory,
 };

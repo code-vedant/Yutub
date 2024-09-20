@@ -5,7 +5,7 @@ import "../style/editDetails.css"
 
 function EditDetails({closeModal}) {
 
-    const [activeTab, setActiveTab] = useState("Personal Data")
+    const [activeTab, setActiveTab] = useState("Personal Information")
 
 
     const toggleTab = (tab) => {
@@ -16,7 +16,7 @@ function EditDetails({closeModal}) {
     <div className='ED-Main'>
         <div className="ED-Head">
             <h3>
-                Edit
+                EDIT
             </h3>
         </div>
         <div className="ED-Body">

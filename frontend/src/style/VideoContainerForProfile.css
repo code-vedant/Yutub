@@ -1,0 +1,146 @@
+.video-container-FP {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 1%;
+    overflow: hidden;
+  }
+  
+  .video-thumbnail-FP {
+    position: relative;
+    width: 100%;
+    height: 68%;
+    border-radius: 10px;
+  }
+  
+  .video-thumbnail-FP img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .video-duration-FP {
+    position: absolute;
+    bottom: 4%;
+    right: 2%;
+    padding:0.5vh 0.7vh;
+    background-color: #0000004f;
+    color: #fff;
+    border-radius: 2px;
+    font-size: 1.5vh;
+  }
+  
+  .video-info-FP {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    height: 30%;
+    border-radius: 10px;
+    /* padding: 0 0.3vw; */
+  }
+
+  .video-info-FP-data{
+    display: flex;
+    flex-direction: column;
+    width: 95%;
+    align-items: flex-start;
+    gap: 0.5vh;
+  }
+  
+  .video-title-FP {
+    margin-top: 0;
+    font-weight: 800;
+    font-size: 2vh;
+    color: #0f0f0f;
+  }
+  
+  .video-description-FP {
+    font-size: 1.8vh;
+    color: #606060;
+    font-weight: 700;
+    margin-bottom: 1%;
+  }
+
+  .video-channel-FP:hover {
+    color: #0f0f0f;
+  }
+  
+  .video-description-FP:hover {
+    color: #0f0f0f;
+  }
+  
+  .video-stats-FP {
+    height: 10%;
+    font-size: 1.8vh;
+    color: #606060;
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  .video-stats-FP span {
+    margin-right: 2.5vh;
+  }
+
+  .video-options-FP {
+    height: 100%;
+    width: 5vh;
+    position: relative;
+  }
+  
+  .vo-icon-FP {
+    height: 38%;
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .vo-icon-FP img {
+    width: 60%;
+    height: 70%;
+    object-fit: cover;
+  }
+  
+  .vo-options-FP {
+    display: none;
+    position: absolute;
+    top: 00%;
+    left: -410%;
+    background-color: #fffefe;
+    box-shadow: 4px 0px 20px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    padding: 1vh;
+    border-radius: 10px;
+  }
+  
+  .vo-options-FP button {
+    display: block;
+    width: 100%;
+    padding: 1vh;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 2.3vh;
+    color: #333;
+  }
+  
+  .vo-options-FP button:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .video-options-FP:hover .vo-options-FP {
+    display: block;
+  }
+
+  @media screen and (max-width: 600px){
+    .video-container-FP {
+      width: 100%;
+      height: 44vh;
+      margin-left: 0;
+    }
+  }

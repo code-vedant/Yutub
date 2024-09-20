@@ -114,7 +114,7 @@ const deleteTweet = asyncHandler(async (req, res) => {
     throw new apiError(401, "User is Unauthorized to update tweet");
   }
 
-  const deleteTweet = await Tweet.deleteOne(req.user._id);
+  const deleteTweet = await Tweet.findByIdAndDelete(tweetId);
 
   if (!deleteTweet) {
     throw new apiError(404, "Error while deleting tweet");
@@ -124,5 +124,6 @@ const deleteTweet = asyncHandler(async (req, res) => {
     .status(200)
     .json(new apiResponse(200, deleteTweet, "Tweet deleted successfully"));
 });
+
 
 export { createTweet, getUserTweets, updateTweet, deleteTweet };

@@ -7,12 +7,12 @@ const store = configureStore({
   },
 });
 
-// Initialize state from localStorage
 const accessToken = localStorage.getItem('accessToken');
 const refreshToken = localStorage.getItem('refreshToken');
 if (accessToken && refreshToken) {
-  // You might want to verify the tokens or get user data with the tokens
-  const userData = { /* user data from token or another source */ };
+  const userData = { 
+      //write code
+   };
   store.dispatch(loginAction({
     user: userData,
     accessToken,

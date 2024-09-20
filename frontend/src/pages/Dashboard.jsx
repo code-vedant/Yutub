@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../style/dashboard.css";
 import plus from "../assets/plus.png";
 import like from "../assets/like.png";
@@ -9,172 +9,76 @@ import edit from "../assets/edit.png";
 import PopupHolder from "../components/PopupHolder";
 import VideoUploadModal from "../components/VideoUploadModal";
 import DeleteVideoModal from "../components/DeleteVideoModal";
+import { useSelector } from "react-redux";
+import DashboardService from "../Service/dashboard";
+import VideoEditModal from "../components/VideoEditModal";
+import Loader from "../components/Loader";
+import VideoService from "../Service/video";
+import offBtn from "../assets/offBtn.png"
+import onBtn from "../assets/onBtn.png"
 
 function Dashboard() {
   const [viewModal, setViewModal] = useState(false);
   const [viewDeleteModal, setViewDeleteModal] = useState(null);
+  const [viewEditModal, setViewEditModal] = useState(null);
+  const [user, setUser] = useState("");
+  const [videos, setVideos] = useState([]);
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  const [loading, setLoading] = useState(false);
 
-  const Video = [
-    {
-      id: 1,
-      title: "Title 1",
-      views: 123456789,
-      likes: 12349,
-      dislikes: 123,
-      channelName: "Channel Name 1",
-      date: "2022-01-01",
-      duration: "1:23:45",
-      comments: 1234,
-      description: "Description 1",
-      thumbnail: "https://example.com/thumbnail1.jpg",
-      subscribed: true,
-    },
-    {
-      id: 2,
-      title: "Title 2 sda  skjnkf awskdcsnk sdkjsdnsd sajkns nwnjen",
-      views: 987654321,
-      likes: 98765,
-      dislikes: 9871,
-      channelName: "Channel Name 2",
-      date: "2022-02-02",
-      duration: "2:34:56",
-      comments: 9876,
-      description: "Description 2",
-      thumbnail: "https://example.com/thumbnail2.jpg",
-      subscribed: false,
-    },
-    {
-      id: 3,
-      title: "Title 3",
-      views: 321456789,
-      likes: 32145,
-      dislikes: 321,
-      channelName: "Channel Name 3",
-      date: "2022-03-03",
-      duration: "3:45:67",
-      comments: 3214,
-      description: "Description 3",
-      thumbnail: "https://example.com/thumbnail3.jpg",
-      subscribed: true,
-    },
-    {
-      id: 4,
-      title: "Title 2",
-      views: 987654321,
-      likes: 98765,
-      dislikes: 9871,
-      channelName: "Channel Name 2",
-      date: "2022-02-02",
-      duration: "2:34:56",
-      comments: 9876,
-      description: "Description 2",
-      thumbnail: "https://example.com/thumbnail2.jpg",
-      subscribed: true,
-    },
-    {
-      id: 5,
-      title: "Title 3",
-      views: 321456789,
-      likes: 32145,
-      dislikes: 321,
-      channelName: "Channel Name 3",
-      date: "2022-03-03",
-      duration: "3:45:67",
-      comments: 3214,
-      description: "Description 3",
-      thumbnail: "https://example.com/thumbnail3.jpg",
-      subscribed: true,
-    },
-    {
-      id: 6,
-      title: "Title 1",
-      views: 123456789,
-      likes: 12349,
-      dislikes: 123,
-      channelName: "Channel Name 1",
-      date: "2022-01-01",
-      duration: "1:23:45",
-      comments: 1234,
-      description: "Description 1",
-      thumbnail: "https://example.com/thumbnail1.jpg",
-      subscribed: true,
-    },
-    {
-      id: 7,
-      title: "Title 2",
-      views: 987654321,
-      likes: 98765,
-      dislikes: 9871,
-      channelName: "Channel Name 2",
-      date: "2022-02-02",
-      duration: "2:34:56",
-      comments: 9876,
-      description: "Description 2",
-      thumbnail: "https://example.com/thumbnail2.jpg",
-      subscribed: false,
-    },
-    {
-      id: 8,
-      title: "Title 3",
-      views: 321456789,
-      likes: 32145,
-      dislikes: 321,
-      channelName: "Channel Name 3",
-      date: "2022-03-03",
-      duration: "3:45:67",
-      comments: 3214,
-      description: "Description 3",
-      thumbnail: "https://example.com/thumbnail3.jpg",
-      subscribed: false,
-    },
-    {
-      id: 9,
-      title: "Title 1",
-      views: 123456789,
-      likes: 12349,
-      dislikes: 123,
-      channelName: "Channel Name 1",
-      date: "2022-01-01",
-      duration: "1:23:45",
-      comments: 1234,
-      description: "Description 1",
-      thumbnail: "https://example.com/thumbnail1.jpg",
-      subscribed: true,
-    },
-    {
-      id: 10,
-      title: "Title 2",
-      views: 987654321,
-      likes: 98765,
-      dislikes: 9871,
-      channelName: "Channel Name 2",
-      date: "2022-02-02",
-      duration: "2:34:56",
-      comments: 9876,
-      description: "Description 2",
-      thumbnail: "https://example.com/thumbnail2.jpg",
-      subscribed: false,
-    },
-  ].map((video) => ({
-    ...video,
-    title: shortTitle(video.title),
-    likes: formatNum(video.likes),
-    dislikes: formatNum(video.dislikes),
-  }));
-
-  const handleModal = () => {
-    setViewModal(true);
-  };
-  const closeModal = () => {
-    setViewModal(false);
+  const getChannelStat = async () => {
+    setLoading(true);
+    try {
+      const res = await DashboardService.getChannelStat(accessToken);
+      setUser(res.data);
+    } catch (error) {
+      console.log("Error fetching user:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleDeleteModal = (id) => {
-    setViewDeleteModal(id);
+  const getChannelVideo = async () => {
+    setLoading(true);
+    try {
+      const res = await DashboardService.getChannelVideo(accessToken);
+      setVideos(res.data);
+    } catch (error) {
+      console.log("Error fetching videos:", error);
+    } finally {
+      setLoading(false);
+    }
   };
-  const closeDeleteModal = () => {
-    setViewDeleteModal(null);
+
+  const togglePublish = async (videoId) => {
+    setLoading(true);
+    try {
+      await VideoService.togglePublishStatus(accessToken, videoId);
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      setLoading(false);
+      window.location.reload();
+    }
   };
+
+  useEffect(() => {
+    getChannelStat();
+  }, [accessToken]);
+
+  useEffect(() => {
+    getChannelVideo();
+  }, [accessToken]);
+
+  // Modal handlers
+  const handleModal = () => setViewModal(true);
+  const closeModal = () => setViewModal(false);
+
+  const handleDeleteModal = (videoId) => setViewDeleteModal(videoId);
+  const closeDeleteModal = () => setViewDeleteModal(null);
+
+  const handleEditModal = (videoId) => setViewEditModal(videoId);
+  const closeEditModal = () => setViewEditModal(null);
 
   function shortTitle(title) {
     if (title.length > 42) {
@@ -193,23 +97,30 @@ function Dashboard() {
     }
   }
 
-  // for (var i = 0; i < Video.length; i++) {
-  //   Video[i].likes = formatNum(Video[i].likes);
-  //   Video[i].dislikes = formatNum(Video[i].dislikes);
-  //   Video[i].title = shortTitle(Video[i].title);
-  // }
+  const getDate = (timestamp) => {
+    const date = new Date(timestamp);
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+  };
 
   return (
     <>
+      {loading && (
+        <PopupHolder>
+          <Loader />
+        </PopupHolder>
+      )}
       <div className="Dashboard-main">
         <nav>
           <div className="Dm-left">
-            <h1>Welcome Back, Channel Name</h1>
+            <h1>Welcome Back, {user?.fullName || "Full Name"}</h1>
             <h5>Seamless Video Management, Elevated Results.</h5>
           </div>
           <div className="Dm-right">
             <button onClick={handleModal}>
-              <img src={plus} />
+              <img src={plus} alt="Upload" />
               Upload Video
             </button>
           </div>
@@ -219,73 +130,106 @@ function Dashboard() {
             </PopupHolder>
           )}
         </nav>
+
         <div className="Separator"></div>
+
         <div className="Stats">
           <div className="Stat">
             <img src={views} alt="" />
             <h2>Total Views</h2>
-            <h1>45,272,554</h1>
+            <h1>{user.totalVideoViews || "000"}</h1>
           </div>
           <div className="Stat">
             <img src={subs} alt="" />
             <h2>Total Subscriber</h2>
-            <h1>45,272,554</h1>
+            <h1>{user.totalSubscribers || "000"}</h1>
           </div>
           <div className="Stat">
             <img src={like} alt="" />
             <h2>Total Likes</h2>
-            <h1>45,272,554</h1>
+            <h1>{user.totalLikes || "000"}</h1>
           </div>
         </div>
-        {/* <div className="Separator"></div> */}
+
         <div className="Data-table">
           <div className="Dt-header">
             <div className="cell">Status</div>
             <div className="cell">Upload</div>
-            <div className="cell">Ratings</div>
+            <div className="cell">Likes</div>
             <div className="cell">Date Uploaded</div>
           </div>
-          {Video.map((Video) => (
-            <div className="Video-data" key={Video.id}>
-              {Video.subscribed ? (
-                <h4 className="video-status-ok">Published</h4>
-              ) : (
-                <h4 className="video-status">Not Published</h4>
-              )}
+
+          {videos.map((Video) => (
+            <div className="Video-data" key={Video._id}>
+              {/* <h4
+                className={
+                  Video.isPublished ? "video-status-ok" : "video-status"
+                }
+              >
+                {Video.isPublished ? "Published" : "Not Published"}
+              </h4> */}
+              <div
+                  className="toggleBtn"
+                  onClick={() => togglePublish(Video._id)}
+                >
+                  <img src={Video.isPublished? onBtn : offBtn}  />
+                </div>
+
               <div className="video-detail">
                 <img
-                  src="https://images.unsplash.com/photo-1716237442748-795f6343ad94?q=80&w=1856&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt=""
+                  src={Video.thumbnail || "https://via.placeholder.com/150"}
+                  alt={Video.title}
                 />
-                <h3>{Video.title}</h3>
+                <h3>{shortTitle(Video.title)}</h3>
               </div>
+
               <div className="video-ratings">
                 <div className="likes">
-                  <h5>{Video.likes} likes</h5>
-                </div>
-                <div className="dislikes">
-                  <h5>{Video.dislikes} dislikes</h5>
+                  <h5>{formatNum(Video.likes || "000")}</h5>
                 </div>
               </div>
-              <div className="date">12/02/2024</div>
+
+              <div className="date">{getDate(Video.createdAt)}</div>
+
               <div className="fuxnBtns">
                 
-                <div className="deleteBtn">
-                
-                  <img src={bin} alt="" onClick={()=>handleDeleteModal(Video.id)} key={Video.id}/>
+                <div
+                  className="deleteBtn"
+                  onClick={() => handleDeleteModal(Video._id)}
+                >
+                  <img src={bin} alt="Delete" />
                 </div>
-                <div className="editBtn">
-                  <img src={edit} alt="" />
+
+                <div
+                  className="editBtn"
+                  onClick={() => handleEditModal(Video._id)}
+                >
+                  <img src={edit} alt="Edit" />
                 </div>
               </div>
-              {viewDeleteModal === Video.id && <PopupHolder>
-                  <DeleteVideoModal closeDeleteModal={closeDeleteModal}/>
-                  </PopupHolder>}
             </div>
-            
           ))}
-                
         </div>
+
+        {viewDeleteModal && (
+          <PopupHolder>
+            <DeleteVideoModal
+              accessToken={accessToken}
+              videoId={viewDeleteModal}
+              closeDeleteModal={closeDeleteModal}
+            />
+          </PopupHolder>
+        )}
+
+        {viewEditModal && (
+          <PopupHolder>
+            <VideoEditModal
+              accessToken={accessToken}
+              videoId={viewEditModal}
+              closeEditModal={closeEditModal}
+            />
+          </PopupHolder>
+        )}
       </div>
     </>
   );

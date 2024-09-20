@@ -146,15 +146,43 @@
     width: 100%;
     min-height: 100%;
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns:  repeat(4,19.477em) ;
     place-items: center;
     padding-top: 3vh;
     gap: 5vh;
  }
 
  .videoTabItem{
-    width: 100%;
+    width: 19.477em;
     height: 35vh;
+    column-span: 1;
+    /* background-color: #000; */
+ }
+
+ .TweetTabContainer{
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    justify-content: center;
+    padding: 2vh 30vw  0 10vh;
+ }
+
+ .PlaylistTab{
+    width: 100%;
+    min-height: 100%;
+    display: grid;
+    grid-template-columns:  repeat(4,19.477em) ;
+    place-items: center;
+    padding-top: 3vh;
+    gap: 5vh;
+ }
+
+ .playlistTabItem{
+    width: 19.477em;
+    height: 35vh;
+    column-span: 1;
  }
 
  @media screen and (max-width: 600px) {
@@ -238,5 +266,15 @@
     
      .videoTabItem{
         height: 42vh;
+     }
+
+     .TweetTabContainer{
+        width: 100%;
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1vh;
+        justify-content: center;
+        padding:2vh 1vh;
      }
  }

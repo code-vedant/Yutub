@@ -16,6 +16,7 @@ import TermsandCondition from "./pages/Terms-and-Condition.jsx";
 import Polices from "./pages/Polices.jsx";
 import SelfProfile from "./pages/SelfProfile.jsx";
 import VideoUploadModal from "./components/VideoUploadModal.jsx";
+import PlaylistPage from "./pages/PlaylistPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "/videopage", 
+        path: "/videopage/:id", 
         element: <VideoPlayerPage />
       },
       {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
         path: "/profile",
         element: <SelfProfile/>,
       },
+      {
+        path: "/playlist/:id",
+        element: <PlaylistPage/>
+      }
     ],
   },
   {
@@ -52,10 +57,6 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <Dashboard/>,
-  },
-  {
-    path: "/dashboard/upload",
-    element: <VideoUploadModal/>,
   },
   {
     path: "/termsandcondition",

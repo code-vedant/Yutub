@@ -139,11 +139,11 @@
 }
 
 .Data-table .Dt-header .cell:nth-child(2){
-    width: 30vw;
+    width: 27vw;
 }
 
 .Data-table .Dt-header .cell:nth-child(3){
-    width: 15vw;
+    width: 14.5vw;
 }
 
 .Data-table .Dt-header .cell:nth-child(4){
@@ -201,34 +201,22 @@
 
 .video-ratings{
     /* background: #000; */
-    width: 100%;
+    width: 50%;
     height: 100%;
     display: flex;
-    justify-content:space-evenly;
+    justify-content:flex-start;
     align-items: center;
 }
 
 .likes{
     height: 5vh;
     padding:0 2vh;
-    background-color: #00fd2a5c;
+    background-color: #80de905c;
     color: rgb(3, 1, 1);
     display: flex;
     justify-items: center;
     align-items: center;
     border-radius: 20px;
-}
-
-.dislikes{
-    height: 5vh;
-    padding:0 2vh;
-    background-color: rgba(255, 42, 0, 0.359);
-    color: rgb(3, 1, 1);
-    display: flex;
-    justify-items: center;
-    align-items: center;
-    border-radius: 20px;
-
 }
 
 .date{
@@ -239,7 +227,8 @@
     align-items: center;
     font-size: 2.5vh;
     font-weight: 900;
-    padding-left:7vh;
+    padding-left:2vh;
+    margin-left: -5vw;
 }
 
 .fuxnBtns{
@@ -250,13 +239,37 @@
     align-items: center;
 }
 
-.deleteBtn{
-    width: 100%;
+.toggleBtn{
+    width: 95%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
+
+.toggleBtn img{
+    width: 30%;
+    height: 60%;
+    object-fit: cover;
+}
+
+.deleteBtn{
+    width: 65%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.deleteBtn:hover{
+    background-color: rgba(0, 0, 0, 0.085);
+}
+
+.deleteBtn:active{
+    background-color: rgba(0, 0, 0, 0.118);
+}
+
 
 .deleteBtn img{
     width: 60%;
@@ -264,14 +277,156 @@
 }
 
 .editBtn{
-    width: 100%;
+    width: 65%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
+}
+
+.editBtn:hover{
+    background-color: rgba(0, 0, 0, 0.085);
+}
+
+.editBtn:active{
+    background-color: rgba(0, 0, 0, 0.118);
 }
 
 .editBtn img{
     width: 55%;
     height: 60%;
 }
+
+.V-edit-main{
+    width: 50vw;
+    height:60vh;
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fffefe;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding:1vh 2vh ;
+}
+
+.V-edit-main h1{
+    font-size: 4vh;
+    font-weight: 900;
+    width: 100%;
+    height: 10%;
+}
+
+.V-edit-files{
+    display: none;
+}
+
+.V-edit-main form{
+    width: 100%;
+    height: auto;
+    display: flex;
+    height: 90%;
+    gap: 1vh;
+
+}
+
+.V-edit-thumbnail{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.V-edit-thumbnail textarea{
+    width: 80%;
+    resize: vertical;
+    max-height: 40%;
+    height: fit-content;
+    padding: 1vh 0.5vh;
+    margin-top: 3vh;
+    font-size: 2vh;
+    background-color: none;
+    border-radius:5px;
+    border: 1px solid #000;
+}
+
+.V-edit-thumbnail-holder{
+    width: 100%;
+    height: 50%;
+    border-radius: 10px;
+    border: 1px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.V-edit-thumbnail-holder img{
+    width: 40%;
+    height: 80%;
+    object-fit: cover;
+}
+
+.V-edit-thumbnail-holder img.V-edit-imgAchieved{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+
+}
+
+.V-edit-form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.V-edit-form textarea{
+    width: 100%;
+    height: 85%;
+    resize: none;
+    padding: 1vh 0.5vh;
+    margin-bottom: 3vh;
+    font-size: 2vh;
+    background-color: none;
+    border-radius:5px;
+    border: 1px solid #000;
+}
+
+.V-edit-btn{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 2.5vh;
+}
+
+.V-edit-btn button{
+    width: 30%;
+    height: 99%;
+    font-size: 2vh;
+    font-weight: 600;
+    color: #010101;
+    border: 1px solid #333;
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+.V-edit-btn button.V-edit-btn-submit{
+    width: 33%;
+    height: 100%;
+    font-size: 2vh;
+    font-weight: 600;
+    color: #ececec;
+    border:none;
+    border-radius: 40px;
+    cursor: pointer;
+    background-color: #333;
+}
+

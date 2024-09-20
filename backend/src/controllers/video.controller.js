@@ -85,20 +85,96 @@ const publishAVideo = asyncHandler(async (req, res) => {
 
 const getVideoById = asyncHandler(async (req, res) => {
   const { videoId } = req.params;
-  //TODO: get video by id
+
   if (!videoId) {
-    throw new apiError(400, "invalid Video id");
+    throw new apiError(400, "Invalid Video ID");
   }
 
-  const video = await Video.findById(videoId);
-  if (!video) {
+  let videoObjectId;
+  try {
+    videoObjectId = new mongoose.Types.ObjectId(videoId);
+  } catch (error) {
+    throw new apiError(400, "Invalid Video ID format");
+  }
+
+  let userObjectId = null;
+  if (req.user && req.user._id) {
+    userObjectId = new mongoose.Types.ObjectId(req.user._id);
+  }
+
+  // Increment the views field by 1
+  await Video.updateOne(
+    { _id: videoObjectId },
+    { $inc: { views: 1 } }
+  );
+
+  // Fetch the video data after incrementing views
+  const video = await Video.aggregate([
+    { $match: { _id: videoObjectId } },
+    {
+      $lookup: {
+        from: "users",
+        localField: "owner",
+        foreignField: "_id",
+        as: "owner",
+      },
+    },
+    { $unwind: { path: "$owner", preserveNullAndEmptyArrays: true } },
+    {
+      $lookup: {
+        from: "comments",
+        localField: "_id",
+        foreignField: "video",
+        as: "comments",
+      },
+    },
+    {
+      $lookup: {
+        from: "likes",
+        localField: "_id",
+        foreignField: "video",
+        as: "likes",
+      },
+    },
+    {
+      $project: {
+        _id: 1,
+        videoFile: 1,
+        thumbnail: 1,
+        title: 1,
+        description: 1,
+        duration: 1,
+        views: 1,
+        isPublished: 1,
+        owner: {
+          _id: { $ifNull: ["$owner._id", null] },
+          username: { $ifNull: ["$owner.username", "Unknown"] },
+          fullName: { $ifNull: ["$owner.fullName", "Unknown"] },
+          avatar: { $ifNull: ["$owner.avatar", ""] },
+        },
+        createdAt: 1,
+        commentsCount: { $size: { $ifNull: ["$comments", []] } },
+        likesCount: { $size: { $ifNull: ["$likes", []] } },
+        isLiked: {
+          $cond: {
+            if: { $in: [userObjectId, "$likes.likedBy"] },
+            then: true,
+            else: false,
+          },
+        },
+      },
+    },
+  ]);
+
+  if (!video || video.length === 0) {
     throw new apiError(404, "Video not found");
   }
 
   return res
     .status(200)
-    .json(new apiResponse(200, video, "Video fetched successfully"));
+    .json(new apiResponse(200, video[0], "Video fetched successfully"));
 });
+
 
 const updateVideo = asyncHandler(async (req, res) => {
   const { videoId } = req.params;

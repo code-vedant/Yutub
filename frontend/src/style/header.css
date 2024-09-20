@@ -193,6 +193,18 @@ nav {
     display: flex;
   }
 
+  .logo {
+    width: 100%;
+    margin-left: 0;
+    padding: 0vh 0vh;
+  }
+  
+  .logo img{
+    width: 100%;
+    height: 55%;
+    object-fit: cover;
+  }
+
   .logo h3 {
     font-size: 1.4em;
   }
@@ -202,6 +214,14 @@ nav {
   }
 
   .logoutBtn{
-    margin-left: 5vh;
+    margin-left: 1vh;
+    font-size: 2.2vh;
+    padding: 0.8vh 3vh;
+  }
+
+  .toProfile{
+    height: 100%;
+    width: 10vw;
+    margin-left: 8vw;
   }
 }

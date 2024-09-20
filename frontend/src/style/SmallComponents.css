@@ -1,11 +1,10 @@
 .NoContent {
-  width: 100%;
+  width: 80vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  /* background: #e48888; */
   margin-top: 2vh;
 }
 

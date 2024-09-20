@@ -15,3 +15,7 @@ html,body {
     width: 100%;
     background-color: #f0efee;
 }
+
+a{
+    text-decoration: none;
+}

@@ -1,0 +1,116 @@
+.UploadingModal-main{
+    position: fixed;
+    width: 30vw;
+    height: 30vh;
+    left: 40%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    background-color: #fffefe;
+    box-shadow: 5px 10px 1000px 10px rgba(0, 0, 0);
+    z-index: 1000;
+    border-radius: 10px;
+    padding: 1.5vh 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* HTML: <div class="loader"></div> */
+.loaderVideo {
+    width: 8vh;
+    aspect-ratio: .75;
+    --c: no-repeat linear-gradient(#000 0 0);
+    background: 
+      var(--c) 0%   50%,
+      var(--c) 50%  50%,
+      var(--c) 100% 50%;
+    background-size: 20% 50%;
+    animation: l6 1s infinite linear;
+  }
+  @keyframes l6 {
+    20% {background-position: 0% 0%  ,50% 50% ,100% 50% }
+    40% {background-position: 0% 100%,50% 0%  ,100% 50% }
+    60% {background-position: 0% 50% ,50% 100%,100% 0%  }
+    80% {background-position: 0% 50% ,50% 50% ,100% 100%}
+  }
+
+  .UploadingModal-main h1{
+    font-size: 4.5vh;
+    font-weight: 600;
+    margin-bottom: 1vh;
+    color: black;
+    text-align: center;
+  }
+
+  .UploadingModal-main p{
+    margin: 0;
+    font-size: 2.2vh;
+    text-align: center;
+    color: black;
+  }
+
+  .UploadedVideo-main{
+    position: fixed;
+    width: 30vw;
+    height: 30vh;
+    left: 40%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    background-color: #fffefe;
+    box-shadow: 5px 10px 1000px 10px rgba(0, 0, 0);
+    z-index: 1000;
+    border-radius: 10px;
+    padding: 1.5vh 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+  }
+
+  .UploadedVideo-main img{
+    width: 15%;
+    height: 30%;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+
+  .UploadedVideo-main p{
+    margin: 0;
+    font-size: 3.2vh;
+    font-weight: 900;
+    text-align: center;
+    color: black;
+  }
+
+  .UploadedVideo-main button{
+    padding: 0.5vh 1.6vh 1.3vh 1.6vh;
+    font-size: 2.5vh;
+    border-radius: 50px;
+    position: fixed;
+    left: 90%;
+    top: 5%;
+    border: 2px solid #000000b5;
+    color: #000000bd;
+    background-color: #fffefe;
+    font-weight: 900;
+    cursor: pointer;
+  }
+
+  @media (max-width: 600px) {
+    .UploadingModal-main,
+    .UploadedVideo-main {
+      width: 90vw;
+      height: 90vh;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .UploadingModal-main,
+    .UploadedVideo-main {
+      width: 100vw;
+      height: 100vh;
+    }
+  }
+
+  
