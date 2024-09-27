@@ -15,12 +15,8 @@ function TweetTab({accessToken,tweets,user}) {
   const [error, setError] = useState("");
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
-  const [btnsModal, setBtnsModal] = useState(false);
 
   const userData = useSelector((state) => state.auth.userData);
-
-  console.log(userData);
-  
 
   useEffect(() => {
     const fetchLikedTweets = async () => {

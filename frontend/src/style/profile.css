@@ -59,21 +59,15 @@
     width: 90%;
     height: 100%;
     /* background-color: rgb(0, 255, 89); */
-}
-
-.profileDetailText{
-    width: 100%;
-    /* background-color: yellowgreen; */
-    height: 65%;
     padding: 0.2vh 2vh;
-}
 
-.profileDetailText h2{
+}
+.profileDetail h2{
     font-size: 5.5vh;
     color: #333;
 }
 
-.profileDetailText h5{
+.profileDetail h5{
     font-size: 2vh;
     color: #272727;
     margin-top: -0.5vh;
@@ -81,7 +75,7 @@
     margin-left: 0.3vh;
 }
 
-.profileDetailText h4{
+.profileDetail h4{
     font-size: 2.5vh;
     color: #333333;
 }
@@ -96,6 +90,23 @@
 .profileubscribeButton button{
     background-color: #333;
     color: #ededed;
+    font-weight: 500;
+    outline: none;
+    border: none;
+    border-radius: 30px;
+    font-size: 2.1vh;
+    line-height: 2.1vh;
+    height: 5vh;
+    width: 16vh;
+    text-align: center;
+    cursor: pointer;
+}
+
+.profileubscribeButton button.subscribed{
+    background-color: #b0acac;
+    color: #1d1c1c;
+    outline: none;
+    font-weight: 600;
     border: none;
     border-radius: 30px;
     font-size: 2.1vh;
@@ -111,12 +122,8 @@
     height: auto;
     padding: 0;
     border-bottom: 1.5px solid #000;
-}
-
-.profilePageList ul{
     list-style: none;
     margin: 0;
-    width: 30%;
     display: flex;
     justify-content: flex-start;
     gap: 2vh;
@@ -145,9 +152,10 @@
  .VideoTab{
     width: 100%;
     min-height: 100%;
-    display: grid;
-    grid-template-columns:  repeat(4,19.477em) ;
-    place-items: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: nowrap;
     padding-top: 3vh;
     gap: 5vh;
  }
@@ -172,19 +180,28 @@
  .PlaylistTab{
     width: 100%;
     min-height: 100%;
-    display: grid;
-    grid-template-columns:  repeat(4,19.477em) ;
-    place-items: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: nowrap;
     padding-top: 3vh;
-    gap: 5vh;
  }
-
+ 
  .playlistTabItem{
     width: 19.477em;
     height: 35vh;
     column-span: 1;
  }
 
+ .SubscriberTab{
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    padding-top: 3vh;
+ }
  @media screen and (max-width: 600px) {
     .profileMain{
         padding: 6.5vh 0.1vh;
@@ -211,22 +228,22 @@
         height: 100%;
     }
     
-    .profileDetailText{
+    .profileDetail{
         height: 60%;
         padding: 0.2vh 2vh;
     }
     
-    .profileDetailText h2{
+    .profileDetail h2{
         font-size: 3.5vh;
     }
     
-    .profileDetailText h5{
+    .profileDetail h5{
         font-size: 1.5vh;
         margin-bottom: 0.4vh;
 
     }
     
-    .profileDetailText h4{
+    .profileDetail h4{
         font-size: 2vh;
     }
     
@@ -240,15 +257,41 @@
         height: auto;
         padding: 0;
         border-bottom: 1.5px solid #000;
+        font-size: 1.9vh;
+    }
+
+    
+    .profilePageList ul{
+        padding: 0 0.5vh;
+        width: 100%;
+        gap: 1.2vh;
+        justify-content: space-between;
     }
     
     .profilePageList ul{
-        padding: 0 1vh;
-        width: 100%;
+        list-style: none;
+        margin: 0;
+        width: 30%;
+        display: flex;
+        justify-content: flex-start;
         gap: 2vh;
-        justify-content: space-between;
     }
-   
+    
+    .profilePageList li{
+        padding: 0.3vh 0;
+    
+    }
+    
+    .profilePageList li:hover{
+        border-bottom: 2px solid #1f1f1f87;
+    }
+    
+    
+    .profilePageList ul li.active {
+        border-bottom: 2px solid #000;
+        font-weight: bold;
+      }
+    
      .TabData{
         width: 100%;
         min-height: 100vh;
@@ -260,12 +303,13 @@
         display: grid;
         grid-template-columns: repeat(1,1fr);
         place-items: center;
-        padding-top: 3vh;
-        gap: 1vh;
+        padding-top: 1vh;
+        gap: 0vh;
      }
     
      .videoTabItem{
         height: 42vh;
+        width: 95vw;
      }
 
      .TweetTabContainer{
@@ -275,6 +319,36 @@
         flex-direction: column;
         gap: 1vh;
         justify-content: center;
-        padding:2vh 1vh;
+        padding:1vh 1vh;
      }
+    
+     .PlaylistTab{
+        width: 100%;
+        min-height: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: nowrap;
+        padding-top: 3vh;
+     }
+     
+     .playlistTabItem{
+        width: 19.477em;
+        height: 35vh;
+        column-span: 1;
+     }
+    
+     .SubscriberTab{
+        width: 100%;
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-wrap: nowrap;
+        padding-top: 1vh;
+        gap: 0.5vh;
+     }
+
+     
  }

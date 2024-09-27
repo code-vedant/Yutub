@@ -11,8 +11,6 @@ import user from "../assets/user.png";
 import logo from "../assets/logo.png";
 function Header({ toggleNavbar, isNavbarVisible }) {
   const authStatus = useSelector((state) => state.auth.status);
-  const navigate = useNavigate();
-
   const navList = [
     {
       name: "login",
@@ -30,20 +28,15 @@ function Header({ toggleNavbar, isNavbarVisible }) {
     <>
       <div className="header-main">
         <nav>
-          <div onClick={toggleNavbar} className="menuBar">
-            <img src={isNavbarVisible ? leftArrow : rightArrow} alt="" />
-          </div>
-          <Link to="/" className="logo-link">
-            <div className="logo">
-              <img src={logo} alt="" />
+          <div className="HM-Links">
+            <div onClick={toggleNavbar} className="menuBar">
+              <img src={isNavbarVisible ? leftArrow : rightArrow} alt="" />
             </div>
-          </Link>
-
-          <div className="searchContainer">
-            <input type="text" placeholder="Search" />
-            <button>
-              <img src={search} alt="" />
-            </button>
+            <Link to="/" className="logo-link">
+              <div className="logo">
+                <img src={logo} alt="" />
+              </div>
+            </Link>
           </div>
           <ul className="headerList">
             {navList.map((navItem) =>

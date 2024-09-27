@@ -3,43 +3,43 @@ import axios from "axios";
 const API_URL = "http://localhost:8000/api/v1/subscriptions";
 
 const SubService = {
-    getSubs : async (accessToken, userId) => {
+    getSubscribedChannel: async (accessToken, userId) => {
         try {
-            const response = await axios.get(`${API_URL}/u/${userId}`, {}, {
+            const response = await axios.get(`${API_URL}/u/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
+            console.log("Fetched subscribed channels successfully");
             return response.data;
         } catch (error) {
-            console.error(error.message);
-            
+            console.error("Error fetching subscribed channels:", error.message);
         }
     },
-    getSubscribedChannel: async (accessToken,channelId) => {
+    getSubscibers: async (accessToken, channelId) => {
         try {
-            const response = await axios.get(`${API_URL}/c/${channelId}`, {}, {
+            const response = await axios.get(`${API_URL}/c/${channelId}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
+            console.log("Fetched subscribers successfully");
             return response.data;
         } catch (error) {
-            console.error(error.message);
-            
+            console.error("Error fetching subscribers:", error.message);
         }
     },
     toggleSubscription: async (accessToken, channelId) => {
         try {
-            const response = await axios.put(`${API_URL}/c/${channelId}`, {}, {
+            const response = await axios.post(`${API_URL}/c/${channelId}`, {}, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
+            console.log("Toggled subscription successfully");
             return response.data;
         } catch (error) {
-            console.error(error.message);
-            
+            console.error("Error toggling subscription:", error.message);
         }
     }
 }

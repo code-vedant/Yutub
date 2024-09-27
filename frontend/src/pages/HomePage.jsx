@@ -31,7 +31,6 @@ const HomePage = () => {
     fetchVideos();
   }, [accessToken]);
 
-  // console.log("Videos:", videos);
 
   return (
     <>

@@ -10,10 +10,6 @@ function PostTweet({accessToken}) {
     const [loading,SetLoading] = useState(false)
     const [error, setError] = useState("")
 
-    const onSubmit = (data) => {
-        console.log(data)
-    }
-
     const PostTweet = async (data) => {
         setError("")
         try {

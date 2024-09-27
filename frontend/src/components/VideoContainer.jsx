@@ -11,7 +11,7 @@ function VideoContainer({ video }) {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const user = useSelector((state) => state.auth.userData);
   console.log(accessToken);
-  console.log(user);
+  console.log(user._id);
   
   const [ownerData, setOwnerData] = useState(null);
   const [editModal, setEditModal] = useState(false);
@@ -105,7 +105,7 @@ function VideoContainer({ video }) {
       </div>
       <div className="VC-bottom">
         <div className="VC-left">
-          <Link to={`/profile/${ownerData?._id || ""}`}>
+          <Link to={`/profile/${ownerData?._id === user._id ? "" : ownerData?._id}`}>
             <div className="VC-left-imgHolder">
               {ownerData ? (
                 <img src={ownerData.avatar} className="imgRec" />

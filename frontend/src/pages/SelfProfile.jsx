@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useState } from "react";
 import "../style/selfProfile.css";
 import VideoContainerForProfile from "../components/VideoContainerForProfile";
 import NoVideo from "../components/NoVideo";
-import NoPLaylist from "../components/NoPLaylist";
+import NoPLaylist from "../components/PlaylistComponents/NoPLaylist.jsx";
 import NoTweet from "../components/TweetComponents/NoTweet.jsx";
 import TweetTab from "../components/TweetComponents/TweetTab.jsx";
 import PostTweet from "../components/TweetComponents/PostTweet.jsx";
@@ -11,12 +11,16 @@ import PopupHolder from "../components/PopupHolder";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import AuthService from "../Service/auth.js";
+import NoSubscribers from "../components/SubscriptionComponents/NoSubscribers.jsx";
 import VideoService from "../Service/video.js";
 import DashboardService from "../Service/dashboard.js";
 import Loader from "../components/Loader.jsx";
 
 import TweetService from "../Service/tweet.js";
 import PlaylistService from "../Service/playlist.js";
+import PlaylistComponent from "../components/PlaylistComponents/PlaylistComponent.jsx";
+import CreatePlaylist from "../components/PlaylistComponents/CreatePlaylist.jsx";
+import Subscribers from "../components/SubscriptionComponents/Subscribers.jsx";
 
 function SelfProfile() {
   const [activeTab, setActiveTab] = useState("Videos");
@@ -27,6 +31,9 @@ function SelfProfile() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [tweets, setTweets] = useState([]);
+  const [createPlayistModal, setCreatePlayistModal] = useState(false);
+  const [subscribed, setSubscribed] = useState(false);
+  const [subscribers, setSubscribers] = useState([]);
 
   const accessToken = useSelector((state) => state.auth.accessToken); // Get accessToken from Redux store
 
@@ -39,6 +46,15 @@ function SelfProfile() {
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
+
+  const handleCreatePlaylistModal = () => {
+    setCreatePlayistModal(true);
+  };
+  const closeCreatePlaylistModal = () => {
+    setCreatePlayistModal(false);
+  };
+
+
 
   const fetchUserData = async () => {
     setLoading(true);
@@ -93,17 +109,52 @@ function SelfProfile() {
         accessToken,
         userId
       );
-      if (response) {
-        console.log(response.data);
-      }
       setPlaylist(response.data);
+      setLoading(false);
     } catch (error) {
       console.error(error);
       setError(error.message || "Failed to fetch playlists");
-    } finally {
       setLoading(false);
-    }
+    } 
   };
+
+  useEffect(() => {
+    const fetchSubscribers = async () => {
+      setError("");
+      setLoading(true);
+      try {
+        const response = await SubService.getSubscribedChannel(
+          accessToken,
+          userId
+        );
+        setSubscribers(response.data.channel);
+      } catch (error) {
+        console.error(error);
+        setError(error.message || "Failed to fetch subscribers");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSubscribers();
+  }, [userId]);
+
+  useEffect(() => {
+    const fetchSubscribers = async () => {
+      setError("");
+      setLoading(true);
+      try {
+        const response = await SubService.getSubscibers(accessToken, userId)
+        setSubscribers(response.data);
+      } catch (error) {
+        console.error(error);
+        setError(error.message || "Failed to fetch subscribers");
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSubscribers();
+  }, [accessToken]);
+
 
   useEffect(() => {
     fetchPlaylists();
@@ -153,8 +204,8 @@ function SelfProfile() {
           <div className="selfprofileDetailText">
             <h2>{user?.fullName || "Full Name"}</h2>
             <h5>@{user?.username || "username"}</h5>
-            <h4>151345461 Subscribers</h4>
-            <h4>500 Subscribered</h4>
+            <h4>{subscribers?.length || "0" }&nbsp;Subscribers </h4>
+            <h4>{subscribed?.length || "0"}&nbsp;Subscribed</h4>
           </div>
           <div className="selfprofileubscribeButton">
             <button onClick={handleModal}>Edit</button>
@@ -198,13 +249,20 @@ function SelfProfile() {
             )}
           </div>
         )}
+        
         {activeTab === "Playlist" && (
           <div className="SPPlaylistTabContainer">
-            {videoFinal.length ? (
+            <div className="CreateButton">
+            <button onClick={handleCreatePlaylistModal}>
+              Create Playlist
+            </button>
+            </div>
+
+            {playlist.length > 0 ? (
               <div className="SPPlaylistTab">
-                {videos.map((video) => (
-                  <div key={video._id} className="SPplaylistTabItem">
-                    <VideoContainer video={video} />
+                {playlist.map((playlist) => (
+                  <div key={playlist._id} className="SPplaylistTabItem">
+                    <PlaylistComponent playlist={playlist} />
                   </div>
                 ))}
               </div>
@@ -217,14 +275,32 @@ function SelfProfile() {
         {activeTab === "Tweet" && (
           <div className="SPTweetTabContainer">
             <PostTweet accessToken={accessToken} />
-            {tweets ? (
+            {tweets.length ? (
               <TweetTab accessToken={accessToken} user={user} tweets={tweets} />
             ) : (
               <NoTweet />
             )}
           </div>
         )}
+        {activeTab === "Subscribers" && (
+          <div className="SubscriberTab">
+            {subscribers?.length > 0 ? (
+              subscribers.map((subs) =>
+                subs.subscriber.map((sub) => (
+                  <Subscribers key={sub._id} subscriber={sub} />
+                ))
+              )
+            ) : (
+              <NoSubscribers />
+            )}
+          </div>
+        )}
       </section>
+      {
+        createPlayistModal && <PopupHolder>
+          <CreatePlaylist closeCreatePlaylistModal={closeCreatePlaylistModal} accessToken={accessToken}/>
+        </PopupHolder>
+      }
     </div>
   );
 }

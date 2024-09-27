@@ -1,6 +1,6 @@
 import React from "react";
-import playlist from "../assets/playlist.png";
-import "../style/SmallComponents.css";
+import playlist from "../../assets/playlist.png";
+import "../../style/SmallComponents.css";
 
 function NoPLaylist() {
   return (

@@ -184,6 +184,30 @@
     gap: 5vh;
  }
 
+ .CreateButton{
+    width: 100%;
+    height: 3vh;
+    margin-bottom: 0vh;
+    margin-top: 0.3vh;
+    display: flex;
+    justify-content: flex-start;
+    
+ }
+
+ .CreateButton button{
+    color: #ededed;
+    background-color: #e82323;
+    border: none;
+    border-radius: 10px;
+    font-size: 2.3vh;
+    line-height: 2vh;
+    height: 100%;
+    padding: 0 2vh;
+    width: fit-content;
+    text-align: center;
+    cursor: pointer;
+ }
+
  .SPplaylistTabItem{
     width: 19.477em;
     height: 35vh;

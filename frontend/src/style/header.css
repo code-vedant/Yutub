@@ -14,9 +14,17 @@
 nav {
   height: 6.5vh;
   width: 100%;
-  display: grid;
-  grid-template-columns: 2% 18% 60% 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   position: relative;
+  padding:0;
+}
+
+.HM-Links{
+  height: 6.5vh;
+  width: 100%;
+  display: flex;
 }
 
 .menuBar {
@@ -41,19 +49,18 @@ nav {
 }
 
 .logo {
-  width: 100%;
+  width: 25vh;
   height: 6vh;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   margin-left: 1em;
-  /* background-color: #25b333; */
   padding: 0vh 3vh;
 }
 
 .logo img{
-  width: 55%;
-  height: 55%;
+  width: 100%;
+  height: 60%;
   object-fit: cover;
 }
 
@@ -62,62 +69,16 @@ nav {
   color: inherit;
 }
 
-.logo h3 {
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #000000;
-  font-family: "Kanvas file";
-}
-
-.searchContainer {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-right: 3em;
-}
-
-.searchContainer input {
-  width: 50%;
-  height: 60%;
-  border: none;
-  outline: none;
-  padding: 0.5em;
-  font-size: 1em;
-  font-family: "nauman regular";
-  background-color: #ececec;
-  border-radius: 7px;
-  margin-right: 0.5vh;
-}
-
-.searchContainer button {
-  width: 3.3%;
-  height: 62%;
-  display: flex;
-  padding: 0.5vh;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  position: relative;
-  background: #ececec;
-  border-radius: 50%;
-  border: none;
-  margin-left: 1vh;
-}
-
-.searchContainer button img {
-  object-fit: cover;
-  max-width: 85%;
-  max-height: 85%;
-}
-
 .headerList {
+  width: 100%;
+  height: 6.5vh;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-end;
   list-style: none;
   position: relative;
+  gap: 3vh;
+  padding-right: 1vh;
 }
 
 .headerList li {
@@ -150,7 +111,6 @@ nav {
   justify-content: center;
   align-items: center;
   /* background-color: #42d651; */
-  margin-left: 6vw;
 }
 
 .toProfile img{
@@ -191,27 +151,29 @@ nav {
 
   nav {
     display: flex;
+    gap: 0;
   }
 
   .logo {
-    width: 100%;
-    margin-left: 0;
-    padding: 0vh 0vh;
+    width: 20vh;
+    height: 6vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left:0;
+    padding: 0;
   }
   
   .logo img{
     width: 100%;
-    height: 55%;
+    height: 60%;
     object-fit: cover;
   }
-
-  .logo h3 {
-    font-size: 1.4em;
+  
+  .headerList {
+    gap: 0vh;
   }
 
-  .searchContainer {
-    display: none;
-  }
 
   .logoutBtn{
     margin-left: 1vh;
@@ -222,6 +184,7 @@ nav {
   .toProfile{
     height: 100%;
     width: 10vw;
-    margin-left: 8vw;
+    margin-left: 0vw;
+    margin-right: 0;
   }
 }

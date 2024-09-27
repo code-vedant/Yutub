@@ -5,9 +5,14 @@ import PlaylistService from "../Service/playlist";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import AuthService from "../Service/auth";
+import PopupHolder from "../components/PopupHolder";
+import DeletePlaylist from "../components/PlaylistComponents/DeletePlaylist";
+import UpdatePlaylist from "../components/PlaylistComponents/UpdatePlaylist";
+
 
 function PlaylistPage() {
   const accessToken = useSelector((state) => state.auth.accessToken);
+  const user = useSelector((state) => state.auth.userData);
 
   const { id: playlistId } = useParams();
 
@@ -15,6 +20,24 @@ function PlaylistPage() {
   const [loading, setLoading] = useState(false);
   const [owner, setOwner] = useState("");
   const [video, setVideo] = useState([]);
+  const [editModal, setEditModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+
+  const handleEditModal = () => {
+    setEditModal(true);
+  };
+
+  const closeEditModal = () => {
+    setEditModal(false);
+  };
+
+  const handleDeleteModal = () => {
+    setDeleteModal(true);
+  };
+
+  const closeDeleteModal = () => {
+    setDeleteModal(false);
+  };
 
   useEffect(() => {
     const getPlaylistData = async () => {
@@ -23,11 +46,6 @@ function PlaylistPage() {
           playlistId,
           accessToken
         );
-        if (response) {
-          console.log("Data fetched", response.data);
-        } else {
-          console.log("No data found");
-        }
         setPlaylist(response.data);
         setVideo(response.data.videos);
       } catch (error) {
@@ -46,29 +64,29 @@ function PlaylistPage() {
         );
         setOwner(response.data);
       } catch (error) {
-        console.log(error.message);
+        console.error(error.message);
       }
     };
     getOwnerData();
-  });
+  },[playlistId]);
 
   const removeVideo = async (v) => {
     try {
-      await PlaylistService.removeVideo(
-        accessToken,
-        v,
-        playlistId
-      );
+    console.log(v);
+      await PlaylistService.removeVideo(accessToken, v, playlistId);
       window.location.reload();
     } catch (error) {
       console.error(error.message);
     }
   };
 
+
   return (
     <div className="PlaylistPage-main">
       <div className="PP-left">
-        <div className="PP-img-holder"></div>
+        <div className="PP-img-holder">
+          <img src={'https://images.unsplash.com/photo-1496449903678-68ddcb189a24?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'} alt="" />
+        </div>
         <div className="PP-title">{playlist.name || "Playlist Title"}</div>
         <div className="PP-owner">
           <div className="PP-owner-img">
@@ -80,8 +98,12 @@ function PlaylistPage() {
           <h5> 12 videos 100k views</h5>
         </div>
         <div className="PP-edits">
-          <button className="PP-edit-btn">Edit</button>
-          <button className="PP-delete-btn">Delete</button>
+          <button className="PP-edit-btn" onClick={handleEditModal}>
+            Edit
+          </button>
+          <button className="PP-delete-btn" onClick={handleDeleteModal}>
+            Delete
+          </button>
         </div>
         <div className="PP-description">
           {playlist.description || "Playlist Description"}
@@ -93,12 +115,31 @@ function PlaylistPage() {
             <Link to={`/videopage/${v}`}>
               <VideoBox videoId={v} accessToken={accessToken} />
             </Link>
-            <div className="PP-remove" onClick={removeVideo}>
+            {owner._id === user._id && <div className="PP-remove" onClick={()=>removeVideo(v)}>
               <h6>Remove</h6>
-            </div>
+            </div>}
+            
           </div>
         ))}
       </div>
+      {editModal && (
+        <PopupHolder>
+          <UpdatePlaylist
+            closeEditModal={closeEditModal}
+            accessToken={accessToken}
+            playlistId={playlistId}
+          />
+        </PopupHolder>
+      )}
+      {deleteModal && (
+        <PopupHolder>
+          <DeletePlaylist
+            closeDeleteModal={closeDeleteModal}
+            accessToken={accessToken}
+            playlistId={playlistId}
+          />
+        </PopupHolder>
+      )}
     </div>
   );
 }

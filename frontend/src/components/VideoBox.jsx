@@ -15,7 +15,7 @@ function VideoBox({ videoId,accessToken }) {
       }
     }
     getVideoData()
-  },[video])
+  },[videoId])
 
 
   const shorter = (item) => {
