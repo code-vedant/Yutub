@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8000/api/v1/subscriptions";
+const API_URL = import.meta.env.VITE_API_URL + '/subscriptions';
 
 const SubService = {
     getSubscribedChannel: async (accessToken, userId) => {
@@ -10,7 +10,6 @@ const SubService = {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            console.log("Fetched subscribed channels successfully");
             return response.data;
         } catch (error) {
             console.error("Error fetching subscribed channels:", error.message);
@@ -23,7 +22,6 @@ const SubService = {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            console.log("Fetched subscribers successfully");
             return response.data;
         } catch (error) {
             console.error("Error fetching subscribers:", error.message);
@@ -36,7 +34,6 @@ const SubService = {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            console.log("Toggled subscription successfully");
             return response.data;
         } catch (error) {
             console.error("Error toggling subscription:", error.message);

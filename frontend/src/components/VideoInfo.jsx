@@ -1,15 +1,23 @@
 import React, { useEffect, useState } from "react";
 import like from "../assets/like.png";
 import liked from "../assets/liked.png";
-import { useSelector } from "react-redux";
-import AuthService from "../Service/auth";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "../style/videoplayerpage.css";
+import LikeService from "../Service/like";
+import { addLikedVideo, removeLikedVideo } from "../store/LikesSlice";
+import SubService from "../Service/subscription";
+import { addSubscribedChannel, removeSubscribedChannel } from "../store/subsStore";
 
 const VideoInfo = ({ videoData }) => {
 
   const { title, description,commentsCount,likesCount ,views, isLiked, likes, owner, subscribed } = videoData;  
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  const user = useSelector((state)=>state.auth.userData)
+  const dispatch = useDispatch()
+
 
   const handleToggle = () => {
     setIsExpanded(!isExpanded);
@@ -48,6 +56,40 @@ const VideoInfo = ({ videoData }) => {
     } else return text;
   };
 
+  const toggleLike = async () => {
+    try {
+      const response = await LikeService.toggleVideoLike(accessToken, videoData._id);
+      if (response.data !== null) { 
+        if (response.data !== null) {
+          dispatch(addLikedVideo(videoData._id));
+        } else { 
+          dispatch(removeLikedVideo(videoData._id));
+        }
+      }
+    } catch (error) {
+      console.error("Error toggling like:", error);
+    }
+
+  }
+
+  const toggleSubscription = async () => {
+    try {
+      const response = await SubService.toggleSubscription(accessToken, owner._id);
+      if (response.data.channel === undefined){
+        dispatch(removeSubscribedChannel(owner._id))
+      }else{
+         dispatch(addSubscribedChannel(owner._id));
+      }
+      
+    } catch (error) {
+      console.error("Error toggling subscription:", error);
+    }
+  };
+
+  const subscription = useSelector((state)=> state.subscription.subscribedChannels)
+
+  const videos = useSelector((state)=> state.like.likedVideos)
+
   return (
     <div className="VI-video-info">
       <h3 className="title">{title}</h3>
@@ -61,16 +103,23 @@ const VideoInfo = ({ videoData }) => {
           <h3>{owner ? owner.fullName : "Rolando"}</h3>
         </Link>
       <div className="VI-likes">
-          <img src={isLiked ? liked : like} alt="like" onClick={true} />
-          <h5>{likes ? likes : "100"}</h5>
+          <img src={videos.includes(videoData._id) ? liked : like} alt="like" onClick={toggleLike} />
+          <h5>{likesCount ? likesCount : "100"}&nbsp;like</h5>
         </div>
-        
-        <button
-          onClick={()=>{}}
-          className={`subscribe-button ${false ? "subscribed" : ""}`}
-        >
-          {false ? "Subscribed" : "Subscribe"}
-        </button>
+        {user._id === owner._id ? (
+  <Link to="/dashboard">
+    <button className={`subscribe-button`}>
+      Go to Dashboard
+    </button>
+  </Link>
+) : (
+  <button
+    onClick={toggleSubscription}
+    className={`subscribe-button ${subscription.includes(owner._id) ? "subscribed" : ""}`} 
+  >
+    {subscription.includes(owner._id) ? "Subscribed" : "Subscribe"}
+  </button>
+)}
       </div>
       <div className="VI-statAndDes">
         <div className="VI-statAndDes-v">

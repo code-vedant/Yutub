@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8000/api/v1/likes";
+const API_URL = import.meta.env.VITE_API_URL + '/likes';
 
 const LikeService = {
     toggleVideoLike: async (accessToken,videoId) => {
@@ -10,7 +10,6 @@ const LikeService = {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            console.log(response.data.message);
             return response.data;
         } catch (error) {
             console.error(`Error liking/unliking video with ID ${videoId}:`, error);
@@ -24,7 +23,6 @@ const LikeService = {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            console.log(response.data.messsage);
             return response.data;
         } catch (error) {
             console.error(`Error liking/unliking comment with ID ${commentId}:`, error);
@@ -39,7 +37,6 @@ const LikeService = {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            console.log(response.data);
             return response.data;
         } catch (error) {
             console.error(`Error liking/unliking tweet with ID ${tweetId}:`, error);
@@ -53,7 +50,6 @@ const LikeService = {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            console.log(response.data.message);
             return response.data;
         } catch (error) {
             console.error("Error fetching likes by video:", error);
@@ -67,13 +63,26 @@ const LikeService = {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            console.log(response.data);
             return response.data;
         } catch (error) {
             console.error("Error updating tweet:", error);
             throw error;
         }
-    }
+    },
+    getLikedComment: async (accessToken) => {
+        try {
+            const response = await axios.get(`${API_URL}/comments`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error("Error fetching likes by comment:", error);
+            throw error;
+        }
+    } 
+
 }
 
 export default LikeService;

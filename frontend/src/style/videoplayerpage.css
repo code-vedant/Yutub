@@ -2,26 +2,16 @@
 .video-player-page {
   width: 100%;
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: 70% 30%;
-  padding-top: 6.5vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 8.5vh;
+  padding-right: 10vh;
+  padding-left: 10vh;
   background-color: #fffefe;
 }
 
-.left {
-  width: 100%;
-  height: 100%;
-  padding: 2vh;
-}
-
-.right {
-  width: 100%;
-  min-height: 100%;
-  padding: 2vh;
-}
-
 .video-player {
-  height: 70vh;
+  height: 85vh;
   width: 100%;
   background-color: #fffefe;
   -webkit-backdrop-filter: blur(5px);
@@ -120,6 +110,7 @@
 .subscribe-button.subscribed {
   background-color: #ececec;
   color: #333;
+  font-weight: 600;
 }
 
 .VI-statAndDes {
@@ -144,9 +135,11 @@
 
 .comments {
   width: 100%;
+
   padding: 1vh 2vh;
   border-radius: 10px;
   margin-bottom: 2vh;
+  padding-bottom: 8vh;
   /* background-color: #333; */
 }
 
@@ -193,6 +186,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 50%;
 }
 
 .acs-right {
@@ -311,6 +305,60 @@
   color: #000000;
 }
 
+.CLikeBtn{
+  width: 12vh;
+  height: 4vh;
+}
+
+.CLikeBtn img{
+  width: 4vh;
+  height: 4vh;
+  overflow: hidden;
+}
+
+.CLikeBtn h3{
+  font-size: 2.5vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+}
+
+.editComment{
+  width: 10vh;
+  height: 4vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.CdeleteBtn{
+  width: 3.9vh;
+  height: 3.9vh;
+  overflow: hidden;
+}
+
+.CdeleteBtn img{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+
+
+.CeditBtn{
+  width: 3.9vh;
+  height: 3.9vh;
+  overflow: hidden;
+}
+
+.CeditBtn img{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
 .comment-text {
   width: 100%;
   font-size: 2vh;
@@ -319,15 +367,113 @@
   font-weight: 600;
 }
 
-.related-videos h2 {
-  margin-bottom: 2vh;
+.updateCommentBox{
+  width: 50vw;
+  height: 30vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: #fffefe;
+  padding:1vh 2vh;
+  border-radius: 10px;
 }
 
-.related-videos ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  display: block;
+.updateCommentBox h2{
+  font-size: 3vh;
+  height: 10%;
+  font-weight: 600;
+}
+
+.updateCommentBox form{
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+.updateCommentBox form textarea{
+  width: 100%;
+  height: 90%;
+  border: 1px solid #000;
+  outline: none;
+  resize: none;
+  background-color: none;
+  font-weight: 600;
+  font-size: 2vh;
+  padding: 0.5vh;
+}
+
+.btnss{
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content:flex-end;
+  align-items: center;
+  gap: 2vh;
+}
+
+.btnss button{
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  background-color: #fa3434;
+  color: #ececec;
+  font-size: 2vh;
+  padding: 1.5vh 3vh;
+  font-weight: 600;
+}
+
+.deleteCommentBox{
+  width: 50vw;
+  height: 20vh;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: #fffefe;
+  padding:1vh 2vh;
+  border-radius: 10px;
+}
+
+.deleteCommentBox h2{
+  font-size: 3vh;
+  height: 20%;
+  font-weight: 600;
+  border-bottom: 1px solid #000;
+}
+
+.deleteCommentBox p{
+  font-size: 3.5vh;
+  height: 60%;
+  font-weight: 600;
+  color: #000000;
+}
+
+.Dbtnss{
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content:flex-end;
+  align-items: center;
+  gap: 2vh;
+}
+
+.Dbtnss button{
+  border: none;
+  outline: none;
+  border-radius: 40px;
+  background-color: #fa3434;
+  color: #ececec;
+  font-size: 2vh;
+  padding: 1.5vh 3vh;
+  font-weight: 600;
 }
 
 .separator {
@@ -357,19 +503,14 @@
 .video-player-page {
   width: 100%;
   min-height: 100vh;
-  display: block;
-  padding-top: 6.5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 7vh;
+  padding-left: 0.5vh;
+  padding-right: 0.5vh;
   background-color: #fffefe;
-}
-
-.left {
-  height: fit-content;
-  padding: 0.5vh;
-}
-
-.right {
-  height: fit-content;
-  padding: 0.5vh;
 }
 
 .video-player {
@@ -403,7 +544,7 @@
 }
 
 .VI-likes {
-  height: 5vh;
+  height: 6vh;
   width: 11vh;
   padding:0 1vh;
 }
@@ -425,6 +566,7 @@
 .subscribe-button.subscribed {
   background-color: #ececec;
   color: #333;
+  font-weight: 600;
 }
 
 .VI-statAndDes {
@@ -449,9 +591,10 @@
 
 .comments {
   width: 100%;
-  padding: 1vh 2vh;
+  padding: 1vh 0.5vh;
   border-radius: 10px;
   margin-bottom: 2vh;
+  min-height:20vh ;
   /* background-color: #333; */
 }
 
@@ -466,7 +609,7 @@
 }
 
 .acs-left {
-  width: 5%;
+  width: 15%;
   height: 100%;
 }
 
@@ -498,6 +641,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 50%;
 }
 
 .acs-right {
@@ -575,7 +719,7 @@
 }
 
 .comment-left {
-  width: 5%;
+  width: fit-content;
   height: 100%;
   display: flex;
   align-items: center;
@@ -614,6 +758,67 @@
   gap: 3vh;
   font-weight: 600;
   color: #000000;
+}
+
+.CLikeBtn{
+  width: 3.6vh;
+  height: 3.6vh;
+}
+
+.CLikeBtn img{
+  width: 4vh;
+  height: 4vh;
+  overflow: hidden;
+}
+
+.CLikeBtn h3{
+  font-size: 2.5vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+}
+
+.editComment{
+  width: 10vh;
+  height: 4vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.CdeleteBtn{
+  width: 100%;
+  height: 90%;
+  overflow: hidden;
+}
+
+.CdeleteBtn img{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.CeditBtn{
+  width:100%;
+  height: 90%;
+  overflow: hidden;
+}
+
+.CeditBtn img{
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.editComment button {
+  padding: 1vh 2.3vh;
+  border-radius: 40px;
+  border: none;
+  font-size: 2vh;
+  font-weight: 600;
+  background-color: #ececec;
 }
 
 .comment-text {

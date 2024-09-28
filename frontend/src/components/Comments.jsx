@@ -3,22 +3,40 @@ import { Link } from "react-router-dom";
 import robot from "../assets/robot.png";
 import { useForm } from "react-hook-form";
 import CommentComponent from "./CommentComponent";
+import CommentService from "../Service/comment";
+import { useSelector } from "react-redux";
 
-const Comments = ({ comments }) => {
-  const { register, handlesubmit } = useForm();
+const Comments = ({ accessToken,videoId, comments }) => {
+  const { register, handleSubmit } = useForm();
   const [comment, setComment] = useState([]);
   const [handleBtns, setHandleBtns] = useState(false);
   const [error, setError] = useState("")
+
+  const ownerData = useSelector((state) => state.auth.userData);
+
 
   const handleBtn = () => {
     setHandleBtns(true);
   };
 
+  const addComment = async (data) => {
+    try {
+      const res = await CommentService.addComments(accessToken,videoId,data)
+      
+      setHandleBtns(false);
+    } catch (error) {
+      console.error(error || "Error adding comment")
+      setError("Error adding comment")
+    }
+  }
+
+  
+
   const owner = comments.owner;
-  let ownerData = "";
+
   return (
     <div className="comments">
-      <h2>{comments.lenght || "000"}&nbsp;Comments</h2>
+      <h2>{comments.length || "0"}&nbsp;Comments</h2>
       <div className="addCommentSection">
         <div className="acs-left">
           <div className="acs-left-img">
@@ -32,12 +50,12 @@ const Comments = ({ comments }) => {
           </div>
         </div>
         <div className="acs-right">
-          <form onSubmit={handlesubmit}>
+          <form onSubmit={handleSubmit(addComment)}>
             <input
               onFocus={handleBtn}
               type="text"
               placeholder="Add a comment..."
-              {...register("comment")}
+              {...register("content")}
             />
             {handleBtns && (
               <div className="Commentbtns">
@@ -58,7 +76,7 @@ const Comments = ({ comments }) => {
         </div>
       </div>
       <div className="CommentConatiner">
-        <CommentComponent comments={comments} />
+        <CommentComponent accessToken={accessToken} comments={comments} />
       </div>
     </div>
   );

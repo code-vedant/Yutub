@@ -47,9 +47,6 @@ function VideoUploadModal({ closeModal }) {
       const res = await VideoService.uploadVideo(accessToken, formData);
       setIsUploading(false);
       setIsUploaded(true);
-      if (res) {
-        console.log("Video uploaded successfully", res.data);
-      }
     } catch (error) {
       console.error("Error uploading video");
       setIsUploading(false);

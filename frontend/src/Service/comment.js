@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8000/api/v1/comments";
+const API_URL = import.meta.env.VITE_API_URL + '/comments';
 
 const CommentService = {
   getAllComments: async (accessToken,videoId) => {
@@ -16,7 +16,7 @@ const CommentService = {
       throw error;
     }
   },
-  addComments: async (videoId, accessToken, data) => {
+  addComments: async ( accessToken,videoId, data) => {
     try {
       const response = await axios.post(`${API_URL}/${videoId}`, data, {
         headers: {
@@ -29,11 +29,11 @@ const CommentService = {
       throw error;
     }
   },
-  updateComment: async (accessToken, commentId) => {
+  updateComment: async (accessToken, commentId,data) => {
     try {
       const response = await axios.patch(
         `${API_URL}/c/${commentId}`,
-        {},
+        data,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -50,7 +50,6 @@ const CommentService = {
     try {
       const response = await axios.delete(
         `${API_URL}/c/${commentId}`,
-        {},
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,

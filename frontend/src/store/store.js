@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import authSlice, { login as loginAction } from './userAuth.js';
 import subscriptionSlice from './subsStore.js'
+import LikesSlice from './LikesSlice.js';
 
 const store = configureStore({
   reducer: {
     auth: authSlice,
     subscription: subscriptionSlice,
+    like: LikesSlice,
   },
 });
 

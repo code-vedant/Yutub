@@ -45,7 +45,6 @@ function EditPersonalInfo({ closeModal }) {
   const editDetails = async (data) => {
     setError("");
 
-    console.log(data);
 
     const formData = new FormData();
     if (avatarPic) formData.append("avatar", avatarPic);
@@ -58,7 +57,6 @@ function EditPersonalInfo({ closeModal }) {
       email: data.email,
     };
 
-    console.log(requestBody);
 
     try {
 

@@ -17,6 +17,7 @@ import Polices from "./pages/Polices.jsx";
 import SelfProfile from "./pages/SelfProfile.jsx";
 import VideoUploadModal from "./components/VideoUploadModal.jsx";
 import PlaylistPage from "./pages/PlaylistPage.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -30,19 +31,29 @@ const router = createBrowserRouter([
       },
       {
         path: "/videopage/:id", 
-        element: <VideoPlayerPage />
+        element:
+        <ProtectedRoute>
+          <VideoPlayerPage />
+        </ProtectedRoute>
+        
       },
       {
         path: "/profile/:id",
-        element: <Profile/>,
+        element:<ProtectedRoute>
+        <Profile />
+      </ProtectedRoute>,
       },
       {
         path: "/profile",
-        element: <SelfProfile/>,
+        element:<ProtectedRoute>
+        <SelfProfile />
+      </ProtectedRoute>,
       },
       {
         path: "/playlist/:id",
-        element: <PlaylistPage/>
+        element:<ProtectedRoute>
+        <PlaylistPage />
+      </ProtectedRoute>
       }
     ],
   },
@@ -56,7 +67,9 @@ const router = createBrowserRouter([
   }, 
   {
     path: "/dashboard",
-    element: <Dashboard/>,
+    element: <ProtectedRoute>
+    <Dashboard/>
+  </ProtectedRoute>,
   },
   {
     path: "/termsandcondition",

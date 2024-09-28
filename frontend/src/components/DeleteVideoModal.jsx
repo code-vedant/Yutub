@@ -6,7 +6,6 @@ import VideoService from "../Service/video";
 
 function DeleteVideoModal({closeDeleteModal, videoId ,accessToken }) {
 
-  console.log("Video ID to delete: ", videoId);
 
   const deleteVideo =async ()=> {
       try {

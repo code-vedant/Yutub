@@ -9,18 +9,18 @@ import PostTweet from "../components/TweetComponents/PostTweet.jsx";
 import EditDetails from "../components/EditDetails";
 import PopupHolder from "../components/PopupHolder";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import AuthService from "../Service/auth.js";
 import NoSubscribers from "../components/SubscriptionComponents/NoSubscribers.jsx";
 import VideoService from "../Service/video.js";
 import DashboardService from "../Service/dashboard.js";
 import Loader from "../components/Loader.jsx";
-
 import TweetService from "../Service/tweet.js";
 import PlaylistService from "../Service/playlist.js";
 import PlaylistComponent from "../components/PlaylistComponents/PlaylistComponent.jsx";
 import CreatePlaylist from "../components/PlaylistComponents/CreatePlaylist.jsx";
 import Subscribers from "../components/SubscriptionComponents/Subscribers.jsx";
+import subsStore, { addSubscribedChannel } from "../store/subsStore.js";
 
 function SelfProfile() {
   const [activeTab, setActiveTab] = useState("Videos");
@@ -34,47 +34,40 @@ function SelfProfile() {
   const [createPlayistModal, setCreatePlayistModal] = useState(false);
   const [subscribed, setSubscribed] = useState(false);
   const [subscribers, setSubscribers] = useState([]);
+  const dispatch = useDispatch()
+  const accessToken = useSelector((state) => state.auth.accessToken);
 
-  const accessToken = useSelector((state) => state.auth.accessToken); // Get accessToken from Redux store
+  const handleModal = useCallback(() => setViewModal(true), []);
+  const closeModal = useCallback(() => setViewModal(false), []);
+  const handleTabClick = useCallback((tab) => setActiveTab(tab), []);
+  const handleCreatePlaylistModal = useCallback(
+    () => setCreatePlayistModal(true),
+    []
+  );
+  const closeCreatePlaylistModal = useCallback(
+    () => setCreatePlayistModal(false),
+    []
+  );
 
-  const handleModal = () => {
-    setViewModal(true);
-  };
-  const closeModal = () => {
-    setViewModal(false);
-  };
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
-
-  const handleCreatePlaylistModal = () => {
-    setCreatePlayistModal(true);
-  };
-  const closeCreatePlaylistModal = () => {
-    setCreatePlayistModal(false);
-  };
-
-
-
-  const fetchUserData = async () => {
+  const fetchUserData = useCallback(async () => {
     setLoading(true);
-    setError(""); // Clear previous errors
+    setError("");
     if (!accessToken) {
       setError("No access token available.");
+      setLoading(false);
       return;
     }
     try {
       const response = await AuthService.getUserData(accessToken);
       setUser(response.data);
     } catch (error) {
-      console.error("Failed to fetch user data:", error.message);
-      setError(error.message ? error.message : "Failed to fetch user data.");
+      setError(error.message || "Failed to fetch user data.");
     } finally {
       setLoading(false);
     }
-  };
+  }, [accessToken]);
 
-  const getChannelVideo = async () => {
+  const getChannelVideo = useCallback(async () => {
     setLoading(true);
     try {
       const res = await DashboardService.getChannelVideo(accessToken);
@@ -84,93 +77,74 @@ function SelfProfile() {
     } finally {
       setLoading(false);
     }
-  };
-  const getTweet = async () => {
+  }, [accessToken]);
+
+  const getTweet = useCallback(async () => {
+    setLoading(true);
     setError("");
     try {
       const { _id: userId } = user;
-      setLoading(true);
       const response = await TweetService.getTweets(accessToken, userId);
       setTweets(response.data);
-      setLoading(false);
     } catch (error) {
-      console.error(error.message);
       setError(error.message);
+    } finally {
+      setLoading(false);
     }
-  };
-  const { _id: userId } = user;
+  }, [accessToken, user]);
 
-  const fetchPlaylists = async () => {
-    setError("");
+  const fetchPlaylists = useCallback(async () => {
     setLoading(true);
-
+    setError("");
     try {
       const response = await PlaylistService.getUserPlaylists(
         accessToken,
-        userId
+        user._id
       );
       setPlaylist(response.data);
-      setLoading(false);
     } catch (error) {
-      console.error(error);
       setError(error.message || "Failed to fetch playlists");
+    } finally {
       setLoading(false);
-    } 
-  };
+    }
+  }, [accessToken, user]);
 
-  useEffect(() => {
-    const fetchSubscribers = async () => {
-      setError("");
-      setLoading(true);
-      try {
-        const response = await SubService.getSubscribedChannel(
-          accessToken,
-          userId
-        );
-        setSubscribers(response.data.channel);
-      } catch (error) {
-        console.error(error);
+  const fetchSubscribers = useCallback(async () => {
+    setLoading(true);
+    setError("");
+    try {
+        const [subscribedResponse, subscribersResponse] = await Promise.all([
+            SubService.getSubscribedChannel(accessToken, user._id),
+            SubService.getSubscibers(accessToken, user._id),
+        ]);
+        
+        dispatch(addSubscribedChannel(subscribedResponse.data));
+
+        setSubscribers(subscribersResponse.data.channel);
+    } catch (error) {
         setError(error.message || "Failed to fetch subscribers");
-      } finally {
+    } finally {
         setLoading(false);
-      }
-    };
-    fetchSubscribers();
-  }, [userId]);
-
-  useEffect(() => {
-    const fetchSubscribers = async () => {
-      setError("");
-      setLoading(true);
-      try {
-        const response = await SubService.getSubscibers(accessToken, userId)
-        setSubscribers(response.data);
-      } catch (error) {
-        console.error(error);
-        setError(error.message || "Failed to fetch subscribers");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchSubscribers();
-  }, [accessToken]);
+    }
+}, [accessToken, user, dispatch]);
 
 
   useEffect(() => {
-    fetchPlaylists();
-  }, [userId, accessToken]);
-
-  useEffect(() => {
-    getTweet();
-  }, [accessToken, user._id]);
-
-  useEffect(() => {
-    getChannelVideo();
-  }, [accessToken]);
-
-  useEffect(() => {
-    fetchUserData();
-  }, [accessToken]);
+    if (accessToken) {
+      fetchUserData();
+      getChannelVideo();
+      getTweet();
+      fetchPlaylists();
+      fetchSubscribers();
+    }
+  }, [
+    accessToken,
+    fetchUserData,
+    getChannelVideo,
+    getTweet,
+    fetchPlaylists,
+    fetchSubscribers,
+  ]);
 
   return (
     <div className="selfProfileMain">
@@ -204,7 +178,7 @@ function SelfProfile() {
           <div className="selfprofileDetailText">
             <h2>{user?.fullName || "Full Name"}</h2>
             <h5>@{user?.username || "username"}</h5>
-            <h4>{subscribers?.length || "0" }&nbsp;Subscribers </h4>
+            <h4>{subscribers?.length || "0"}&nbsp;Subscribers </h4>
             <h4>{subscribed?.length || "0"}&nbsp;Subscribed</h4>
           </div>
           <div className="selfprofileubscribeButton">
@@ -249,13 +223,13 @@ function SelfProfile() {
             )}
           </div>
         )}
-        
+
         {activeTab === "Playlist" && (
           <div className="SPPlaylistTabContainer">
             <div className="CreateButton">
-            <button onClick={handleCreatePlaylistModal}>
-              Create Playlist
-            </button>
+              <button onClick={handleCreatePlaylistModal}>
+                Create Playlist
+              </button>
             </div>
 
             {playlist.length > 0 ? (
@@ -296,11 +270,14 @@ function SelfProfile() {
           </div>
         )}
       </section>
-      {
-        createPlayistModal && <PopupHolder>
-          <CreatePlaylist closeCreatePlaylistModal={closeCreatePlaylistModal} accessToken={accessToken}/>
+      {createPlayistModal && (
+        <PopupHolder>
+          <CreatePlaylist
+            closeCreatePlaylistModal={closeCreatePlaylistModal}
+            accessToken={accessToken}
+          />
         </PopupHolder>
-      }
+      )}
     </div>
   );
 }

@@ -8,7 +8,6 @@ import Loader from './Loader';
 
 function VideoEditModal({closeEditModal,accessToken,videoId}) {
 
-    console.log(videoId);
     
 
     const {register, handleSubmit} = useForm()

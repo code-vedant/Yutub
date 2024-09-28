@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8000/api/v1/tweets";
+const API_URL = import.meta.env.VITE_API_URL + '/tweets';
 
 const TweetService = {
     createTweet: async (accessToken,data) => {
@@ -10,7 +10,6 @@ const TweetService = {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            console.log("Tweet created successfully", response.data);
             return response.data;
         } catch (error) {
             console.error("Error creating tweet:", error);
@@ -19,14 +18,12 @@ const TweetService = {
     },
     getTweets: async (accessToken,userId) => {
         try {
-            console.log(userId);
             
             const response = await axios.get(`${API_URL}/user/${userId}`, {
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            console.log("Tweets fetched successfully", response.data);
             return response.data;
         } catch (error) {
             console.error("Error fetching tweets:", error.message);
@@ -40,7 +37,6 @@ const TweetService = {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            console.log("Tweet deleted successfully", response.data);
             return response.data;
         } catch (error) {
             console.error("Error deleting tweet:", error);
@@ -54,7 +50,6 @@ const TweetService = {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            console.log("Tweet updated successfully", response.data);
             return response.data;
         } catch (error) {
             console.error("Error updating tweet:", error);

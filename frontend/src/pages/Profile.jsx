@@ -17,6 +17,7 @@ import NoSubscribers from "../components/SubscriptionComponents/NoSubscribers.js
 import NoVideo from "../components/NoVideo.jsx";
 import SubService from "../Service/subscription.js";
 import Subscribers from "../components/SubscriptionComponents/Subscribers.jsx";
+import { addSubscribedChannel, removeSubscribedChannel } from "../store/subsStore.js";
 
 function Profile() {
   const [videos, setVideos] = useState([]);
@@ -116,12 +117,19 @@ function Profile() {
   const toggleSubscription = async () => {
     try {
       const response = await SubService.toggleSubscription(accessToken, userId);
-      const subscribed = response.data.subscriber === userData._id;
-      setIsSubscribed(subscribed);
+      console.log(response.data.channel === undefined);
+      if (response.data.channel === undefined){
+        dispatch(removeSubscribedChannel(user._id))
+      }else{
+         dispatch(addSubscribedChannel(user._id));
+      }
+      
     } catch (error) {
       console.error("Error toggling subscription:", error);
     }
   };
+
+  const subscription = useSelector((state)=> state.subscription.subscribedChannels)
 
   useEffect(() => {
     getUser();
@@ -166,9 +174,9 @@ function Profile() {
           <div className="profileubscribeButton">
           <button
             onClick={toggleSubscription}
-            className={isSubscribed ? "subscribed" : ""}
+            className={subscription.includes(user?._id) ? "subscribed" : ""}
           >
-            {isSubscribed ? "Unsubscribe" : "Subscribe"}
+            {subscription.includes(user?._id) ? "Unsubscribe" : "Subscribe"}
           </button>
           </div>
           

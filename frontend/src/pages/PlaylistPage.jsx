@@ -72,7 +72,6 @@ function PlaylistPage() {
 
   const removeVideo = async (v) => {
     try {
-    console.log(v);
       await PlaylistService.removeVideo(accessToken, v, playlistId);
       window.location.reload();
     } catch (error) {

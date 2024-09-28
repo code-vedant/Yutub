@@ -1,20 +1,15 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8000/api/v1/playlist";
+const API_URL = import.meta.env.VITE_API_URL + '/playlist';
 
 const PlaylistService = {
   getUserPlaylists: async (accessToken, userId) => {
-    console.log("Called");
-    console.log(accessToken);
     try {
       const response = await axios.get(`${API_URL}/user/${userId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log("Response");
-
-      console.log(response.data);
 
       return response.data;
     } catch (error) {
@@ -28,7 +23,6 @@ const PlaylistService = {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
       return response.data;
     } catch (error) {
@@ -58,7 +52,6 @@ const PlaylistService = {
           },
         }
       );
-      console.log("sssss");
 
       return response.data;
     } catch (error) {

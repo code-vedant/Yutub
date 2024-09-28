@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:8000/api/v1/dashboard";
+const API_URL = import.meta.env.VITE_API_URL + '/dashboard';
 
 const DashboardService = {
     getChannelStat: async (accessToken) => {

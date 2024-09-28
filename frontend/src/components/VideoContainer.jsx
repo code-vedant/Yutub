@@ -10,9 +10,7 @@ import PopupHolder from "./PopupHolder";
 function VideoContainer({ video }) {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const user = useSelector((state) => state.auth.userData);
-  console.log(accessToken);
-  console.log(user._id);
-  
+
   const [ownerData, setOwnerData] = useState(null);
   const [editModal, setEditModal] = useState(false);
   const { id: owner } = video;

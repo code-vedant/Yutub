@@ -4,51 +4,42 @@ import robot from "../../assets/robot.png";
 import like from "../../assets/like.png";
 import liked from "../../assets/liked.png";
 import LikeService from "../../Service/like.js";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import dots from "../../assets/dots.png";
 import PopupHolder from "../PopupHolder.jsx"
 import EditTweetModal from "./EditTweetModal.jsx"
 import DeleteTweet from "./DeleteTweet.jsx";
+import { addLikedTweet, removeLikedTweet } from "../../store/LikesSlice.js";
 function TweetTab({accessToken,tweets,user}) {
-  const [likedTweets, setLikedTweets] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
 
   const userData = useSelector((state) => state.auth.userData);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    const fetchLikedTweets = async () => {
-      setLoading(true);
-      try {
-        const res = await LikeService.getLikedTweet(accessToken);
-        if (res.success) {
-          setLikedTweets(res.data.map((tweet) => tweet._id));
-        } else {
-          setError(res.message);
-        }
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching liked tweets:", error.message);
-        setError(error.message);
-      }
-    };
-    fetchLikedTweets();
-  }, [accessToken]);
 
-  const handleLike = async (tweetId) => {
+  const toggleLike = async (tweetId) => {
     try {
-      await LikeService.toggleTweetLike(accessToken, tweetId);
-      setLikedTweets((prev) =>
-        prev.includes(tweetId)
-          ? prev.filter((id) => id !== tweetId)
-          : [...prev, tweetId]
-      );
+      const response = await LikeService.toggleTweetLike(accessToken, tweetId);
+      if (response.success) {
+        if (response.data === null) {
+          dispatch(removeLikedTweet(tweetId));
+        } else {
+          dispatch(addLikedTweet(tweetId));
+        }
+      } else {
+        console.error("Failed to toggle like:", response.message);
+      }
     } catch (error) {
-      console.error("Error toggling tweet like:", error.message);
+      console.error("Error toggling like:", error);
     }
   };
+
+  const Likedtweets = useSelector((state)=> state.like.likedTweets)
+  
+
 
   const handleEditModal = () => {
     setEditModal(true);
@@ -101,7 +92,7 @@ function TweetTab({accessToken,tweets,user}) {
         <p>Error: {error}</p>
       ) : (
         tweets.map((tweet) => {
-          const isLiked = likedTweets.includes(tweet._id);
+
           const likeCount = tweet.likes || 0;
 
           return (
@@ -146,9 +137,9 @@ function TweetTab({accessToken,tweets,user}) {
                     <div className="ttm-footer-box">
                       <div className="ttm-right-imgHolder">
                         <img
-                          src={isLiked ? liked : like}
+                          src={Likedtweets.includes(tweet._id) ? liked : like}
                           alt="like"
-                          onClick={() => handleLike(tweet._id)}
+                          onClick={() => toggleLike(tweet._id)}
                         />
                       </div>
                       <h5>{likeCount}</h5>

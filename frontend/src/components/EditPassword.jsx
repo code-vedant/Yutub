@@ -10,12 +10,10 @@ function EditPassword({closeModal}) {
 
   const ChangePassword = async (data)=> {
     setError("")
-    console.log(data);
     
     try {
       if(data.newPassword === data.confirmPassword){
       const res = await AuthService.changeCurrentPassword(accessToken,data)
-      console.log(res)
       if(res){
         alert('Password changed successfully')
         window.location.reload()

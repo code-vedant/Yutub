@@ -29,9 +29,6 @@ function Header({ toggleNavbar, isNavbarVisible }) {
       <div className="header-main">
         <nav>
           <div className="HM-Links">
-            <div onClick={toggleNavbar} className="menuBar">
-              <img src={isNavbarVisible ? leftArrow : rightArrow} alt="" />
-            </div>
             <Link to="/" className="logo-link">
               <div className="logo">
                 <img src={logo} alt="" />

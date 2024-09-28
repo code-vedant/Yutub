@@ -24,7 +24,6 @@ const VideoPlayerPage = () => {
       try {
         const data = await VideoService.getVideoById(accessToken, videoId);
         if (data) {
-          console.log("Data fetched", data.data);
           setVideoData(data.data);
         }
       } catch (error) {
@@ -40,7 +39,6 @@ const VideoPlayerPage = () => {
     const fetchComments = async () => {
       try {
         const response = await CommentService.getAllComments(accessToken,videoId);
-        console.log("COmment:",response.data);    
         setComments(response.data);
       } catch (error) {
         console.error(error.message);
@@ -57,7 +55,6 @@ const VideoPlayerPage = () => {
           <Loader />
         </PopupHolder>
       )}
-      <div className="left">
         {videoData ? (
           <>
             <VideoPlayer
@@ -67,8 +64,8 @@ const VideoPlayerPage = () => {
                   : "https://www.w3schools.com/html/mov_bbb.mp4"
               }
             />
-            <VideoInfo videoData={videoData} />
-            <Comments comments={comments} />
+            <VideoInfo accessToken={accessToken} videoData={videoData} />
+            <Comments accessToken={accessToken} videoId={videoId} comments={comments} />
           </>
         ) : (
           <div>{loading && (
@@ -77,8 +74,6 @@ const VideoPlayerPage = () => {
             </PopupHolder>
           )}</div>
         )}
-      </div>
-      <div className="right">{/* <RelatedVideos /> */}</div>
     </div>
   );
 };
