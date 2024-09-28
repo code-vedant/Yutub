@@ -21,12 +21,12 @@ The backend of Yutub is based on the YT backend learning series by Channel Chai 
 
 ### Version 1 (V1)
 
-This version focuses on core functionality...
+This version focuses on core functionality. I did not prioritize optimization during this phase, as it was my very first significant project. V1 includes shaping the UI, handling API interactions, and ensuring basic responsiveness.
 
 ### Version 2 (V2)
 
-In this version, I aim to enhance the user experience...
+ In this version, I aim to enhance the user experience by improving smoothness and optimization. I will also focus on cleaning up the code and achieving complete responsiveness across devices.
 
 ### Version 3 (V3)
 
-This final version will introduce new and exciting features...
+This final version will introduce new and exciting features, further enriching the overall experience for users.
