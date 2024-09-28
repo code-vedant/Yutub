@@ -1,21 +1,22 @@
 @font-face {
-    font-family: "Nauman Regular";
-    src: url(../assets/fonts/Nauman-Regular.ttf);
-  }
+  font-family: "Nauman Regular";
+  src: url(/assets/fonts/Nauman-Regular.ttf);
+}
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Nauman Regular";
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Nauman Regular", Arial, sans-serif;
 }
 
-html,body {
-    height: 100%;
-    width: 100%;
-    background-color: #f0efee;
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background-color: #f0efee;
 }
 
-a{
-    text-decoration: none;
+a {
+  text-decoration: none;
 }
