@@ -42,13 +42,13 @@ function Signup() {
     };
 
     try {
-      const session = await AuthService.signup(requestBody); // Sending as JSON
+      const session = await AuthService.signup(requestBody);
       if (session) {
         localStorage.setItem("accessToken", session.data.accessToken);
         localStorage.setItem("refreshToken", session.data.refreshToken);
         dispatch(
           AuthLogin({
-            userData: session.data,
+            userData:  session.data,
             accessToken: session.data.accessToken,
             refreshToken: session.data.refreshToken,
           })
@@ -56,7 +56,9 @@ function Signup() {
         navigate("/");
       }
     } catch (error) {
-      setError("Error: " + error.message);
+      console.log(error);
+      
+      setError("failed to signup: Try again ");
     }
   };
 
