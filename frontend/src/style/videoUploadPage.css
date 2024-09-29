@@ -57,14 +57,14 @@
 
 .VU-Form label{
   font-size: 2.6vh;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom:0.8vh;
   /* background-color: rgb(142, 183, 66); */
 }
 
 .VU-Form  label:nth-child(3){
   font-size: 2.6vh;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom:0.8vh;
   margin-top: 4vh;
   /* background-color: rgb(142, 183, 66); */
@@ -74,7 +74,7 @@
   width: 80%;
   padding: 1vh;
   font-size: 2.2vh;
-  font-weight: 600;
+  font-weight: 500;
   border: 1px solid black;
   /* background-color: rgb(103, 153, 62); */
 }
@@ -85,7 +85,7 @@
   resize: vertical;
   padding: 1vh;
   font-size: 2.2vh;
-  font-weight: 600;
+  font-weight: 500;
   border: 1px solid black;
   /* background-color: rgb(103, 153, 62); */
 }
@@ -108,7 +108,7 @@
 
 .VU-Graphics  .VU-btns button{
   font-size: 2.5vh;
-  font-weight: 600;
+  font-weight: 500;
   padding: 2vh 8vh;
   background-color: #e93030;
   color: #fffefe;
@@ -119,7 +119,7 @@
 
 .VU-Graphics  .VU-btns button.CancelBtn{
   font-size: 2.5vh;
-  font-weight: 600;
+  font-weight: 500;
   padding: 2vh 8vh;
   background-color: #333;
   color: #fffefe;
@@ -131,7 +131,7 @@
 
 .VU-Graphics  .VU-btns button:active{
   font-size: 2.5vh;
-  font-weight: 600;
+  font-weight: 500;
   padding: 1.9vh 7.9vh;
   background-color: #fffefe;
   color: #333;

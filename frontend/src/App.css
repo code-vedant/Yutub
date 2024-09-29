@@ -1,7 +1,14 @@
+@font-face {
+  font-family: Enwallowify-Medium;
+  src: url(./assets/fonts/Enwallowify-Regular.woff) format('woff'),
+       url(./assets/fonts/Enwallowify-Regular.ttf) format('truetype');
+}
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Enwallowify-Regular",sans-serif;
 }
 
 .app-main{

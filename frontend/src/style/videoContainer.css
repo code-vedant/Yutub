@@ -100,13 +100,13 @@
 
 .video-title {
   margin-top: 0;
-  font-weight: 800;
+  font-weight: 600;
   font-size: 2.3vh;
   color: #0f0f0f;
 }
 
 .video-channel {
-  font-size: 2.1vh;
+  font-size: 2vh;
   color: #606060;
   font-weight: 600;
   margin: 0.2vh 0;
@@ -115,7 +115,7 @@
 .video-description {
   font-size: 2vh;
   color: #606060;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 0.2vh;
 }
 
@@ -128,7 +128,7 @@
 }
 
 .video-stats {
-  font-size: 14px;
+  font-size: 1.8vh;
   color: #666;
 }
 

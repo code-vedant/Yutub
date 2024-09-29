@@ -43,7 +43,7 @@
 .Login-box-left h1 {
   color: #090909;
   font-size: 5vh;
-  font-weight: 700;
+  font-weight: 600;
   width: 100%;
   text-align: center;
   margin-bottom: 3vh;
@@ -53,7 +53,7 @@
 .Login-box-left h3 {
   color: #090909;
   font-size: 2vh;
-  font-weight: 700;
+  font-weight: 600;
   width: 100%;
 }
 
@@ -71,7 +71,7 @@
 
 .LoginLabel {
   color: #000;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 0.5vh;
   margin-top: 4vh;
   font-size: 2vh;
@@ -79,7 +79,7 @@
 
 .LoginInput {
   color: #000;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 2vh;
   padding: 1.2vh 0.5vh;
   width: 100%;
@@ -150,7 +150,7 @@
 .Login-box-right h3{
   font-size: 5vh;
   color: #000;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .Login-box-right h6{
@@ -193,7 +193,7 @@
 
 
 
-@media screen and (max-width : 600px) {
+@media screen and (max-width : 500px) {
   .Login-box {
     width: 100%;
     height: 100vh;
@@ -237,7 +237,7 @@
   
   .LoginInput {
     color: #000;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1.7vh;
     padding: 01vh 0.7vh;
     margin-bottom: 3vh;

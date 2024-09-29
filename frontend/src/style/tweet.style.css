@@ -25,7 +25,7 @@
     resize: none;
     padding: 1vh 1vh;
     font-size: 2.3vh;
-    font-weight: 600;
+    font-weight: 500;
     border: none;
     outline: none;
     border-radius: 10px;
@@ -34,7 +34,7 @@
 .PostTweet-main form p{
     font-size: 2vh;
     color: rgb(255, 42, 0);
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .PostTweet-main form button{
@@ -43,7 +43,7 @@
     padding: 1vh 2vh;
     margin-right: 1vh;
     font-size: 2vh;
-    font-weight: 600;
+    font-weight: 500;
     border: none;
     outline: none;
     border-radius: 40px;
@@ -131,7 +131,7 @@
 
 .ttm-right-body p{
     font-size: 2.2vh;
-    font-weight: 600;
+    font-weight: 500;
     color: #0f0f0f;
 }
 
@@ -260,7 +260,7 @@
     resize: none;
     padding: 1vh 1vh;
     font-size: 2.3vh;
-    font-weight: 600;
+    font-weight: 500;
     border: 1px solid #000;
     outline: none;
     border-radius: 10px;
@@ -276,7 +276,7 @@
     border: none;
     outline: none;
     border-radius: 10px;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   .etm-btn button{
@@ -288,7 +288,7 @@
     border: none;
     outline: none;
     border-radius: 3.25vw;
-    font-weight: 600;
+    font-weight: 500;
     background-color: #ececec;
     cursor: pointer;
   }
@@ -316,7 +316,7 @@
     height: 50%;
     resize: none;
     font-size: 2.3vh;
-    font-weight: 600;
+    font-weight: 500;
     outline: none;
     border-radius: 10px;
   }
@@ -331,7 +331,7 @@
     border: none;
     outline: none;
     border-radius: 10px;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   .dt-btn button{
@@ -343,7 +343,7 @@
     border: none;
     outline: none;
     border-radius: 3.25vw;
-    font-weight: 600;
+    font-weight: 500;
     background-color: #ececec;
     cursor: pointer;
   }
@@ -376,7 +376,7 @@
     resize: none;
     padding: 1vh 1vh;
     font-size: 2.3vh;
-    font-weight: 600;
+    font-weight: 500;
     border: none;
     outline: none;
     border-radius: 10px;
@@ -385,7 +385,7 @@
 .PostTweet-main form p{
     font-size: 2vh;
     color: rgb(255, 42, 0);
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .PostTweet-main form button{
@@ -508,7 +508,7 @@
     resize: none;
     padding: 1vh 1vh;
     font-size: 2.3vh;
-    font-weight: 600;
+    font-weight: 500;
     border: 1px solid #000;
     outline: none;
     border-radius: 10px;
@@ -524,7 +524,7 @@
     border: none;
     outline: none;
     border-radius: 10px;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   .etm-btn button{
@@ -536,7 +536,7 @@
     border: none;
     outline: none;
     border-radius: 3.25vw;
-    font-weight: 600;
+    font-weight: 500;
     background-color: #ececec;
     cursor: pointer;
   }

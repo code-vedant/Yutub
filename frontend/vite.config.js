@@ -7,8 +7,8 @@ export default defineConfig({
     react(),
     cspPlugin({
       'default-src': ['self'],
-      'style-src': ['self', "'unsafe-inline'", 'https://fonts.googleapis.com'],
-      'font-src': ['self', 'https://fonts.gstatic.com'], // Add this line
+      'style-src': ['self', 'unsafe-inline'],
+      'font-src': ['self'],
     }),
   ],
 });

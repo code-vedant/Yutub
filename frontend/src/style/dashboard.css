@@ -23,12 +23,12 @@
 
 .Dm-left h1{
     font-size: 4vh;
-    font-weight: 900;
+    font-weight: 500;
 }
 
 .Dm-left h5{
     font-size: 2vh;
-    font-weight: 700;
+    font-weight: 500;
 }
 .Dm-right{
     width: 50%;
@@ -40,7 +40,7 @@
 }
 
 .Dm-right button{
-    font-size: 2.2vh;
+    font-size: 2.5vh;
     padding: 1.5vh 0.2vw;
     background-color: #e93030;
     color: rgb(255, 255, 255);
@@ -52,7 +52,7 @@
     height: 6vh;
     min-width: 11vw;
     gap: 1.5vh;
-    font-weight: 900;
+    font-weight: 500;
 }
 
 .Dm-right button img{
@@ -62,7 +62,6 @@
     object-fit: cover;
     margin-left: 1vh;
     margin-top: 0.5vh;
-
 }
 
 .Separator{
@@ -103,14 +102,14 @@
 
 .Stat h2{
     font-size: 2.5vh;
-    font-weight: 600;
+    font-weight: 500;
     color: rgb(40, 40, 40);
     margin-left: 0.5vh;
 }
 
 .Stat h1{
     font-size: 5vh;
-    font-weight: 600;
+    font-weight: 500;
     color: rgb(40, 40, 40);
     margin-left: 0.5vh;
 }
@@ -127,7 +126,7 @@
 .Data-table .Dt-header{
     font-size: 3.5vh;
     display: flex;
-    font-weight: 900;
+    font-weight: 500;
     text-align: center;
     padding-bottom: 1vh;
     border-bottom: 1px solid black;
@@ -226,7 +225,7 @@
     justify-content: flex-start;
     align-items: center;
     font-size: 2.5vh;
-    font-weight: 900;
+    font-weight: 500;
     padding-left:2vh;
     margin-left: -5vw;
 }
@@ -315,7 +314,7 @@
 
 .V-edit-main h1{
     font-size: 4vh;
-    font-weight: 900;
+    font-weight: 500;
     width: 100%;
     height: 10%;
 }
@@ -411,7 +410,7 @@
     width: 30%;
     height: 99%;
     font-size: 2vh;
-    font-weight: 600;
+    font-weight: 500;
     color: #010101;
     border: 1px solid #333;
     border-radius: 40px;
@@ -422,7 +421,7 @@
     width: 33%;
     height: 100%;
     font-size: 2vh;
-    font-weight: 600;
+    font-weight: 500;
     color: #ececec;
     border:none;
     border-radius: 40px;

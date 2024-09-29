@@ -42,7 +42,7 @@
 .Signup-box-left h1 {
   color: #090909;
   font-size: 5vh;
-  font-weight: 700;
+  font-weight: 500;
   width: 100%;
   text-align: center;
 }
@@ -50,7 +50,7 @@
 .Signup-box-left h3 {
   color: #090909;
   font-size: 2.4vh;
-  font-weight: 700;
+  font-weight: 400;
   width: 100%;
 }
 
@@ -99,14 +99,14 @@
 
 .SignupLabel {
   color: #000;
-  font-weight: 600;
+  font-weight: 500;
   margin-bottom: 0.5vh;
   font-size: 2vh;
 }
 
 .SignupInput {
   color: #000;
-  font-weight: 600;
+  font-weight: 500;
   font-size: 2vh;
   padding: 1.2vh 0.5vh;
   margin-bottom: 4vh;
@@ -183,18 +183,21 @@
 .Signup-box-right h3{
   font-size: 5vh;
   color: #000;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .Signup-box-right h6{
   font-size: 7vh;
   color: #000;
   margin-top: 3vh;
+  font-weight: 600;
 }
 
 .Signup-box-right p{
   font-size: 9vh;
   margin-top: 3vh;
+  color: #1f1e1e;
+  font-weight: 100;
 }
 
 .signup-footer{
@@ -220,7 +223,7 @@
 .signup-footer p{
   color: #000;
   font-size: 2.6vh;
-  font-weight: 800;
+  font-weight: 300;
   margin: 0 0.4vh;
 }
 
@@ -268,7 +271,7 @@
   
   .SignupInput {
     color: #000;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1.7vh;
     padding: 01vh 0.7vh;
     margin-bottom: 3vh;

@@ -52,7 +52,7 @@
   
   .video-title-FP {
     margin-top: 0;
-    font-weight: 800;
+    font-weight: 600;
     font-size: 2vh;
     color: #0f0f0f;
   }
@@ -60,7 +60,7 @@
   .video-description-FP {
     font-size: 1.8vh;
     color: #606060;
-    font-weight: 700;
+    font-weight: 600;
     margin-bottom: 1%;
   }
 
