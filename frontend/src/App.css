@@ -6,7 +6,6 @@
 
 .app-main{
   position: relative;
-  font-family: "nauman regular";
   height: 6.5vh;
   display: flex;
   /* overflow-x: hidden; */

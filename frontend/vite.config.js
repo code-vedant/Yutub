@@ -1,7 +1,13 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import { cspPlugin } from 'vite-plugin-csp';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-})
+  plugins: [
+    react(),
+    cspPlugin({
+      'default-src': ['self'],
+      'style-src': ['self', "'unsafe-inline'"],
+    }),
+  ],
+});
