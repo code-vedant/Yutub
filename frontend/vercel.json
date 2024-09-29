@@ -19,7 +19,7 @@
           },
           {
             "key": "Content-Security-Policy-Report-Only",
-            "value": "default-src 'self' *; font-src 'self' *; img-src 'self' *; script-src 'self' *; style-src 'self' *; report-uri https://yutubapp.vercel.app/reports/report; report-to default"
+            "value": "default-src 'self'; connect-src 'self' https://yutubbackend.vercel.app; font-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self'; report-uri https://yutubapp.vercel.app/reports/report; report-to default"
           },
           {
             "key": "Expect-CT",
@@ -28,17 +28,18 @@
           {
             "key": "Permissions-Policy",
             "value": "geolocation=(), camera=(), fullscreen=*, payment=self"
-        }
-    ]
+          }
+        ]
+      }
+    ],
+    "redirects": [
+      {
+        "source": "/old-path",
+        "destination": "/new-path",
+        "permanent": true
+      }
+    ],
+    "cleanUrls": true,
+    "trailingSlash": false
   }
-],
-"redirects": [
-  {
-    "source": "/old-path",
-    "destination": "/new-path",
-    "permanent": true
-  }
-],
-"cleanUrls": true,
-"trailingSlash": false
-}
+  
