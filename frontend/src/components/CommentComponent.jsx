@@ -124,21 +124,21 @@ function CommentComponent({ accessToken, comments }) {
                 <div
                   className="CLikeBtn"
                   onClick={() => {
-                    toggleLike(comment._id);
+                    toggleLike(comment?._id);
                   }}
                 >
                   <img
-                    src={likedComment.includes(comment._id) ? liked : like}
+                    src={likedComment.includes(comment?._id) ? liked : like}
                     alt="Edit"
                   />
                 </div>
-                {userData?._id === owner._id && (
+                {userData?._id === owner?._id && (
                   <div className="editComment">
                     <>
                       <div
                         className="CeditBtn"
                         onClick={() => {
-                          setCommentId(comment._id);
+                          setCommentId(comment?._id);
                           handleUpdateModal();
                         }}
                       >
@@ -149,7 +149,7 @@ function CommentComponent({ accessToken, comments }) {
                       <div
                         className="CdeleteBtn"
                         onClick={() => {
-                          setCommentId(comment._id);
+                          setCommentId(comment?._id);
                           handleDeleteModal();
                         }}
                       >

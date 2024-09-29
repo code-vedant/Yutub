@@ -114,7 +114,7 @@ function PlaylistPage() {
             <Link to={`/videopage/${v}`}>
               <VideoBox videoId={v} accessToken={accessToken} />
             </Link>
-            {owner._id === user._id && <div className="PP-remove" onClick={()=>removeVideo(v)}>
+            {owner?._id === user?._id && <div className="PP-remove" onClick={()=>removeVideo(v)}>
               <h6>Remove</h6>
             </div>}
             

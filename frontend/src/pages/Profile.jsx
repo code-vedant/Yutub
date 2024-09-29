@@ -119,9 +119,9 @@ function Profile() {
       const response = await SubService.toggleSubscription(accessToken, userId);
       console.log(response.data.channel === undefined);
       if (response.data.channel === undefined){
-        dispatch(removeSubscribedChannel(user._id))
+        dispatch(removeSubscribedChannel(user?._id))
       }else{
-         dispatch(addSubscribedChannel(user._id));
+         dispatch(addSubscribedChannel(user?._id));
       }
       
     } catch (error) {
@@ -201,7 +201,7 @@ function Profile() {
             {videoList.length ? (
               videoList.map((video) => (
                 <div key={video.id} className="videoTabItem">
-                <Link key={video.id} to={`/videopage/${video._id}`}>
+                <Link key={video.id} to={`/videopage/${video?._id}`}>
                   <VideoContainerForProfile video={video} />
                 </Link>
                 </div>
@@ -216,8 +216,8 @@ function Profile() {
           <div className="PlaylistTab">
             {playlist.length ? (
               playlist.map((playlist) => (
-                <div key={playlist._id} className="playlistTabItem">
-                <Link key={playlist._id} to={`/playlist/${playlist._id}`}>
+                <div key={playlist?._id} className="playlistTabItem">
+                <Link key={playlist?._id} to={`/playlist/${playlist?._id}`}>
                   <PlaylistComponent playlist={playlist} />
                 </Link>
                 </div>
@@ -243,7 +243,7 @@ function Profile() {
             {subscribers.length ? (
               subscribers.map((subs) =>
                 subs.subscriber.map((sub) => (
-                  <Subscribers key={sub._id} subscriber={sub} />
+                  <Subscribers key={sub?._id} subscriber={sub} />
                 ))
               )
             ) : (

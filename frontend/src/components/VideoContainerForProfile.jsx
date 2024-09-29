@@ -94,7 +94,7 @@ function VideoContainerForProfile({ video }) {
           <AddToPlaylist
             closePlaylistOptions={closePlaylistOptions}
             accessToken={accessToken}
-            videoId={video._id}
+            videoId={video?._id}
           />
         </PopupHolder>
       )}

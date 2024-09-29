@@ -1,5 +1,4 @@
 import { v2 as cloudinary } from "cloudinary";
-import fs from "fs/promises";
 
 cloudinary.config({ 
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME, 
@@ -7,27 +6,17 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET 
 });
 
-const uploadOnCloudinary = (filePath, fileName) => {
+const uploadOnCloudinary = (fileBuffer, fileName) => {
     return new Promise((resolve, reject) => {
-        const fileStream = fs.createReadStream(filePath);
-
         cloudinary.uploader.upload_stream(
-            { resource_type: 'auto', public_id: fileName },
-            async (error, result) => {
+            { resource_type: 'image', public_id: fileName },
+            (error, result) => {
                 if (error) {
                     return reject(error);
                 }
-
-                try {
-                    await fs.unlink(filePath);
-                    console.log(`${filePath} deleted successfully.`);
-                } catch (unlinkError) {
-                    console.error(`Error deleting file at ${filePath}:`, unlinkError);
-                }
-
                 resolve(result);
             }
-        ).end(fileStream);
+        ).end(fileBuffer);
     });
 };
 

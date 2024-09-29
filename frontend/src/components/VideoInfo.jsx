@@ -58,12 +58,12 @@ const VideoInfo = ({ videoData }) => {
 
   const toggleLike = async () => {
     try {
-      const response = await LikeService.toggleVideoLike(accessToken, videoData._id);
+      const response = await LikeService.toggleVideoLike(accessToken, videoData?._id);
       if (response.data !== null) { 
         if (response.data !== null) {
-          dispatch(addLikedVideo(videoData._id));
+          dispatch(addLikedVideo(videoData?._id));
         } else { 
-          dispatch(removeLikedVideo(videoData._id));
+          dispatch(removeLikedVideo(videoData?._id));
         }
       }
     } catch (error) {
@@ -74,11 +74,11 @@ const VideoInfo = ({ videoData }) => {
 
   const toggleSubscription = async () => {
     try {
-      const response = await SubService.toggleSubscription(accessToken, owner._id);
+      const response = await SubService.toggleSubscription(accessToken, owner?._id);
       if (response.data.channel === undefined){
-        dispatch(removeSubscribedChannel(owner._id))
+        dispatch(removeSubscribedChannel(owner?._id))
       }else{
-         dispatch(addSubscribedChannel(owner._id));
+         dispatch(addSubscribedChannel(owner?._id));
       }
       
     } catch (error) {
@@ -95,18 +95,18 @@ const VideoInfo = ({ videoData }) => {
       <h3 className="title">{title}</h3>
       <div className="VI-channel-info">
           <div className="VI-profileImg">
-          <Link to={`/profile/${owner._id}`}>
+          <Link to={`/profile/${owner?._id}`}>
             <img src={owner ? owner.avatar : ""} alt="" />
         </Link>
           </div>
-        <Link to={`/profile/${owner._id}`}>
+        <Link to={`/profile/${owner?._id}`}>
           <h3>{owner ? owner.fullName : "Rolando"}</h3>
         </Link>
       <div className="VI-likes">
-          <img src={videos.includes(videoData._id) ? liked : like} alt="like" onClick={toggleLike} />
+          <img src={videos.includes(videoData?._id) ? liked : like} alt="like" onClick={toggleLike} />
           <h5>{likesCount ? likesCount : "100"}&nbsp;like</h5>
         </div>
-        {user._id === owner._id ? (
+        {user?._id === owner?._id ? (
   <Link to="/dashboard">
     <button className={`subscribe-button`}>
       Go to Dashboard
@@ -115,9 +115,9 @@ const VideoInfo = ({ videoData }) => {
 ) : (
   <button
     onClick={toggleSubscription}
-    className={`subscribe-button ${subscription.includes(owner._id) ? "subscribed" : ""}`} 
+    className={`subscribe-button ${subscription.includes(owner?._id) ? "subscribed" : ""}`} 
   >
-    {subscription.includes(owner._id) ? "Subscribed" : "Subscribe"}
+    {subscription.includes(owner?._id) ? "Subscribed" : "Subscribe"}
   </button>
 )}
       </div>

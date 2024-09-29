@@ -39,7 +39,7 @@ const HomePage = () => {
       const res = await LikeService.getLikedVideos(accessToken)
       if (res.data && Array.isArray(res.data) && res.data.length > 0) {
         res.data.forEach(videoData => {
-          const videoId = videoData.video._id; 
+          const videoId = videoData.video?._id; 
           dispatch(addLikedVideo(videoId));
         });}
       
@@ -55,7 +55,7 @@ const HomePage = () => {
   
       if (res.data && Array.isArray(res.data)) {
         res.data.forEach(tweetData => {
-          const tweetId = tweetData.tweet._id;
+          const tweetId = tweetData.tweet?._id;
           dispatch(addLikedTweet(tweetId));
         });
       }
@@ -71,7 +71,7 @@ const HomePage = () => {
   
       if (res.data && Array.isArray(res.data)) {
         res.data.forEach(comment => {
-          const commentId = comment.tweet._id;
+          const commentId = comment.tweet?._id;
           dispatch(addLikedComment(commentId));
         });
       }
@@ -83,14 +83,14 @@ const HomePage = () => {
 
   const fetchSubscribers = async () => {
     try {
-      const res = await SubService.getSubscribedChannel(accessToken, user._id);
+      const res = await SubService.getSubscribedChannel(accessToken, user?._id);
   
       if (res.data && Array.isArray(res.data)) {
         res.data.forEach(subData => {
           if (Array.isArray(subData.channel) && subData.channel.length > 0) {
             subData.channel.forEach(channel => {
-              if (channel && channel._id) {
-                const channelId = channel._id;
+              if (channel && channel?._id) {
+                const channelId = channel?._id;
                 dispatch(addSubscribedChannel(channelId));
               } else {
                 console.log("Invalid channel data:", channel);
@@ -129,7 +129,7 @@ const HomePage = () => {
       )}
     {authStatus && <div className="youtube-homepage">
       {Array.isArray(videos) && videos.map((video,index) => (
-        <div key={video._id} className="vidcont">
+        <div key={video?._id} className="vidcont">
           <VideoContainer  video={video} />
           
         </div>

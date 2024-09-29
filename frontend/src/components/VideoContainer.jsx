@@ -93,7 +93,7 @@ function VideoContainer({ video }) {
     <div className="video-container">
       <div className="VC-top">
         <div className="video-thumbnail">
-          <Link to={`/videopage/${video._id}`}>
+          <Link to={`/videopage/${video?._id}`}>
           <img src={video.thumbnail ? video.thumbnail : ""} alt="title" />
           <span className="video-duration">
             {duration(video.duration) || `10 min`}
@@ -103,7 +103,7 @@ function VideoContainer({ video }) {
       </div>
       <div className="VC-bottom">
         <div className="VC-left">
-          <Link to={`/profile/${ownerData?._id === user._id ? "" : ownerData?._id}`}>
+          <Link to={`/profile/${ownerData?._id === user?._id ? "" : ownerData?._id}`}>
             <div className="VC-left-imgHolder">
               {ownerData ? (
                 <img src={ownerData.avatar} className="imgRec" />
@@ -115,7 +115,7 @@ function VideoContainer({ video }) {
         </div>
         <div className="VC-right">
           <div className="video-info">
-          <Link to={`/videopage/${video._id}`}>
+          <Link to={`/videopage/${video?._id}`}>
           <h3 className="video-title">
               {video.title ? shorterMid(video.title) : "title of video"}
             </h3>
@@ -153,7 +153,7 @@ function VideoContainer({ video }) {
           <AddToPlaylist
             closePlaylistOptions={closePlaylistOptions}
             accessToken={accessToken}
-            videoId={video._id}
+            videoId={video?._id}
           />
         </PopupHolder>
       )}

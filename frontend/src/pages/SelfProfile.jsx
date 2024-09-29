@@ -99,7 +99,7 @@ function SelfProfile() {
     try {
       const response = await PlaylistService.getUserPlaylists(
         accessToken,
-        user._id
+        user?._id
       );
       setPlaylist(response.data);
     } catch (error) {
@@ -114,8 +114,8 @@ function SelfProfile() {
     setError("");
     try {
         const [subscribedResponse, subscribersResponse] = await Promise.all([
-            SubService.getSubscribedChannel(accessToken, user._id),
-            SubService.getSubscibers(accessToken, user._id),
+            SubService.getSubscribedChannel(accessToken, user?._id),
+            SubService.getSubscibers(accessToken, user?._id),
         ]);
         
         dispatch(addSubscribedChannel(subscribedResponse.data));
@@ -210,7 +210,7 @@ function SelfProfile() {
               <div className="SPVideoTab">
                 {videoFinal.map((video) => (
                   <div key={video.id} className="SPvideoTabItem">
-                    <Link to={`/videopage/${video._id}`}>
+                    <Link to={`/videopage/${video?._id}`}>
                       <VideoContainerForProfile video={video} />
                     </Link>
                   </div>
@@ -235,7 +235,7 @@ function SelfProfile() {
             {playlist.length > 0 ? (
               <div className="SPPlaylistTab">
                 {playlist.map((playlist) => (
-                  <div key={playlist._id} className="SPplaylistTabItem">
+                  <div key={playlist?._id} className="SPplaylistTabItem">
                     <PlaylistComponent playlist={playlist} />
                   </div>
                 ))}
@@ -261,7 +261,7 @@ function SelfProfile() {
             {subscribers?.length > 0 ? (
               subscribers.map((subs) =>
                 subs.subscriber.map((sub) => (
-                  <Subscribers key={sub._id} subscriber={sub} />
+                  <Subscribers key={sub?._id} subscriber={sub} />
                 ))
               )
             ) : (

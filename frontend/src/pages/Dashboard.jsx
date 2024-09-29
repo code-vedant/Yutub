@@ -160,7 +160,7 @@ function Dashboard() {
           </div>
 
           {videos.map((Video) => (
-            <div className="Video-data" key={Video._id}>
+            <div className="Video-data" key={Video?._id}>
               {/* <h4
                 className={
                   Video.isPublished ? "video-status-ok" : "video-status"
@@ -170,7 +170,7 @@ function Dashboard() {
               </h4> */}
               <div
                   className="toggleBtn"
-                  onClick={() => togglePublish(Video._id)}
+                  onClick={() => togglePublish(Video?._id)}
                 >
                   <img src={Video.isPublished? onBtn : offBtn}  />
                 </div>
@@ -195,14 +195,14 @@ function Dashboard() {
                 
                 <div
                   className="deleteBtn"
-                  onClick={() => handleDeleteModal(Video._id)}
+                  onClick={() => handleDeleteModal(Video?._id)}
                 >
                   <img src={bin} alt="Delete" />
                 </div>
 
                 <div
                   className="editBtn"
-                  onClick={() => handleEditModal(Video._id)}
+                  onClick={() => handleEditModal(Video?._id)}
                 >
                   <img src={edit} alt="Edit" />
                 </div>

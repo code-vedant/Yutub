@@ -96,7 +96,7 @@ function TweetTab({accessToken,tweets,user}) {
           const likeCount = tweet.likes || 0;
 
           return (
-            <div className="tweet-tab-main" key={tweet._id}>
+            <div className="tweet-tab-main" key={tweet?._id}>
               <div className="ttm-left">
                 <div className="ttm-left-imgHolder">
                   {user ? (
@@ -116,7 +116,7 @@ function TweetTab({accessToken,tweets,user}) {
                   <h2>{user.fullName || "Name"}</h2>
                   <h4>{timeAgo(tweet.createdAt) || "x days ago"}</h4>
                   </div>
-                  {user._id === userData._id && (
+                  {user?._id === userData?._id && (
                     <div className="edit-tweet-container">
                       <div className="etc-icon">
                         <img src={dots} alt="" />
@@ -137,9 +137,9 @@ function TweetTab({accessToken,tweets,user}) {
                     <div className="ttm-footer-box">
                       <div className="ttm-right-imgHolder">
                         <img
-                          src={Likedtweets.includes(tweet._id) ? liked : like}
+                          src={Likedtweets.includes(tweet?._id) ? liked : like}
                           alt="like"
-                          onClick={() => toggleLike(tweet._id)}
+                          onClick={() => toggleLike(tweet?._id)}
                         />
                       </div>
                       <h5>{likeCount}</h5>
@@ -149,12 +149,12 @@ function TweetTab({accessToken,tweets,user}) {
               </div>
               {editModal && (
                 <PopupHolder>
-                  <EditTweetModal closeEditModal={closeEditModal} accessToken={accessToken} tweetId={tweet._id}/>
+                  <EditTweetModal closeEditModal={closeEditModal} accessToken={accessToken} tweetId={tweet?._id}/>
                 </PopupHolder>
               )}
               {deleteModal && (
                 <PopupHolder>
-                  <DeleteTweet closeDeleteModal={closeDeleteModal} accessToken={accessToken} tweetId={tweet._id}/>
+                  <DeleteTweet closeDeleteModal={closeDeleteModal} accessToken={accessToken} tweetId={tweet?._id}/>
                 </PopupHolder>
               )}
               
