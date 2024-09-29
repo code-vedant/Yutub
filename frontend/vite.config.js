@@ -6,9 +6,12 @@ export default defineConfig({
   plugins: [
     react(),
     cspPlugin({
-      'default-src': ['self'],
-      'style-src': ['self', 'unsafe-inline'],
-      'font-src': ['self'],
+      'default-src': ['self', '*'],
+      'script-src': ['self', 'unsafe-inline', '*'],
+      'style-src': ['self', 'unsafe-inline', '*'],
+      'font-src': ['self', '*'],
+      'img-src': ['self', '*'],
+      'connect-src': ['self', '*'],
     }),
   ],
 });
