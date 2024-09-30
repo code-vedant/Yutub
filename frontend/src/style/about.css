@@ -1,0 +1,263 @@
+.about-container{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-top: 8vh;
+    padding-left: 15vh;
+    padding-right: 15vh;
+    background-color: #fffefe;
+}
+.ABTseparator{
+    width: 100%;
+    height: 1px;
+    border: 1px solid #000;
+    margin: 1vh 0;
+}
+.about-container h1{
+    font-size: 8vh;
+    font-weight: 700;
+
+}
+
+.about-container p{
+    font-size: 3vh;
+    line-height: 1.2;
+    margin-bottom: 1vh;
+}
+
+.about-container h3{
+    font-size: 3.5vh;
+    font-weight: 600;
+    margin-bottom: 1vh;
+}
+
+.about-container h3 span a{
+    color: #000cf6;
+    font-weight: 400;
+}
+
+.ac-img{
+    width: 100%;
+    height: 34.5vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ac-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.introduction-section{
+    width: 100%;
+    margin-top: 1vh;
+    height: fit-content;
+}
+
+.introduction-section h2{
+    font-size: 5vh;
+    font-weight: 700;
+    margin-bottom: 1vh;
+}
+
+.introduction-section p{
+    font-size: 3vh;
+    line-height: 1.2;
+    margin-bottom: 1vh;
+}
+
+.tech-section{
+    width: 100%;
+    margin-top: 1vh;
+    height: fit-content;
+}
+
+.tech-section h2{
+    font-size: 5vh;
+    font-weight: 700;
+    margin-bottom: 1vh;
+}
+
+.tech-section ul{
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 1vh;
+}
+
+.tech-section ul li{
+    font-size: 3vh;
+    margin-bottom: 0.5vh;
+}
+
+.development-phases{
+    width: 100%;
+    margin-top: 1vh;
+    height: fit-content;
+}
+
+.development-phases h2{
+    font-size: 5vh;
+    font-weight: 700;
+    margin-bottom: 1vh;
+}
+
+
+
+.development-phases h3{
+    font-size: 3vh;
+    font-weight: 600;
+    margin-bottom: 1vh;
+}
+
+.development-phases h3 span{
+    font-size: 2vh;
+    font-weight: 400;
+    margin-right: 5px;
+}
+.development-phases p{
+    font-size: 3vh;
+    line-height: 1.2;
+    margin-bottom: 1vh;
+}
+
+.aboutme-section{
+    width: 100%;
+    margin-top: 1vh;
+    height: fit-content;
+}
+
+.aboutme-section h2{
+    font-size: 5vh;
+    font-weight: 700;
+    margin-bottom: 1vh;
+}
+
+.aboutme-section p{
+    font-size: 3vh;
+    line-height: 1.2;
+    margin-bottom: 1vh;
+}
+
+.social-links{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10vh;
+}
+
+.social-links h2{
+    font-size: 5vh;
+    font-weight: 700;
+    margin-bottom: 1vh;
+}
+
+.social-links p a{
+    font-size: 3vh;
+    text-decoration: none;
+    color: #000cf6;
+}
+
+.social-links p a:hover{
+    color: #7c2b2b;
+}
+
+@media screen and (max-width: 770px) {
+    .about-container{
+        padding-top: 8vh;
+        padding-left: 2vh;
+        padding-right: 2vh;
+    }
+    .ABTseparator{
+        width: 100%;
+        height: 1px;
+        border: 1px solid #000;
+        margin: 1vh 0;
+    }
+
+    .about-container h1{
+        font-size: 6vh;
+    }
+    
+    .about-container p{
+        font-size: 2.5vh;
+    }
+    
+    .about-container h3{
+        font-size: 2.5vh;
+
+    }
+    
+    .ac-img{
+        width: 100%;
+        height: 8.7vh;
+    }
+    
+    .introduction-section h2{
+        font-size: 4vh;
+    }
+    
+    .introduction-section p{
+        font-size: 2.5vh;
+    }
+    
+    .tech-section h2{
+        font-size: 4vh;
+    }
+
+    .tech-section ul li{
+        font-size: 2.5vh;
+    }
+
+    .development-phases h2{
+        font-size: 4vh;
+    }
+  
+    .development-phases h3{
+        font-size: 3vh;
+    }
+    
+    .development-phases h3 span{
+        font-size: 1.3vh;
+        font-weight: 400;
+    }
+    .development-phases p{
+        font-size: 2.5vh;
+    }
+ 
+    .aboutme-section h2{
+        font-size: 4vh;
+    }
+    
+    .aboutme-section p{
+        font-size: 2.5vh;
+    }
+    
+    .social-links{
+        width: 100%;
+        display: block;
+
+        gap: 10vh;
+    }
+    
+    .social-links h2{
+        font-size: 4vh;
+        font-weight: 700;
+        margin-bottom: 1vh;
+    }
+    
+    .social-links p a{
+        font-size: 2.5vh;
+        text-decoration: none;
+        color: #000cf6;
+    }
+    
+    .social-links p a:hover{
+        color: #7c2b2b;
+    }
+}

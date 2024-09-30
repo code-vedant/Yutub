@@ -151,23 +151,47 @@ nav {
   }
 
   .logo {
-    width: 20vh;
+    width: 15vh;
     height: 6vh;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     margin-left:0;
     padding: 0;
   }
   
   .logo img{
     width: 100%;
-    height: 60%;
+    height: 48%;
     object-fit: cover;
   }
   
   .headerList {
     gap: 0vh;
+  }
+  .headerList li {
+    background: none;
+    border: none;
+    color: #1e1e1e;
+    font-size: 1.8vh;
+    padding: 0.8vh 1vh;
+    border: 2.5px solid #000;
+    margin-right: 0.5vh;
+    border-radius: 40px;
+    font-weight: 600;
+    cursor: pointer;
+    text-transform: capitalize;
+  }
+  
+  .headerList li a {
+    color: #1e1e1e;
+    text-decoration: none;
+  }
+  
+  .headerList li:hover {
+    background-color: #42d651;
+    color: #fffefe;
+    border-radius: 30px;
   }
 
 

@@ -1,17 +1,19 @@
 import React from "react";
 import "../style/header.css";
 import { Link, useNavigate } from "react-router-dom";
-import search from "../assets/search.png";
-import rightArrow from "../assets/rightArrow.png";
-import leftArrow from "../assets/leftArrow.png";
-import userAuth from "../store/userAuth";
 import { useSelector } from "react-redux";
 import LogoutBtn from "./LogoutBtn";
 import user from "../assets/user.png";
 import logo from "../assets/logo.png";
-function Header({ toggleNavbar, isNavbarVisible }) {
+function Header() {
   const authStatus = useSelector((state) => state.auth.status);
+  // const authStatus = true
   const navList = [
+    {
+      name: "about",
+      link: "/about",
+      active: true,
+    },
     {
       name: "login",
       link: "/login",
@@ -22,6 +24,7 @@ function Header({ toggleNavbar, isNavbarVisible }) {
       link: "/signup",
       active: !authStatus,
     },
+    
   ];
 
   return (
