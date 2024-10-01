@@ -1,6 +1,6 @@
 import React from 'react';
 import '../style/about.css';
-
+import logo from "../assets/logo.png"
 const About = () => {
   return (
     <div className="about-container">
@@ -14,7 +14,7 @@ const About = () => {
       <h3>Source Code : <span><a href="">Github/yutub</a></span></h3>
     <div className="ABTseparator"></div>
       <div className="ac-img">
-      <img src="/src/assets/logo.png" alt="Yutub Logo" className="yutub-logo" />
+      <img src={logo} alt="Yutub Logo" className="yutub-logo" />
       </div>
     <div className="ABTseparator"></div>
       <section className="introduction-section">
