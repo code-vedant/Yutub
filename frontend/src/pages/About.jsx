@@ -11,7 +11,7 @@ const About = () => {
         The application is currently in development, and I am actively working on adding new features and improving the existing ones.
       </p>
 
-      <h3>Source Code : <span><a href="">Github/yutub</a></span></h3>
+      <h3>Source Code : <span><a href="https://github.com/code-vedant/Yutub" target='_blank'>Github/yutub</a></span></h3>
     <div className="ABTseparator"></div>
       <div className="ac-img">
       <img src={logo} alt="Yutub Logo" className="yutub-logo" />
