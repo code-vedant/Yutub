@@ -37,12 +37,12 @@
       }
     ],
     "redirects": [
-      {
-        "source": "/old-path",
-        "destination": "/new-path",
-        "permanent": true
-      }
-    ],
+    {
+      "source": "/(.*)",
+      "destination": "https://yutubapp.netlify.app",
+      "permanent": true
+    }
+  ],
     "cleanUrls": true,
     "trailingSlash": false
   }
