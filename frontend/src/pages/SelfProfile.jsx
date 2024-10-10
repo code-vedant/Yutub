@@ -129,22 +129,16 @@ function SelfProfile() {
 }, [accessToken, user, dispatch]);
 
 
-  useEffect(() => {
-    if (accessToken) {
-      fetchUserData();
-      getChannelVideo();
-      getTweet();
-      fetchPlaylists();
-      fetchSubscribers();
-    }
-  }, [
-    accessToken,
-    fetchUserData,
-    getChannelVideo,
-    getTweet,
-    fetchPlaylists,
-    fetchSubscribers,
-  ]);
+useEffect(() => {
+  if (accessToken) {
+    fetchUserData();
+    if (activeTab === "Videos") getChannelVideo();
+    if (activeTab === "Playlist") fetchPlaylists();
+    if (activeTab === "Tweet") getTweet();
+    if (activeTab === "Subscribed") fetchSubscribers();
+  }
+}, [accessToken, activeTab, fetchUserData, getChannelVideo, getTweet, fetchPlaylists, fetchSubscribers]);
+
 
   return (
     <div className="selfProfileMain">

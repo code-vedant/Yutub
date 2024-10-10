@@ -21,123 +21,77 @@ import { addSubscribedChannel, removeSubscribedChannel } from "../store/subsStor
 
 function Profile() {
   const [videos, setVideos] = useState([]);
-  const [videoList, setVideoList] = useState([]);
-  const [playlist, setPlaylist] = useState([]);
-  const [tweets, setTweets] = useState([]);
-  const [subscribed, setSubscribed] = useState([]);
-  const [subscribers, setSubscribers] = useState([]);
-  const [user, setUser] = useState(null);
-  const [isSubscribed, setIsSubscribed] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState("Videos");
-  const [error, setError] = useState("");
+const [playlist, setPlaylist] = useState([]);
+const [tweets, setTweets] = useState([]);
+const [subscribed, setSubscribed] = useState([]);
+const [subscribers, setSubscribers] = useState([]);
+const [user, setUser] = useState(null);
+const [isSubscribed, setIsSubscribed] = useState(false);
+const [loading, setLoading] = useState(false);
+const [activeTab, setActiveTab] = useState("Videos");
+const [error, setError] = useState("");
 
-  const accessToken = useSelector((state) => state.auth.accessToken);
-  const userData = useSelector((state) => state.auth.userData);
-  const dispatch = useDispatch();
-  const { id: userId } = useParams();
+const accessToken = useSelector((state) => state.auth.accessToken);
+const userData = useSelector((state) => state.auth.userData);
+const subscription = useSelector((state) => state.subscription.subscribedChannels);
+const dispatch = useDispatch();
+const { id: userId } = useParams();
 
-  const handleTabClick = (tab) => setActiveTab(tab);
+const handleTabClick = (tab) => setActiveTab(tab);
 
-  const getUser = async () => {
-    setLoading(true);
-    try {
-      const response = await AuthService.getUserById(accessToken, userId);
-      setUser(response.data);
-    } catch (error) {
-      setError("Failed to get user details");
-      console.error("Failed to get user details", error);
-    } finally {
-      setLoading(false);
+const fetchData = async () => {
+  setLoading(true);
+  try {
+    const [
+      userResponse,
+      videoResponse,
+      playlistResponse,
+      tweetResponse,
+      subscribedResponse,
+      subscribersResponse,
+    ] = await Promise.all([
+      AuthService.getUserById(accessToken, userId),
+      VideoService.getAllVideos(accessToken),
+      PlaylistService.getUserPlaylists(accessToken, userId),
+      TweetService.getTweets(accessToken, userId),
+      SubService.getSubscribedChannel(accessToken, userId),
+      SubService.getSubscibers(accessToken, userId),
+    ]);
+
+    setUser(userResponse.data);
+    setVideos(videoResponse.data.docs);
+    setPlaylist(playlistResponse.data);
+    setTweets(tweetResponse.data);
+    setSubscribed(subscribedResponse.data.channel);
+    setSubscribers(subscribersResponse.data);
+  } catch (err) {
+    setError("Failed to fetch data. Please try again later.");
+    console.error("Error fetching data:", err);
+  } finally {
+    setLoading(false);
+  }
+};
+
+useEffect(() => {
+  fetchData();
+}, [userId, accessToken]);
+
+const filteredVideos = useMemo(() => {
+  return videos.filter((video) => video.owner === userId && video.isPublished);
+}, [videos, userId]);
+
+const toggleSubscription = async () => {
+  try {
+    const response = await SubService.toggleSubscription(accessToken, userId);
+    if (!response.data.channel) {
+      dispatch(removeSubscribedChannel(user?._id));
+    } else {
+      dispatch(addSubscribedChannel(user?._id));
     }
-  };
-
-  const fetchVideos = async () => {
-    setLoading(true);
-    try {
-      const response = await VideoService.getAllVideos(accessToken);
-      setVideos(response.data.docs);
-    } catch (error) {
-      console.error("Error fetching videos:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    const filteredVideos = videos.filter(
-      (video) => video.owner === userId && video.isPublished
-    );
-    setVideoList(filteredVideos);
-  }, [videos, userId]);
-
-  const fetchPlaylists = async () => {
-    setLoading(true);
-    try {
-      const response = await PlaylistService.getUserPlaylists(
-        accessToken,
-        userId
-      );
-      setPlaylist(response.data);
-    } catch (error) {
-      console.error("Error fetching playlists:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const getTweets = async () => {
-    setLoading(true);
-    try {
-      const response = await TweetService.getTweets(accessToken, userId);
-      setTweets(response.data);
-    } catch (error) {
-      console.error("Error fetching tweets:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchSubscriptions = async () => {
-    setLoading(true);
-    try {
-      const [subscribedResponse, subscribersResponse] = await Promise.all([
-        SubService.getSubscribedChannel(accessToken, userId),
-        SubService.getSubscibers(accessToken, userId),
-      ]);
-      setSubscribed(subscribedResponse.data.channel);
-      setSubscribers(subscribersResponse.data);
-    } catch (error) {
-      console.error("Error fetching subscription data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const toggleSubscription = async () => {
-    try {
-      const response = await SubService.toggleSubscription(accessToken, userId);
-      console.log(response.data.channel === undefined);
-      if (response.data.channel === undefined){
-        dispatch(removeSubscribedChannel(user?._id))
-      }else{
-         dispatch(addSubscribedChannel(user?._id));
-      }
-      
-    } catch (error) {
-      console.error("Error toggling subscription:", error);
-    }
-  };
-
-  const subscription = useSelector((state)=> state.subscription.subscribedChannels)
-
-  useEffect(() => {
-    getUser();
-    fetchVideos();
-    fetchPlaylists();
-    getTweets();
-    fetchSubscriptions();
-  }, [userId, accessToken]);
+  } catch (error) {
+    console.error("Error toggling subscription:", error);
+  }
+};
 
   return (
     <div className="profileMain">
@@ -198,8 +152,8 @@ function Profile() {
       <section className="TabData">
         {activeTab === "Videos" && (
           <div className="VideoTab">
-            {videoList.length ? (
-              videoList.map((video) => (
+            {filteredVideos.length ? (
+              filteredVideos.map((video) => (
                 <div key={video.id} className="videoTabItem">
                 <Link key={video.id} to={`/videopage/${video?._id}`}>
                   <VideoContainerForProfile video={video} />

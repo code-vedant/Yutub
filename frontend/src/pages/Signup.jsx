@@ -10,10 +10,15 @@ import upload from "../assets/upload.png";
 import AuthService from "../Service/auth.js";
 
 function Signup() {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [error, setError] = useState("");
   const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [profilePic, setProfilePic] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -32,6 +37,7 @@ function Signup() {
       setError("You must agree to the Terms & Conditions.");
       return;
     }
+    setIsLoading(true);
 
     const requestBody = {
       fullName: data.fullName,
@@ -48,7 +54,7 @@ function Signup() {
         localStorage.setItem("refreshToken", session.data.refreshToken);
         dispatch(
           AuthLogin({
-            userData:  session.data,
+            userData: session.data,
             accessToken: session.data.accessToken,
             refreshToken: session.data.refreshToken,
           })
@@ -57,8 +63,10 @@ function Signup() {
       }
     } catch (error) {
       console.log(error);
-      
+
       setError("failed to signup: Try again ");
+    } finally{
+      setIsLoading(false);
     }
   };
 
@@ -99,29 +107,57 @@ function Signup() {
               type="text"
               placeholder="Enter your name"
               className="SignupInput"
-              {...register("fullName", { required: true })}
+              {...register("fullName", { required: "Name is required" })}
             />
+            {errors.fullName && (
+              <p className="ErrorMessage">{errors.fullName.message}</p>
+            )}
+
             <label className="SignupLabel">Username:</label>
             <input
               type="text"
               placeholder="Enter your username"
               className="SignupInput"
-              {...register("username", { required: true })}
+              {...register("username", { required: "Username is required" })}
             />
+            {errors.username && (
+              <p className="ErrorMessage">{errors.username.message}</p>
+            )}
+
             <label className="SignupLabel">Email:</label>
             <input
               type="email"
               placeholder="Enter your email"
               className="SignupInput"
-              {...register("email", { required: true })}
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Invalid email address",
+                },
+              })}
             />
+            {errors.email && (
+              <p className="ErrorMessage">{errors.email.message}</p>
+            )}
+
             <label className="SignupLabel">Password:</label>
             <input
               type="password"
               placeholder="Enter your password"
               className="SignupInput"
-              {...register("password", { required: true })}
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 8,
+                  message: "Password must be at least 8 characters",
+                },
+              })}
             />
+            {errors.password && (
+              <p className="ErrorMessage">{errors.password.message}</p>
+            )}
+
             <span>
               <input
                 type="checkbox"
@@ -135,8 +171,11 @@ function Signup() {
                 <Link to="/privacypolicy">Privacy Policy</Link>
               </h4>
             </span>
-            <button type="submit">Signup</button>
+            <button type="submit" disabled={!agreeToTerms || isLoading}>
+              {isLoading ? "Signing up..." : "Signup"}
+            </button>
           </form>
+
           <h5>
             Already have an Account? <Link to="/Login">Log in</Link>
           </h5>

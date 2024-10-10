@@ -26,84 +26,59 @@ function Dashboard() {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const [loading, setLoading] = useState(false);
 
-  const getChannelStat = async () => {
+  const getDashboardData = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await DashboardService.getChannelStat(accessToken);
-      setUser(res.data);
+      const [userRes, videoRes] = await Promise.all([
+        DashboardService.getChannelStat(accessToken),
+        DashboardService.getChannelVideo(accessToken)
+      ]);
+      setUser(userRes.data);
+      setVideos(videoRes.data);
     } catch (error) {
-      console.log("Error fetching user:", error);
+      console.error("Error fetching dashboard data:", error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [accessToken]);
 
-  const getChannelVideo = async () => {
-    setLoading(true);
-    try {
-      const res = await DashboardService.getChannelVideo(accessToken);
-      setVideos(res.data);
-    } catch (error) {
-      console.log("Error fetching videos:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    getDashboardData();
+  }, [getDashboardData]);
 
   const togglePublish = async (videoId) => {
     setLoading(true);
     try {
       await VideoService.togglePublishStatus(accessToken, videoId);
+      setVideos((prevVideos) =>
+        prevVideos.map((video) =>
+          video._id === videoId ? { ...video, isPublished: !video.isPublished } : video
+        )
+      );
     } catch (error) {
-      console.error(error.message);
+      console.error("Error toggling publish status:", error);
     } finally {
       setLoading(false);
-      window.location.reload();
     }
   };
 
-  useEffect(() => {
-    getChannelStat();
-  }, [accessToken]);
+  const shortTitle = useCallback((title) => {
+    return title.length > 42 ? title.substring(0, 42) + " . . ." : title;
+  }, []);
 
-  useEffect(() => {
-    getChannelVideo();
-  }, [accessToken]);
+  const formatNum = useCallback((count) => {
+    if (count >= 1000000) return (count / 1000000).toFixed(1) + "M";
+    if (count >= 1000) return (count / 1000).toFixed(1) + "K";
+    return count;
+  }, []);
 
-  // Modal handlers
-  const handleModal = () => setViewModal(true);
-  const closeModal = () => setViewModal(false);
-
-  const handleDeleteModal = (videoId) => setViewDeleteModal(videoId);
-  const closeDeleteModal = () => setViewDeleteModal(null);
-
-  const handleEditModal = (videoId) => setViewEditModal(videoId);
-  const closeEditModal = () => setViewEditModal(null);
-
-  function shortTitle(title) {
-    if (title.length > 42) {
-      return title.substring(0, 42) + " . . .";
-    }
-    return title;
-  }
-
-  function formatNum(count) {
-    if (count >= 1000000) {
-      return (count / 1000000).toFixed(1) + "M";
-    } else if (count >= 1000) {
-      return (count / 1000).toFixed(1) + "K";
-    } else {
-      return count;
-    }
-  }
-
-  const getDate = (timestamp) => {
+  const getDate = useCallback((timestamp) => {
     const date = new Date(timestamp);
     const day = String(date.getDate()).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
     return `${day}-${month}-${year}`;
-  };
+  }, []);
 
   return (
     <>
@@ -161,13 +136,6 @@ function Dashboard() {
 
           {videos.map((Video) => (
             <div className="Video-data" key={Video?._id}>
-              {/* <h4
-                className={
-                  Video.isPublished ? "video-status-ok" : "video-status"
-                }
-              >
-                {Video.isPublished ? "Published" : "Not Published"}
-              </h4> */}
               <div
                   className="toggleBtn"
                   onClick={() => togglePublish(Video?._id)}

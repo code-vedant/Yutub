@@ -34,7 +34,7 @@ const HomePage = () => {
     }
   };
 
-  const fetchLikedViideos = async () => {
+  const fetchLikedVideos = async () => {
     try {
       const res = await LikeService.getLikedVideos(accessToken)
       if (res.data && Array.isArray(res.data) && res.data.length > 0) {
@@ -112,12 +112,16 @@ const HomePage = () => {
   
 
   useEffect(() => {
-    fetchVideos();
-    fetchLikedViideos();
-    fetchLikedTweets();
-    fetchLikedComments();
-    fetchSubscribers()
-  }, [accessToken]);
+    if (authStatus) {
+      Promise.all([
+        fetchVideos(),
+        fetchLikedVideos(),
+        fetchLikedTweets(),
+        fetchLikedComments(),
+        fetchSubscribers(),
+      ]).catch((error) => console.log("Error in fetching data:", error));
+    }
+  }, [authStatus, fetchVideos, fetchLikedVideos, fetchLikedTweets, fetchLikedComments, fetchSubscribers]);
 
 
   return (

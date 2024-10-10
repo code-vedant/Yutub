@@ -12,39 +12,36 @@ import Loader from "../components/Loader.jsx";
 
 function Login() {
   const { register, handleSubmit } = useForm();
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
+const [error, setError] = useState("");
+const navigate = useNavigate();
+const dispatch = useDispatch();
+const [loading, setLoading] = useState(false);
 
+const login = async (data) => {
+  setError("");
+  setLoading(true);
+  
+  try {
+    const res = await AuthService.login(data);
 
-  const login = async (data) => {
-    setError("");
-    setLoading(true);
-    try {
-      const res = await AuthService.login(data);
-      if (res) {
-        localStorage.setItem("accessToken", res.data.accessToken);
-        localStorage.setItem("refreshToken", res.data.refreshToken);
-        dispatch(
-          AuthLogin({
-            user: res.data.user,
-            accessToken: res.data.accessToken,
-            refreshToken: res.data.refreshToken,
-          })
-        );
-        
-        navigate("/");
-      }else{
-        setError(res.message);
-        setLoading(false);
-      }
-    } catch (error) {
-      console.error("Login error:", error);
-      setError( "An error occurred during login.");
-      setLoading(false);
+    if (res?.data?.accessToken) {
+      const { accessToken, refreshToken, user } = res.data;
+      localStorage.setItem("accessToken", accessToken);
+      localStorage.setItem("refreshToken", refreshToken);
+
+      dispatch(AuthLogin({ user, accessToken, refreshToken }));
+      navigate("/");
+    } else {
+      setError(res.message || "Login failed.");
     }
-  };
+  } catch (error) {
+    console.error("Login error:", error);
+    setError("An error occurred during login.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <>
