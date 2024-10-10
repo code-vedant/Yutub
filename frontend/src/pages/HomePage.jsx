@@ -15,116 +15,80 @@ import {
 } from "../store/LikesSlice.js";
 import SubService from "../Service/subscription.js";
 import { addSubscribedChannel } from "../store/subsStore.js";
+
 const HomePage = () => {
-  const [videos, setVideos] = useState("");
+  const [videos, setVideos] = useState([]);
   const accessToken = useSelector((state) => state.auth.accessToken);
   const authStatus = useSelector((state) => state.auth.status);
   const user = useSelector((state) => state.auth.userData);
   const [loading, setLoading] = useState(false);
+  const [dataFetched, setDataFetched] = useState(false);
 
   const dispatch = useDispatch();
 
-  const fetchVideos = async () => {
+  const fetchData = async () => {
     setLoading(true);
     try {
-      const res = await VideoService.getAllVideos(accessToken);
-      const { docs } = res.data;
-      setVideos(docs);
-    } catch (error) {
-      console.log("Error fetching videos:", error);
-    } finally {
-      setLoading(false);
-    }
-    return;
-  };
+      // Fetch videos
+      const videoRes = await VideoService.getAllVideos(accessToken);
+      setVideos(videoRes.data.docs);
 
-  const fetchLikedVideos = async () => {
-    try {
-      const res = await LikeService.getLikedVideos(accessToken);
-      if (res.data && Array.isArray(res.data) && res.data.length > 0) {
-        res.data.forEach((videoData) => {
+      // Fetch liked videos
+      const likedVideosRes = await LikeService.getLikedVideos(accessToken);
+      if (likedVideosRes.data && Array.isArray(likedVideosRes.data)) {
+        likedVideosRes.data.forEach((videoData) => {
           const videoId = videoData.video?._id;
           dispatch(addLikedVideo(videoId));
         });
       }
-    } catch (error) {
-      console.log("Failed to fetch");
-    }
-  };
 
-  const fetchLikedTweets = async () => {
-    try {
-      const res = await LikeService.getLikedTweet(accessToken);
-
-      if (res.data && Array.isArray(res.data)) {
-        res.data.forEach((tweetData) => {
+      // Fetch liked tweets
+      const likedTweetsRes = await LikeService.getLikedTweet(accessToken);
+      if (likedTweetsRes.data && Array.isArray(likedTweetsRes.data)) {
+        likedTweetsRes.data.forEach((tweetData) => {
           const tweetId = tweetData.tweet?._id;
           dispatch(addLikedTweet(tweetId));
         });
       }
-    } catch (error) {
-      console.log("Failed to fetch liked tweets:", error);
-    }
-  };
 
-  const fetchLikedComments = async () => {
-    try {
-      const res = await LikeService.getLikedComment(accessToken);
-
-      if (res.data && Array.isArray(res.data)) {
-        res.data.forEach((comment) => {
+      // Fetch liked comments
+      const likedCommentsRes = await LikeService.getLikedComment(accessToken);
+      if (likedCommentsRes.data && Array.isArray(likedCommentsRes.data)) {
+        likedCommentsRes.data.forEach((comment) => {
           const commentId = comment.tweet?._id;
           dispatch(addLikedComment(commentId));
         });
       }
-    } catch (error) {
-      console.log("Failed to fetch liked tweets:", error);
-    }
-  };
 
-  const fetchSubscribers = async () => {
-    try {
-      const res = await SubService.getSubscribedChannel(accessToken, user?._id);
-
-      if (res.data && Array.isArray(res.data)) {
-        res.data.forEach((subData) => {
+      // Fetch subscribed channels
+      const subscribersRes = await SubService.getSubscribedChannel(
+        accessToken,
+        user?._id
+      );
+      if (subscribersRes.data && Array.isArray(subscribersRes.data)) {
+        subscribersRes.data.forEach((subData) => {
           if (Array.isArray(subData.channel) && subData.channel.length > 0) {
             subData.channel.forEach((channel) => {
-              if (channel && channel?._id) {
-                const channelId = channel?._id;
-                dispatch(addSubscribedChannel(channelId));
-              } else {
-                console.log("Invalid channel data:", channel);
-              }
+              const channelId = channel?._id;
+              dispatch(addSubscribedChannel(channelId));
             });
-          } else {
-            console.log("Empty or invalid channel array:", subData);
           }
         });
       }
+
+      setDataFetched(true);
     } catch (error) {
-      console.log("Failed to add subscription", error);
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (authStatus) {
-      Promise.all([
-        fetchVideos(),
-        fetchLikedVideos(),
-        fetchLikedTweets(),
-        fetchLikedComments(),
-        fetchSubscribers(),
-      ]).catch((error) => console.log("Error in fetching data:", error));
+    if (authStatus && !dataFetched) {
+      fetchData();
     }
-  }, [
-    authStatus,
-    fetchVideos,
-    fetchLikedVideos,
-    fetchLikedTweets,
-    fetchLikedComments,
-    fetchSubscribers,
-  ]);
+  }, [authStatus, dataFetched]);
 
   return (
     <>
