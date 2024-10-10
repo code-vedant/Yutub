@@ -49,95 +49,53 @@ function SelfProfile() {
     []
   );
 
-  const fetchUserData = useCallback(async () => {
-    setLoading(true);
-    setError("");
+  const fetchAllData = useCallback(async () => {
     if (!accessToken) {
       setError("No access token available.");
-      setLoading(false);
       return;
     }
-    try {
-      const response = await AuthService.getUserData(accessToken);
-      setUser(response.data);
-    } catch (error) {
-      setError(error.message || "Failed to fetch user data.");
-    } finally {
-      setLoading(false);
-    }
-  }, [accessToken]);
 
-  const getChannelVideo = useCallback(async () => {
-    setLoading(true);
-    try {
-      const res = await DashboardService.getChannelVideo(accessToken);
-      setVideoFinal(res.data);
-    } catch (error) {
-      console.log("Error fetching videos:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, [accessToken]);
-
-  const getTweet = useCallback(async () => {
     setLoading(true);
     setError("");
+
     try {
-      const { _id: userId } = user;
-      const response = await TweetService.getTweets(accessToken, userId);
-      setTweets(response.data);
+      // Fetch user data
+      const userResponse = await AuthService.getUserData(accessToken);
+      setUser(userResponse.data);
+
+      // Fetch channel videos
+      const videoResponse = await DashboardService.getChannelVideo(accessToken);
+      setVideoFinal(videoResponse.data);
+
+      // Fetch tweets
+      const { _id: userId } = userResponse.data;
+      const tweetResponse = await TweetService.getTweets(accessToken, userId);
+      setTweets(tweetResponse.data);
+
+      // Fetch playlists
+      const playlistResponse = await PlaylistService.getUserPlaylists(accessToken, userId);
+      setPlaylist(playlistResponse.data);
+
+      // Fetch subscribers
+      const [subscribedResponse, subscribersResponse] = await Promise.all([
+        SubService.getSubscribedChannel(accessToken, userId),
+        SubService.getSubscibers(accessToken, userId),
+      ]);
+      
+      dispatch(addSubscribedChannel(subscribedResponse.data));
+      setSubscribers(subscribersResponse.data.channel);
     } catch (error) {
-      setError(error.message);
+      setError(error.message || "Failed to fetch data.");
     } finally {
       setLoading(false);
     }
-  }, [accessToken, user]);
+  }, [accessToken, dispatch]);
 
-  const fetchPlaylists = useCallback(async () => {
-    setLoading(true);
-    setError("");
-    try {
-      const response = await PlaylistService.getUserPlaylists(
-        accessToken,
-        user?._id
-      );
-      setPlaylist(response.data);
-    } catch (error) {
-      setError(error.message || "Failed to fetch playlists");
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    if (accessToken) {
+      fetchAllData();
     }
-  }, [accessToken, user]);
-
-  const fetchSubscribers = useCallback(async () => {
-    setLoading(true);
-    setError("");
-    try {
-        const [subscribedResponse, subscribersResponse] = await Promise.all([
-            SubService.getSubscribedChannel(accessToken, user?._id),
-            SubService.getSubscibers(accessToken, user?._id),
-        ]);
-        
-        dispatch(addSubscribedChannel(subscribedResponse.data));
-
-        setSubscribers(subscribersResponse.data.channel);
-    } catch (error) {
-        setError(error.message || "Failed to fetch subscribers");
-    } finally {
-        setLoading(false);
-    }
-}, [accessToken, user, dispatch]);
-
-
-useEffect(() => {
-  if (accessToken) {
-    fetchUserData();
-    if (activeTab === "Videos") getChannelVideo();
-    if (activeTab === "Playlist") fetchPlaylists();
-    if (activeTab === "Tweet") getTweet();
-    if (activeTab === "Subscribed") fetchSubscribers();
-  }
-}, [accessToken, activeTab, fetchUserData, getChannelVideo, getTweet, fetchPlaylists, fetchSubscribers]);
+  }, [accessToken, fetchAllData]);
 
 
   return (

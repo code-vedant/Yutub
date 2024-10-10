@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "../style/profile.css";
 import VideoContainerForProfile from "../components/VideoContainerForProfile.jsx";
 import { useSelector, useDispatch } from "react-redux";
