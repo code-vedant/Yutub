@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// Load session data (if available) from sessionStorage
-const accessToken = sessionStorage.getItem('accessToken');
-const refreshToken = sessionStorage.getItem('refreshToken');
-const storedUserData = sessionStorage.getItem('userData');
+const accessToken = localStorage.getItem('accessToken');
+const refreshToken = localStorage.getItem('refreshToken');
+const storedUserData = localStorage.getItem('userData');
 
 const initialState = {
   status: accessToken && refreshToken ? true : false,
@@ -12,38 +11,50 @@ const initialState = {
   refreshToken: refreshToken || null,
 };
 
+console.log('Initial auth state:', initialState);
+
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
     login: (state, action) => {
       const { user, accessToken, refreshToken } = action.payload;
-      
+
+      console.log('Login action payload:', action.payload);
+
       state.status = true;
       state.userData = user;
       state.accessToken = accessToken;
       state.refreshToken = refreshToken;
 
-      sessionStorage.setItem('userData', JSON.stringify(user));
-      sessionStorage.setItem('accessToken', accessToken);
-      sessionStorage.setItem('refreshToken', refreshToken);
+      localStorage.setItem('userData', JSON.stringify(user));
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
+
+      console.log('State after login:', state);
     },
     logout: (state) => {
-      // Clear Redux state
+      console.log('Logout action triggered');
+
       state.status = false;
       state.userData = null;
       state.accessToken = null;
       state.refreshToken = null;
 
-      sessionStorage.removeItem('userData');
-      sessionStorage.removeItem('accessToken');
-      sessionStorage.removeItem('refreshToken');
+      localStorage.removeItem('userData');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+
+      console.log('State after logout:', state);
     },
     setAccessToken: (state, action) => {
-      state.accessToken = action.payload;
+      console.log('SetAccessToken action payload:', action.payload);
 
-      sessionStorage.setItem('accessToken', action.payload);
-    }
+      state.accessToken = action.payload;
+      localStorage.setItem('accessToken', action.payload);
+
+      console.log('State after setAccessToken:', state);
+    },
   },
 });
 

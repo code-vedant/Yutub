@@ -8,15 +8,22 @@ import { logout as logoutAction } from '../store/userAuth.js';
 const Logout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const accessToken = useSelector((state) => state.auth.accessToken); // Get accessToken from Redux store
+  const accessToken = useSelector((state) => state.auth.accessToken);
+
+  //  const clearAllLocalStorage = () => {
+  //   console.log('Clearing all localStorage data (bypass)');
+  //   localStorage.clear();
+  // };
+
+  // clearAllLocalStorage()
+
 
   const handleLogout = async () => {
     try {
       if (!accessToken) {
         throw new Error("Access token is not available.");
       }
-      await AuthService.logout(accessToken); // Pass accessToken to AuthService
-      // Clear tokens from local storage
+      await AuthService.logout(accessToken);
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
       dispatch(logoutAction());

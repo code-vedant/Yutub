@@ -25,7 +25,7 @@ function VideoContainer({ video }) {
 
   const getOwner = async () => {
     try {
-      const data = await AuthService.getUserById(accessToken, video.owner);
+      const data = await AuthService.getUserById(accessToken, video?.owner);
       setOwnerData(data.data);
     } catch (error) {
       console.error("Failed to get owner", error.message);
