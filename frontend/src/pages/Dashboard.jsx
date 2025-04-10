@@ -18,6 +18,7 @@ import offBtn from "../assets/offBtn.png"
 import onBtn from "../assets/onBtn.png"
 
 function Dashboard() {
+  
   const [viewModal, setViewModal] = useState(false);
   const [viewDeleteModal, setViewDeleteModal] = useState(null);
   const [viewEditModal, setViewEditModal] = useState(null);
@@ -25,6 +26,31 @@ function Dashboard() {
   const [videos, setVideos] = useState([]);
   const accessToken = useSelector((state) => state.auth.accessToken);
   const [loading, setLoading] = useState(false);
+
+  const handleModal = () => {
+    setViewModal(true);
+  };
+  
+  const closeModal = () => {
+    setViewModal(false);
+  };
+  
+  const handleDeleteModal = (videoId) => {
+    setViewDeleteModal(videoId);
+  };
+  
+  const closeDeleteModal = () => {
+    setViewDeleteModal(null);
+  };
+  
+  const handleEditModal = (videoId) => {
+    setViewEditModal(videoId);
+  };
+  
+  const closeEditModal = () => {
+    setViewEditModal(null);
+  };
+  
 
   const getDashboardData = useCallback(async () => {
     setLoading(true);
@@ -90,7 +116,7 @@ function Dashboard() {
       <div className="Dashboard-main">
         <nav>
           <div className="Dm-left">
-            <h1>Welcome Back, {user?.fullName || "Full Name"}</h1>
+            <h1>Welcome Back, {user?.fullName || "_Name_Space"}</h1>
             <h5>Seamless Video Management, Elevated Results.</h5>
           </div>
           <div className="Dm-right">
