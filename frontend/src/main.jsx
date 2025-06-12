@@ -19,6 +19,7 @@ import VideoUploadModal from "./components/VideoUploadModal.jsx";
 import PlaylistPage from "./pages/PlaylistPage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import About from "./pages/About.jsx";
+import LandingPage from "./pages/LandingPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
       }
 
     ],
+  },
+  {
+    path: "/landingPage",
+    element: <LandingPage/>
   },
   {
     path: "/login",

@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader.jsx";
 import PopupHolder from "../components/PopupHolder.jsx";
 import LikeService from "../Service/like.js";
+import LandingPage from "./LandingPage.jsx"
 import {
   addLikedComment,
   addLikedTweet,
@@ -19,7 +20,7 @@ import { addSubscribedChannel } from "../store/subsStore.js";
 const HomePage = () => {
   const [videos, setVideos] = useState([]);
   const accessToken = useSelector((state) => state.auth.accessToken);
-  const authStatus = useSelector((state) => state.auth.status);
+  const authStatus = true
   const user = useSelector((state) => state.auth.userData);
   const [loading, setLoading] = useState(false);
   const [dataFetched, setDataFetched] = useState(false);
@@ -92,11 +93,11 @@ const HomePage = () => {
 
   return (
     <>
-      {loading && (
+      {/* {loading && (
         <PopupHolder>
           <Loader />
         </PopupHolder>
-      )}
+      )} */}
       {authStatus && (
         <div className="youtube-homepage">
           {Array.isArray(videos) &&
@@ -108,26 +109,7 @@ const HomePage = () => {
         </div>
       )}
       {!authStatus && (
-        <section className="home-section">
-          <div className="home-section-left">
-            <h1>Welcome to Yutub</h1>
-            <p>Discover, share, and stream your favorite videos.</p>
-            <p>Join us today to start your journey!</p>
-            <div className="home-actions">
-              <Link to={"/signup"}>
-                <button className="signup-btn">Join Us</button>
-              </Link>
-              <Link to={"/login"}>
-                <button className="login-btn">Login</button>
-              </Link>
-            </div>
-          </div>
-          <div className="home-section-right">
-            <div className="home-imgCont">
-              <img src={logoNoText} alt="" />
-            </div>
-          </div>
-        </section>
+       <LandingPage />
       )}
     </>
   );

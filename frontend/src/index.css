@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 @font-face {
   font-family: Enwallowify-Medium;
   src: url(./assets/fonts/Enwallowify-Regular.woff) format('woff'),
@@ -6,7 +8,7 @@
 
 * {
   margin: 0;
-  padding: 0;
+  padding: 0 0;
   box-sizing: border-box;
   font-family: "Enwallowify-Regular",sans-serif;
 }
@@ -15,7 +17,8 @@ html,
 body {
   height: 100%;
   width: 100%;
-  background-color: #f0efee;
+  background-color: #ecec;
+  overflow-x: hidden;
 }
 
 a {

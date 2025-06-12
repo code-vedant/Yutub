@@ -16,7 +16,7 @@ function App() {
   return (
     <>
       <div className='app-main'>
-          <Header className="header"/>
+          {/* <Header className="header"/> */}
           <main className='appMain'>
             <Outlet />
           </main>
