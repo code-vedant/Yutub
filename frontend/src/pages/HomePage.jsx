@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import VideoContainer from "../components/VideoContainer.jsx";
 import VideoService from "../Service/video.js";
-import logoNoText from "../assets/logoNoText.png";
-import { Link } from "react-router-dom";
 import "../style/homepage.css";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader.jsx";
@@ -16,12 +13,16 @@ import {
 } from "../store/LikesSlice.js";
 import SubService from "../Service/subscription.js";
 import { addSubscribedChannel } from "../store/subsStore.js";
+import VideoPage from "../components/HomePage/VideoPage.jsx";
+import Header from "../components/HomePage/Header.jsx";
 
 const HomePage = () => {
   const [videos, setVideos] = useState([]);
   const accessToken = useSelector((state) => state.auth.accessToken);
-  const authStatus = true
+  const authStatus = useSelector((state => state.auth.status))
+  
   const user = useSelector((state) => state.auth.userData);
+  console.log(authStatus,accessToken,user);
   const [loading, setLoading] = useState(false);
   const [dataFetched, setDataFetched] = useState(false);
 
@@ -85,28 +86,26 @@ const HomePage = () => {
     }
   };
 
-  useEffect(() => {
-    if (authStatus && !dataFetched) {
-      fetchData();
-    }
-  }, [authStatus, dataFetched]);
+  // useEffect(() => {
+  //   if (authStatus && !dataFetched) {
+  //     fetchData();
+  //   }
+  // }, []);
 
   return (
     <>
-      {/* {loading && (
+      {loading && (
         <PopupHolder>
           <Loader />
         </PopupHolder>
-      )} */}
+      )}
       {authStatus && (
-        <div className="youtube-homepage">
-          {Array.isArray(videos) &&
-            videos.map((video, index) => (
-              <div key={video?._id} className="vidcont">
-                <VideoContainer video={video} />
-              </div>
-            ))}
-        </div>
+          <section className="yutub-home">
+            <header>
+              <Header />
+            </header>
+              <VideoPage />
+          </section>
       )}
       {!authStatus && (
        <LandingPage />

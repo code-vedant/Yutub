@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Auth from "../pages/Auth";
 
 function AuthLayout({ children, authentication = true }) {
   const navigate = useNavigate();
@@ -9,14 +10,14 @@ function AuthLayout({ children, authentication = true }) {
 
   useEffect(() => {
     if (authentication && authStatus !== authentication) {
-      navigate("/login");
+      navigate("/auth/login");
     } else if (!authentication && authStatus !== authentication) {
       navigate("/");
     }
     setLoader(false);
   }, [authStatus, navigate, authentication]);
 
-  return loader ? <div>Loading...</div> : <>{children}</>;
+  return loader ? <Auth/> : <>{children}</>;
 }
 
 export default AuthLayout;

@@ -1,22 +1,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import AuthService from '../Service/auth.js';
 import { logout as logoutAction } from '../store/userAuth.js';
-// import "../style/header.css"
+import "../style/components.css"
 
 const Logout = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const accessToken = useSelector((state) => state.auth.accessToken);
-
-  //  const clearAllLocalStorage = () => {
-  //   console.log('Clearing all localStorage data (bypass)');
-  //   localStorage.clear();
-  // };
-
-  // clearAllLocalStorage()
-
 
   const handleLogout = async () => {
     try {
@@ -24,10 +14,7 @@ const Logout = () => {
         throw new Error("Access token is not available.");
       }
       await AuthService.logout(accessToken);
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
       dispatch(logoutAction());
-      navigate('/');
     } catch (error) {
       console.error('Logout error:', error);
     }

@@ -17,10 +17,19 @@ html,
 body {
   height: 100%;
   width: 100%;
-  background-color: #ecec;
+  max-width: 2100px;
+  background-color: #fffefe;
   overflow-x: hidden;
 }
 
 a {
   text-decoration: none;
+}
+
+
+:root {
+  --primary-color: #3498db;
+  --secondary-text-color: #fffefe;
+  --text-color: #333333;
+  --background-color:rgb(43, 19, 10);
 }

@@ -14,8 +14,8 @@ function Header() {
             </ul>
         </section>
         <section className='header-auth'>
-            <Link to={"/login"}  className='header-auth-login'>Login</Link>
-            <Link to={"/signup"} className='header-auth-signup'>Join us</Link>
+            <Link to={"/auth/login"}  className='header-auth-login'>Login</Link>
+            <Link to={"/auth/signup"} className='header-auth-signup'>Join us</Link>
         </section>
     </nav>
   )

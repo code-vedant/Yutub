@@ -4,22 +4,23 @@ import App from "./App.jsx";
 import "./index.css";
 import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import store from "./store/store.js";
+import { store,  persistor } from "./store/store.js";
 import HomePage from "./pages/HomePage.jsx";
 import Page404 from "./pages/Page404.jsx";
 import VideoPlayerPage from "./pages/VideoPlayerPage.jsx";
 import Profile from "./pages/Profile.jsx";
-import Login from "./pages/Login.jsx";
-import Signup from "./pages/Signup.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import TermsandCondition from "./pages/Terms-and-Condition.jsx";
 import Polices from "./pages/Polices.jsx";
 import SelfProfile from "./pages/SelfProfile.jsx";
-import VideoUploadModal from "./components/VideoUploadModal.jsx";
 import PlaylistPage from "./pages/PlaylistPage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import About from "./pages/About.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
+import Auth from "./pages/Auth.jsx";
+import LoginComponent from "./components/auth/LoginComponent.jsx";
+import SignupComponent from "./components/auth/SignupComponent.jsx";
+import { PersistGate } from "redux-persist/integration/react";
 
 const router = createBrowserRouter([
   {
@@ -69,13 +70,19 @@ const router = createBrowserRouter([
     element: <LandingPage/>
   },
   {
-    path: "/login",
-    element: <Login />,
+    path: "/auth",
+    element: <Auth />,
+    children: [
+      {
+        path:"login",
+        element: <LoginComponent />
+      },
+      {
+        path:"signup",
+        element: <SignupComponent />
+      }
+    ]
   },
-  {
-    path: "/signup",
-    element: <Signup />
-  }, 
   {
     path: "/dashboard",
     element: <ProtectedRoute>
@@ -99,7 +106,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
       <RouterProvider router={router} />
+      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

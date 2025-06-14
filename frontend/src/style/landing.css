@@ -1,7 +1,7 @@
 .landing-main{
     width: 100vw;
     min-height: 100vh;
-    background:#fffefe ;
+    background:var(--secondary-text-color) ;
     overflow: hidden;
     scrollbar-width: none;
     padding: 0 4vw;
@@ -150,7 +150,7 @@
     .landing-main{
         width: 100vw;
         min-height: 100vh;
-        background:#fffefe ;
+        background:var(--secondary-text-color) ;
         overflow-x: hidden;
         scrollbar-width: none;
     }

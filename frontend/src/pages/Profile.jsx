@@ -74,7 +74,7 @@ const fetchData = async () => {
 
 useEffect(() => {
   fetchData();
-}, [userId, accessToken]);
+}, []);
 
 const filteredVideos = useMemo(() => {
   return videos.filter((video) => video.owner === userId && video.isPublished);

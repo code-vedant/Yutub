@@ -1,15 +1,12 @@
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL + '/videos';
+const API_URL = (import.meta.env.VITE_NODE_ENV !== "development" ? import.meta.env.VITE_API_URL  : "http://localhost:8000/api/v1") + '/videos'
+
 
 const VideoService = {
   getAllVideos: async (accessToken) => {
     try {
-      const response = await axios.get(`${API_URL}/`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const response = await axios.get(`${API_URL}/`);
       return response.data;
     } catch (error) {
       console.error("Error fetching videos:", error);
