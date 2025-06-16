@@ -28,7 +28,6 @@
 .hero-title{
     text-align: center;
     font-weight: 900;
-    border-bottom: 1vw solid black;
     margin-top: 5vh;
     /* line-height: 45vh; */
     font-family: cursive;
@@ -41,15 +40,17 @@
     height: 100%;
     display: grid;
     grid-template-columns: 50% 50%;
-    margin-top: 5vh;
+    margin-top: -5vh;
+    padding: 2vh 0 0 0;
+    border-top: 3vh solid black;
     font-size: large;
     font-weight: 700;
 }
 
 .hero-para-left {
-    width: 100%;
+    width: 29%;
     text-align: left;
-    font-size: 2.5rem;
+    font-size: 2.2rem;
 }
 
 .hero-para-right {

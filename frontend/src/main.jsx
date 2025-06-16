@@ -31,37 +31,40 @@ const router = createBrowserRouter([
       {
         path: "/", 
         element: <HomePage />,
+        children: [
+          {
+            path: "/video/:id", 
+            element:
+            <ProtectedRoute>
+              <VideoPlayerPage />
+            </ProtectedRoute>
+            
+          },
+          {
+            path: "/profile/:id",
+            element:<ProtectedRoute>
+            <SelfProfile />
+          </ProtectedRoute>,
+          },
+          {
+            path: "/profile",
+            element:<ProtectedRoute>
+            <SelfProfile />
+          </ProtectedRoute>,
+          },
+          {
+            path: "/playlist/:id",
+            element:<ProtectedRoute>
+            <PlaylistPage />
+          </ProtectedRoute>
+          },
+          {
+            path: "/about",
+            element: <About/>
+          }
+        ]
       },
-      {
-        path: "/videopage/:id", 
-        element:
-        <ProtectedRoute>
-          <VideoPlayerPage />
-        </ProtectedRoute>
-        
-      },
-      {
-        path: "/profile/:id",
-        element:<ProtectedRoute>
-        <Profile />
-      </ProtectedRoute>,
-      },
-      {
-        path: "/profile",
-        element:<ProtectedRoute>
-        <SelfProfile />
-      </ProtectedRoute>,
-      },
-      {
-        path: "/playlist/:id",
-        element:<ProtectedRoute>
-        <PlaylistPage />
-      </ProtectedRoute>
-      },
-      {
-        path: "/about",
-        element: <About/>
-      }
+      
 
     ],
   },

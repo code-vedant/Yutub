@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import "../style/editDetails.css";
 import { useSelector } from 'react-redux';
-import AuthService from '../Service/auth';
+import AuthService from '../../Service/auth';
 
 function EditPassword({closeModal}) {
   const accessToken = useSelector((state)=> state.auth.accessToken)
@@ -35,12 +34,12 @@ function EditPassword({closeModal}) {
       <form onSubmit={handleSubmit(ChangePassword)}>
         {error && <p className='errorMessage'>{error}</p> }
         <label htmlFor="">Current Password:</label>
-        <input type='password' {...register('oldPassword')} />
+        <input type='password' {...register('oldPassword')} placeholder='Enter Current Password' />
         <label htmlFor="">New Password:</label>
-        <input type='password' {...register('newPassword')} />
+        <input type='password' {...register('newPassword')} placeholder='Enter New Password' />
         <p>Your new password must be more than 8 characters.</p>
         <label htmlFor="">Confirm New Password:</label>
-        <input type='password' {...register('confirmPassword')} />
+        <input type='password' {...register('confirmPassword')} placeholder='Enter New Password Again' />
         <div className="EP-Btn">
           <button type="submit">Update Password</button>
           <button type="cancel" onClick={closeModal} className='CancelBtn'>Cancel</button>

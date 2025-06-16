@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from "react";
 import "../style/videobox.css";
 import VideoService from "../Service/video";
+import useFetch from "../hooks/useFetch";
 
 function VideoBox({ videoId,accessToken }) {
   const [video,setVideo] = useState("")
 
-  useEffect(()=> {
-    const getVideoData = async () => {
-      try {
-        const response = await VideoService.getVideoById(accessToken, videoId)
-        setVideo(response.data)
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    getVideoData()
-  },[videoId])
+  const {
+    loading,
+    error,
+    data
+  } = useFetch(()=>VideoService.getVideo(videoId,accessToken),[])
 
 
   const shorter = (item) => {

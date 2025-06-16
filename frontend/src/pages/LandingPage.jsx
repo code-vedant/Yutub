@@ -25,19 +25,7 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="landing-hero">
         <div className="hero-title">
-          <TextPressure
-            text="YUTUB"
-            flex={true}
-            alpha={false}
-            stroke={false}
-            width={true}
-            weight={true}
-            italic={false}
-            textColor="#000000"
-            strokeColor="#ff0000"
-            minFontSize={300}
-            fontFamily="montserat"
-          />
+          <Heading type="h1" children={"YUTUB"} className={"landing-main-head"} />
         </div>
         <div className="hero-sub">
           <div className="hero-para-left">

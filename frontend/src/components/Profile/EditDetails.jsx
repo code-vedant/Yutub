@@ -1,7 +1,8 @@
 import React, { useRef, useState } from 'react'
 import EditPassword from './EditPassword'
 import EditPersonalInfo from './EditPersonalInfo'
-import "../style/editDetails.css"
+import "../../style/editDetails.css"
+import { IoClose } from "react-icons/io5";
 
 function EditDetails({closeModal}) {
 
@@ -15,9 +16,13 @@ function EditDetails({closeModal}) {
   return (
     <div className='ED-Main'>
         <div className="ED-Head">
+            <h2>YUTUB</h2>
             <h3>
-                EDIT
+                Edit Details
             </h3>
+            <div onClick={closeModal} className='modal-close-button'>
+            <IoClose className='mcb-x' />
+            </div>
         </div>
         <div className="ED-Body">
             <div className="ED-leftNav">

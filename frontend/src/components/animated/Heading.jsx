@@ -2,7 +2,7 @@ import { motion, stagger, useAnimate } from "motion/react";
 import { useEffect } from "react";
 import "../../style/animated.css";
 
-const Heading = ({ children, type = "h2" }) => {
+const Heading = ({ children, type = "h2",className }) => {
   const [scope, animate] = useAnimate();
 
   useEffect(() => {
@@ -12,7 +12,7 @@ const Heading = ({ children, type = "h2" }) => {
       {
         duration: 0.4,
         ease: "easeInOut",
-        delay: stagger(0.02),
+        delay: stagger(0.12),
       }
     );
   }, [animate]);
@@ -20,8 +20,8 @@ const Heading = ({ children, type = "h2" }) => {
   const HeadingTag = type; 
 
   return (
-    <HeadingTag ref={scope} className="animated-para">
-      {children.split(" ").map((word, index) => (
+    <HeadingTag ref={scope} className={`animated-para ${className}`}>
+      {children.split("").map((word, index) => (
         <motion.span
           key={index}
           style={{
@@ -29,7 +29,7 @@ const Heading = ({ children, type = "h2" }) => {
             filter: "blur(4px)",
             transform: "translateY(10px)",
             display: "inline-block",
-            marginRight: "6px",
+            marginRight: "2px",
           }}
         >
           {word}

@@ -13,7 +13,7 @@ const Logout = () => {
       if (!accessToken) {
         throw new Error("Access token is not available.");
       }
-      await AuthService.logout(accessToken);
+      await AuthService.logout(accessToken.accessToken);
       dispatch(logoutAction());
     } catch (error) {
       console.error('Logout error:', error);

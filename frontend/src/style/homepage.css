@@ -1,9 +1,10 @@
 .yutub-home{
   width: 100vw;
   min-height: 100vh;
-  padding: 0 2vw;
+  padding: 6vh 2vw;
   position: relative;
   scrollbar-width: none;
+  overflow-x: hidden;
 }
 
 .yutub-home header{
@@ -103,16 +104,6 @@
 
 .home-search-button-mobile{
   display: none;
-}
-
-.videopage-main{
-  width: 100%;
-  min-height: 100vh;
-  /* background-color: aqua; */
-  padding-top: 10vh;
-  display: grid;
-  grid-template-columns: repeat(4,25%);
-  gap: 2vh;
 }
 
 @media screen and (max-width : 600px) {

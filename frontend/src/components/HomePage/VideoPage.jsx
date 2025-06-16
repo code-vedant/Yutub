@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import VideoService from '../../Service/video'
 import VideoContainer from '../VideoContainer'
+import '../../style/videopage.css'
 
 export default function VideoPage() {
 

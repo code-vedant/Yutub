@@ -7,6 +7,8 @@ import dots from "../assets/dots.png";
 import { Link } from "react-router-dom";
 import AddToPlaylist from "./PlaylistComponents/AddToPlaylist";
 import PopupHolder from "./PopupHolder";
+import { BsThreeDotsVertical } from "react-icons/bs";
+
 function VideoContainer({ video }) {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const user = useSelector((state) => state.auth.userData);
@@ -28,13 +30,13 @@ function VideoContainer({ video }) {
       const data = await AuthService.getUserById(accessToken, video?.owner);
       setOwnerData(data.data);
     } catch (error) {
-      console.error("Failed to get owner", error.message);
+      console.error("Failed to get owner", error.response.data.message);
     }
   };
 
   useEffect(() => {
     getOwner();
-  }, [owner]);
+  }, []);
 
   const timeAgo = (timestamp) => {
     const now = new Date();
@@ -140,7 +142,7 @@ function VideoContainer({ video }) {
           </div>
           <div className="video-options">
             <div className="vo-icon">
-              <img src={dots} alt="" />
+            <BsThreeDotsVertical className="vo-three-dot" />
             </div>
             <div className="vo-options">
               <button onClick={handlePlaylistOptions}>Add to playlist</button>

@@ -1,10 +1,10 @@
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import "../style/editDetails.css";
-import upload from "../assets/upload.png";
-import AuthService from "../Service/auth.js";
+import upload from "../../assets/upload.png";
+import AuthService from "../../Service/auth.js";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Input from "../auth/Input.jsx";
 function EditPersonalInfo({ closeModal }) {
   const { register, handleSubmit, reset } = useForm();
   const [error, setError] = useState("");
@@ -14,7 +14,7 @@ function EditPersonalInfo({ closeModal }) {
   const [coverPic, setCoverPic] = useState("");
   const navigate = useNavigate();
 
-  const accessToken = useSelector((state) => state.auth.accessToken);
+  const {accessToken} = useSelector((state) => state.auth.accessToken);
 
   const handleAvatarChange = (event) => {
     setAvatarPic(event.target.files[0]);
@@ -69,7 +69,7 @@ function EditPersonalInfo({ closeModal }) {
             await AuthService.updateAvatar(accessToken, formData);
           }
           if (coverPic) {
-            await AuthService.updateCoverImage(accessToken, coverformData);
+           await AuthService.updateCoverImage(accessToken, coverformData);
           }
         }
         closeModal();
@@ -80,7 +80,7 @@ function EditPersonalInfo({ closeModal }) {
       closeModal();
     } catch (error) {
       setError("Failed to update profile");
-      console.error(error);
+      console.error(error.response.data.message);
     }
   };
 
@@ -135,10 +135,10 @@ function EditPersonalInfo({ closeModal }) {
           className="ED-files"
           accept="image/*"
         />
-        <label>Full Name:</label>
-        <input type="text" {...register("fullName")} />
-        <label>Email:</label>
-        <input type="email" {...register("email")} />
+        <label>Full Name: <span>(Add only if want to change)</span></label>
+        <input type="text" {...register("fullName")} placeholder="New Full Name" />
+        <label>Email: <span>(Add only if want to change)</span></label>
+        <input type="email" {...register("email")} placeholder="New Email Address" />
         <div className="ED-Btn">
           <button type="submit">Save Changes</button>
           <button type="cancel" onClick={closeModal} className="CancelBtn">

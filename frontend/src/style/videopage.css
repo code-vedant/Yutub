@@ -1,0 +1,28 @@
+.videopage-main {
+  width: 100%;
+  min-height: 100vh;
+  /* background-color: aqua; */
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 2vh 0.5%;
+  margin-top: 10vh;
+}
+
+@media screen and (max-width: 1200px) {
+  .videopage-main {
+    grid-template-columns: repeat(3,1fr);
+  }
+    
+}
+
+@media screen and (max-width: 900px) {
+  .videopage-main {
+    grid-template-columns: repeat(2,1fr);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .videopage-main {
+    grid-template-columns: repeat(1,1fr);
+  }
+}

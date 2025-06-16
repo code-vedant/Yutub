@@ -3,9 +3,6 @@ import "../../style/playlist.style.css";
 import { Link } from "react-router-dom";
 
 function PlaylistComponent({ playlist }) {
-  console.log(playlist);
-  
-  console.log(playlist.videos.length);
 
   const shorter = (item) => {
     if (item.length > 70) {

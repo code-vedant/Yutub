@@ -1,19 +1,18 @@
 .profileMain{
-    width: 100vw;
-    min-height: 100vh;
+    width: 100%;
+    min-height: 100%;
     position: relative;
     /* background: #000; */
-    background: #fffefe;
-    padding: 6.5vh 10vh;
+    padding: 1vh 0vw;
     display: flex;
     align-items: center;
     flex-direction: column;
 }
 
 .coverImageContainer{
-    /* background: #ff0000; */
+    background-color: #000;
     width: 100%;
-    height: 30vh;
+    aspect-ratio: 2560/432;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -208,8 +207,15 @@
     }
     
     .coverImageContainer{
-        height: 13vh;
+        /* height: 13vh; */
+        width: 100%;
+        aspect-ratio: 1546/423;
         border-radius: 5px;
+    }
+
+    .coverImageContainer img{
+        height: 100%;
+        /* object-fit: contain; */
     }
     
     .profileDataContainer{

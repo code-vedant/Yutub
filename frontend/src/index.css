@@ -26,6 +26,14 @@ a {
   text-decoration: none;
 }
 
+button{
+  transition: scale 0.1s ease;
+}
+
+button:active{
+  scale: 0.9;
+}
+
 
 :root {
   --primary-color: #3498db;

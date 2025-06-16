@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import useDimension from "../../hooks/useDimension";
 import { useState } from "react";
+import alien from "../../assets/alien.jpeg"
 
 function Header() {
   const user = useSelector((state) => state.auth.userData);
@@ -11,15 +12,14 @@ function Header() {
 
   const handleSearchOpen = () => {
     setOpenSearch(!openSearch)
-    console.log(openSearch);
   }
 
   return (
     <>
       <nav className="home-header">
-        <section className="home-header-title">
+        <Link to={"/"} className="home-header-title">
           Yutub<span>2.0 - under-development</span>
-        </section>
+        </Link>
         <section className="home-search-button-mobile">
           <FaSearch onClick={handleSearchOpen} className="search-icon" />
           {openSearch && <section className="home-header-search-mobile">
@@ -35,7 +35,7 @@ function Header() {
         )}
         <section className="home-header-profile">
           <Link to={"/profile"} className="home-header-user">
-            <img src={user.avatar} />
+            <img src={user?.avatar  || alien } />
           </Link>
         </section>
       </nav>

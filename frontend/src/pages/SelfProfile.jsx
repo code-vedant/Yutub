@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import "../style/profile.css";
 import VideoContainerForProfile from "../components/VideoContainerForProfile.jsx";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import AuthService from "../Service/auth.js";
 import VideoService from "../Service/video.js";
 import PopupHolder from "../components/PopupHolder.jsx";
@@ -18,82 +18,78 @@ import NoVideo from "../components/NoVideo.jsx";
 import SubService from "../Service/subscription.js";
 import Subscribers from "../components/SubscriptionComponents/Subscribers.jsx";
 import { addSubscribedChannel, removeSubscribedChannel } from "../store/subsStore.js";
-import cover from "../assets/cover.png"
-import alien from "../assets/alien.jpeg"
+import cover from "../assets/cover.png";
+import alien from "../assets/alien.jpeg";
+import LogoutBtn from "../components/LogoutBtn.jsx";
+import EditDetails from "../components/Profile/EditDetails.jsx";
 
 function Profile() {
   const [videos, setVideos] = useState([]);
-const [playlist, setPlaylist] = useState([]);
-const [tweets, setTweets] = useState([]);
-const [subscribed, setSubscribed] = useState([]);
-const [subscribers, setSubscribers] = useState([]);
-const [user, setUser] = useState(null);
-const [isSubscribed, setIsSubscribed] = useState(false);
-const [loading, setLoading] = useState(false);
-const [activeTab, setActiveTab] = useState("Videos");
-const [error, setError] = useState("");
+  const [playlist, setPlaylist] = useState([]);
+  const [tweets, setTweets] = useState([]);
+  const [subscribed, setSubscribed] = useState([]);
+  const [subscribers, setSubscribers] = useState([]);
+  const [user, setUser] = useState(null);
+  const [isSelf, setIsSelf] = useState(false);
+  const [isSubscribed, setIsSubscribed] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState("Videos");
+  const [error, setError] = useState("");
+  const [openEdit,setOpenEdit] = useState(false)
 
-const accessToken = useSelector((state) => state.auth.accessToken);
-const userData = useSelector((state) => state.auth.userData);
-const subscription = useSelector((state) => state.subscription.subscribedChannels);
-const dispatch = useDispatch();
-const { id: userId } = useParams();
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  const userData = useSelector((state) => state.auth.userData);
+  const subscription = useSelector((state) => state.subscription.subscribedChannels);
+  const dispatch = useDispatch();
+  const { id: userId } = useParams();
+  const location = useLocation();
 
-const handleTabClick = (tab) => setActiveTab(tab);
+  const path =
+    location.pathname.endsWith("/") && location.pathname !== "/"
+      ? location.pathname.slice(0, -1)
+      : location.pathname;
 
-const fetchData = async () => {
-  setLoading(true);
-  try {
-    const [
-      userResponse,
-      videoResponse,
-      playlistResponse,
-      tweetResponse,
-      subscribedResponse,
-      subscribersResponse,
-    ] = await Promise.all([
-      AuthService.getUserById(accessToken, userId),
-      VideoService.getAllVideos(accessToken),
-      PlaylistService.getUserPlaylists(accessToken, userId),
-      TweetService.getTweets(accessToken, userId),
-      SubService.getSubscribedChannel(accessToken, userId),
-      SubService.getSubscibers(accessToken, userId),
-    ]);
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (path === "/profile") {
+        setIsSelf(true);
+        setUser(userData);
+      } else {
+        try {
+          const res = await AuthService.getUserById(userId, accessToken);
+          setUser(res.data);
+          setIsSelf(false);
+        } catch (err) {
+          console.error("Error fetching user:", err);
+        }
+      }
+    };
 
-    setUser(userResponse.data);
-    setVideos(videoResponse.data.docs);
-    setPlaylist(playlistResponse.data);
-    setTweets(tweetResponse.data);
-    setSubscribed(subscribedResponse.data.channel);
-    setSubscribers(subscribersResponse.data);
-  } catch (err) {
-    setError("Failed to fetch data. Please try again later.");
-    console.error("Error fetching data:", err);
-  } finally {
-    setLoading(false);
+    fetchUser();
+  }, []);
+
+  const closeModal = () => {
+    setOpenEdit(false)
   }
-};
 
-useEffect(() => {
-  fetchData();
-}, [userId, accessToken]);
+  const handleTabClick = (tab) => setActiveTab(tab);
 
-const filteredVideos = useMemo(() => {
-  return videos.filter((video) => video.owner === userId && video.isPublished);
-}, [videos, userId]);
+  const filteredVideos = useMemo(() => {
+    return videos.filter((video) => video.owner === userId && video.isPublished);
+  }, [videos, userId]);
 
-const toggleSubscription = async () => {
-  try {
-    const response = await SubService.toggleSubscription(accessToken, userId);
-    if (!response.data.channel) {
-      dispatch(removeSubscribedChannel(user?._id));
-    } else {
-      dispatch(addSubscribedChannel(user?._id));
+  const toggleSubscription = async () => {
+    try {
+      const response = await SubService.toggleSubscription(accessToken, userId);
+      if (!response.data.channel) {
+        dispatch(removeSubscribedChannel(user?._id));
+      } else {
+        dispatch(addSubscribedChannel(user?._id));
+      }
+    } catch (error) {
+      console.error("Error toggling subscription:", error);
     }
-  } catch (error) {
-    console.error("Error toggling subscription:", error);
-  }
-};
+  };
 
   return (
     <div className="profileMain">
@@ -102,40 +98,35 @@ const toggleSubscription = async () => {
           <Loader />
         </PopupHolder>
       )}
+
+      {openEdit && <PopupHolder>
+        <EditDetails closeModal={closeModal}/>
+      </PopupHolder>}
+
       <section className="coverImageContainer">
-        <img
-          src={
-            user?.coverImage ||
-            cover
-          }
-          alt="cover"
-        />
+        <img src={user?.coverImage || cover} alt="cover" />
       </section>
 
       <section className="profileDataContainer">
         <div className="profileImage">
-          <img
-            src={
-              user?.avatar ||
-              alien
-            }
-            alt="profile"
-          />
+          <img src={user?.avatar || alien} alt="profile" />
         </div>
         <div className="profileDetail">
-          <h2>{user?.fullName || "John Doe"}</h2>
-          <h5>@ {user?.username || "username"}</h5>
+          <h2>{user?.fullName || ""}</h2>
+          <h5>@ {user?.username || ""}</h5>
+          <h4>{subscribed?.length || "0"} Follows</h4>
           <h4>{subscribers?.length || "0"} Subscribers</h4>
-          <h4>{subscribed?.length || "0"} Subscribed</h4>
           <div className="profileubscribeButton">
-          <button
-            onClick={toggleSubscription}
-            className={subscription.includes(user?._id) ? "subscribed" : ""}
-          >
-            {subscription.includes(user?._id) ? "Unsubscribe" : "Subscribe"}
-          </button>
+            {isSelf && <LogoutBtn />}
+            {!isSelf && <button
+              onClick={toggleSubscription}
+              className={subscription.includes(user?._id) ? "subscribed" : ""}
+            >
+              {subscription.includes(user?._id) ? "Unsubscribe" : "Subscribe"}
+            </button>}
+            {isSelf && <button onClick={()=>setOpenEdit(true)}>Edit</button>}
+            {isSelf && <div>Self</div>}
           </div>
-          
         </div>
       </section>
 
@@ -157,9 +148,9 @@ const toggleSubscription = async () => {
             {filteredVideos.length ? (
               filteredVideos.map((video) => (
                 <div key={video.id} className="videoTabItem">
-                <Link key={video.id} to={`/videopage/${video?._id}`}>
-                  <VideoContainerForProfile video={video} />
-                </Link>
+                  <Link to={`/videopage/${video?._id}`}>
+                    <VideoContainerForProfile video={video} />
+                  </Link>
                 </div>
               ))
             ) : (
@@ -173,9 +164,9 @@ const toggleSubscription = async () => {
             {playlist.length ? (
               playlist.map((playlist) => (
                 <div key={playlist?._id} className="playlistTabItem">
-                <Link key={playlist?._id} to={`/playlist/${playlist?._id}`}>
-                  <PlaylistComponent playlist={playlist} />
-                </Link>
+                  <Link to={`/playlist/${playlist?._id}`}>
+                    <PlaylistComponent playlist={playlist} />
+                  </Link>
                 </div>
               ))
             ) : (

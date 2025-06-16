@@ -24,11 +24,13 @@ const AuthService = {
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json'
         },
       }
     );
     return response.data;
   },
+  
   
   getUserData: async (accessToken) => {
     try {

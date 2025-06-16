@@ -12,7 +12,6 @@ function AddToPlaylist({closePlaylistOptions,accessToken,videoId}) {
 
     const {_id: userId} = useSelector((state) => state.auth.userData)
 
-    console.log(userId);
     
 
 
@@ -40,8 +39,6 @@ function AddToPlaylist({closePlaylistOptions,accessToken,videoId}) {
     const addToPlaylist = async (playlistId) => {
         try {
             await PlaylistService.addVideo(accessToken,videoId,playlistId);
-            console.log("aaaaaaaaaaa");
-            
             closePlaylistOptions();
         } catch (error) {
             console.error(error);

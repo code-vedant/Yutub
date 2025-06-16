@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form';
-import { login as AuthLogin } from "../../store/userAuth.js";
+import { login as AuthLogin, setAccessToken } from "../../store/userAuth.js";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import AuthService from "../../Service/auth.js";
@@ -26,6 +26,7 @@ export default function LoginComponent() {
       if (res?.statusCode === 200) {
         const { accessToken, user } = res.data;
         dispatch(AuthLogin({ user, accessToken }));
+        dispatch(setAccessToken({accessToken}))
         navigate("/");
       } else {
         setError(res.message || "Login failed.");
