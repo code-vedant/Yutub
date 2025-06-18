@@ -2,7 +2,7 @@ import React from "react";
 import bin from "../assets/bin.png";
 import "../style/deleteVideo.css";
 import plus from "../assets/plus.png";
-import VideoService from "../Service/video";
+import VideoService from "../service/video";
 
 function DeleteVideoModal({closeDeleteModal, videoId ,accessToken }) {
 

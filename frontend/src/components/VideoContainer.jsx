@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../style/videoContainer.css";
 import { useSelector } from "react-redux";
-import AuthService from "../Service/auth";
 import robot from "../assets/robot.png";
-import dots from "../assets/dots.png";
 import { Link } from "react-router-dom";
 import AddToPlaylist from "./PlaylistComponents/AddToPlaylist";
 import PopupHolder from "./PopupHolder";
@@ -12,10 +10,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 function VideoContainer({ video }) {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const user = useSelector((state) => state.auth.userData);
-
-  const [ownerData, setOwnerData] = useState(null);
   const [editModal, setEditModal] = useState(false);
-  const { id: owner } = video;
 
   const handlePlaylistOptions = () => {
     setEditModal(true);
@@ -24,19 +19,6 @@ function VideoContainer({ video }) {
   const closePlaylistOptions = () => {
     setEditModal(false);
   };
-
-  const getOwner = async () => {
-    try {
-      const data = await AuthService.getUserById(accessToken, video?.owner);
-      setOwnerData(data.data);
-    } catch (error) {
-      console.error("Failed to get owner", error.response.data.message);
-    }
-  };
-
-  useEffect(() => {
-    getOwner();
-  }, []);
 
   const timeAgo = (timestamp) => {
     const now = new Date();
@@ -65,16 +47,12 @@ function VideoContainer({ video }) {
     }
   };
 
-  const shorter = (item) => {
-    if (item.length > 42) {
-      return item.substring(0, 42) + "...";
+  const shorter = (item,len) => {
+    if (item.length > len) {
+      return item.substring(0, len) + "...";
     } else return item;
   };
-  const shorterMid = (item) => {
-    if (item.length > 66) {
-      return item.substring(0, 70) + "...";
-    } else return item;
-  };
+
 
   const duration = (item) => {
     if (item < 60) {
@@ -105,10 +83,10 @@ function VideoContainer({ video }) {
       </div>
       <div className="VC-bottom">
         <div className="VC-left">
-          <Link to={`/profile/${ownerData?._id === user?._id ? "" : ownerData?._id}`}>
+          <Link to={`/profile/${video.ownerData?._id === user?._id ? "" : video.ownerData?._id}`}>
             <div className="VC-left-imgHolder">
-              {ownerData ? (
-                <img src={ownerData.avatar} className="imgRec" />
+              {video?.ownerData?.avatar ? (
+                <img src={video?.ownerData?.avatar} className="imgRec" />
               ) : (
                 <img src={robot} />
               )}
@@ -119,16 +97,16 @@ function VideoContainer({ video }) {
           <div className="video-info">
           <Link to={`/videopage/${video?._id}`}>
           <h3 className="video-title">
-              {video.title ? shorterMid(video.title) : "title of video"}
+              {video.title ? shorter(video.title,40) : "title of video"}
             </h3>
-            <Link to={`/profile/${ownerData?._id || ""}`}>
+            <Link to={`/profile/${video?.owner || ""}`}>
               <h3 className="video-channel">
-                {ownerData ? ownerData.fullName : "Channel Name"}
+                {video.ownerData ? video.ownerData?.fullName : "Channel Name"}
               </h3>
             </Link>
             <p className="video-description">
               {video.description
-                ? shorter(video.description)
+                ? shorter(video.description,45)
                 : "Lorem ipsum dolor sit amet consectetur."}
             </p>
             <div className="video-stats">

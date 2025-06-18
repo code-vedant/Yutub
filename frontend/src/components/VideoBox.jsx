@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../style/videobox.css";
-import VideoService from "../Service/video";
+import VideoService from "../service/video";
 import useFetch from "../hooks/useFetch";
 
 function VideoBox({ videoId,accessToken }) {
@@ -13,14 +13,9 @@ function VideoBox({ videoId,accessToken }) {
   } = useFetch(()=>VideoService.getVideo(videoId,accessToken),[])
 
 
-  const shorter = (item) => {
-    if (item.length > 42) {
-      return item.substring(0, 42) + "...";
-    } else return item;
-  };
-  const shorterMid = (item) => {
-    if (item.length > 66) {
-      return item.substring(0, 70) + "...";
+  const shorter = (item,len) => {
+    if (item.length > len) {
+      return item.substring(0, len) + "...";
     } else return item;
   };
 
@@ -61,8 +56,8 @@ function VideoBox({ videoId,accessToken }) {
           />
         </div>
         <div className="video-box-info">
-          <h3>{video ? shorterMid(video.title) : "title"}</h3>
-          <p>{video ? shorterMid(video.description) : "loemdkjanfbjhf asdcadbsfhscbdas basdjc asdbc "}</p>
+          <h3>{video ? shorter(video.title,30) : "title"}</h3>
+          <p>{video ? shorter(video.description,30) : "loemdkjanfbjhf asdcadbsfhscbdas basdjc asdbc "}</p>
           <h5>{video ? video.owner.fullName : "Channel Name"}</h5>
           <p>
             <span>{video ? video.views : "1M"} views</span><span>{ video ? timeAgo(video.createdAt) : "2 weeks ago"}</span>

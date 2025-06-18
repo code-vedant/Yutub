@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AuthService from '../Service/auth.js';
+import AuthService from '../service/auth.js';
 import { logout as logoutAction } from '../store/userAuth.js';
 import "../style/components.css"
 

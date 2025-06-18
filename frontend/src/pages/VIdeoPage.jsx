@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import VideoService from '../../Service/video'
-import VideoContainer from '../VideoContainer'
-import '../../style/videopage.css'
+import VideoService from '../service/video'
+import VideoContainer from '../components/VideoContainer'
+import '../style/videopage.css'
 
 export default function VideoPage() {
 
@@ -25,12 +25,15 @@ export default function VideoPage() {
     getVideos()
   },[])
 
+  console.log(video);
+  
+
 
   return (
     <section className='videopage-main'>
       {error && <p>{error}</p>}
       {video.map((vid)=> 
-      <VideoContainer video={vid} />
+      <VideoContainer key={vid._id} video={vid} />
       )}
     </section>
   )

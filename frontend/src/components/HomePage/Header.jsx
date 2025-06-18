@@ -18,7 +18,7 @@ function Header() {
     <>
       <nav className="home-header">
         <Link to={"/"} className="home-header-title">
-          Yutub<span>2.0 - under-development</span>
+          YUTUB<span>2.0 - under-development</span>
         </Link>
         <section className="home-search-button-mobile">
           <FaSearch onClick={handleSearchOpen} className="search-icon" />

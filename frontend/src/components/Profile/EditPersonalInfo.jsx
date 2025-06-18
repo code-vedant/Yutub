@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import upload from "../../assets/upload.png";
-import AuthService from "../../Service/auth.js";
+import AuthService from "../../service/auth.js";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Input from "../auth/Input.jsx";

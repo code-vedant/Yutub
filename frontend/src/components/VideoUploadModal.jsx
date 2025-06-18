@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import "../style/videoUploadPage.css";
 import { useForm } from "react-hook-form";
 import upload from "../assets/upload.png";
-import VideoService from "../Service/video";
+import VideoService from "../service/video";
 import { useSelector } from "react-redux";
 import PopupHolder from "./PopupHolder";
 import UploadingModal from "./UploadingModal";

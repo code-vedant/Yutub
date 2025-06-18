@@ -3,22 +3,23 @@ import "../style/profile.css";
 import VideoContainerForProfile from "../components/VideoContainerForProfile.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation, useParams } from "react-router-dom";
-import AuthService from "../Service/auth.js";
-import VideoService from "../Service/video.js";
+import AuthService from "../service/auth.js";
+import VideoService from "../service/video.js";
 import PopupHolder from "../components/PopupHolder.jsx";
 import Loader from "../components/Loader.jsx";
 import NoTweet from "../components/TweetComponents/NoTweet.jsx";
 import TweetTab from "../components/TweetComponents/TweetTab.jsx";
-import TweetService from "../Service/tweet.js";
+import TweetService from "../service/tweet.js";
 import PlaylistComponent from "../components/PlaylistComponents/PlaylistComponent.jsx";
-import PlaylistService from "../Service/playlist.js";
+import PlaylistService from "../service/playlist.js";
 import NoPLaylist from "../components/PlaylistComponents/NoPLaylist.jsx";
 import NoSubscribers from "../components/SubscriptionComponents/NoSubscribers.jsx";
 import NoVideo from "../components/NoVideo.jsx";
-import SubService from "../Service/subscription.js";
+import SubService from "../service/subscription.js";
 import Subscribers from "../components/SubscriptionComponents/Subscribers.jsx";
 import { addSubscribedChannel, removeSubscribedChannel } from "../store/subsStore.js";
 import cover from "../assets/cover.png";
+import coverUser from "../assets/coverUser.jpg";
 import alien from "../assets/alien.jpeg";
 import LogoutBtn from "../components/LogoutBtn.jsx";
 import EditDetails from "../components/Profile/EditDetails.jsx";
@@ -44,6 +45,9 @@ function Profile() {
   const { id: userId } = useParams();
   const location = useLocation();
 
+  // console.log(userId, "userId from params");
+  
+
   const path =
     location.pathname.endsWith("/") && location.pathname !== "/"
       ? location.pathname.slice(0, -1)
@@ -60,7 +64,7 @@ function Profile() {
           setUser(res.data);
           setIsSelf(false);
         } catch (err) {
-          console.error("Error fetching user:", err);
+          console.error("Error fetching user:", err.response.data.message);
         }
       }
     };
@@ -104,7 +108,7 @@ function Profile() {
       </PopupHolder>}
 
       <section className="coverImageContainer">
-        <img src={user?.coverImage || cover} alt="cover" />
+        <img src={user?.coverImage  ? user.coverImage  : isSelf ? cover : coverUser} alt="cover" />
       </section>
 
       <section className="profileDataContainer">
@@ -117,15 +121,18 @@ function Profile() {
           <h4>{subscribed?.length || "0"} Follows</h4>
           <h4>{subscribers?.length || "0"} Subscribers</h4>
           <div className="profileubscribeButton">
-            {isSelf && <LogoutBtn />}
+            
             {!isSelf && <button
               onClick={toggleSubscription}
               className={subscription.includes(user?._id) ? "subscribed" : ""}
             >
               {subscription.includes(user?._id) ? "Unsubscribe" : "Subscribe"}
             </button>}
+            {isSelf && <Link className="dashboard" to={"/dashboard"}>Dashboard</Link>}
             {isSelf && <button onClick={()=>setOpenEdit(true)}>Edit</button>}
-            {isSelf && <div>Self</div>}
+            {isSelf && <div>
+              <LogoutBtn />
+              </div>}
           </div>
         </div>
       </section>

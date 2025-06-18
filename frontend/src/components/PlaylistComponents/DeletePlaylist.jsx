@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PopupHolder from "../PopupHolder.jsx"
 import Loader from "../Loader"
-import PlaylistService from '../../Service/playlist.js'
+import PlaylistService from '../../service/playlist.js'
 import { useNavigate } from 'react-router-dom'
 
 function DeletePlaylist({closeDeleteModal,accessToken,playlistId}) {

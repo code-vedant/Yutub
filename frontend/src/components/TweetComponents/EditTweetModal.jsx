@@ -3,7 +3,7 @@ import "../../style/tweet.style.css";
 import PopupHolder from "../PopupHolder.jsx"
 import Loader from "../Loader"
 import {useForm} from "react-hook-form"
-import TweetService from "../../Service/tweet";
+import TweetService from "../../service/tweet.js";
 
 function EditTweetModal({ closeEditModal ,accessToken,tweetId}) {
     const [loading,setLoading] =useState(false)

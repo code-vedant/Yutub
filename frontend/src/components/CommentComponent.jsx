@@ -7,8 +7,8 @@ import edit from "../assets/edit.png";
 import like from "../assets/like.png";
 import liked from "../assets/liked.png";
 import { useDispatch, useSelector } from "react-redux";
-import CommentService from "../Service/comment";
-import LikeService from "../Service/like";
+import CommentService from "../service/comment";
+import LikeService from "../service/like";
 import {
   addLikedComment,
   removeLikedComment,

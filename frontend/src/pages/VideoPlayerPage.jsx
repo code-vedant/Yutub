@@ -4,11 +4,11 @@ import VideoPlayer from "../components/VideoPlayer.jsx";
 import VideoInfo from "../components/VideoInfo.jsx";
 import Comments from "../components/Comments.jsx";
 import { useParams } from "react-router-dom";
-import VideoService from "../Service/video.js";
+import VideoService from "../service/video.js";
 import { useSelector } from "react-redux";
 import PopupHolder from "../components/PopupHolder.jsx";
 import Loader from "../components/Loader.jsx";
-import CommentService from "../Service/comment.js";
+import CommentService from "../service/comment.js";
 
 const VideoPlayerPage = () => {
   const [videoData, setVideoData] = useState(null);

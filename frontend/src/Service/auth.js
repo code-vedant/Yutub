@@ -102,7 +102,7 @@ const AuthService = {
     }
   },
   
-  getUserById: async (accessToken, userId) => {
+  getUserById: async (userId,{accessToken}) => {
     try {
       const response = await axios.get(
         `${API_URL}/${userId}`,

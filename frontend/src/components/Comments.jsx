@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import robot from "../assets/robot.png";
 import { useForm } from "react-hook-form";
 import CommentComponent from "./CommentComponent";
-import CommentService from "../Service/comment";
+import CommentService from "../service/comment";
 import { useSelector } from "react-redux";
 
 const Comments = ({ accessToken,videoId, comments }) => {

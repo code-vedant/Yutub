@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PopupHolder from "../PopupHolder.jsx"
 import Loader from "../Loader"
-import TweetService from "../../Service/tweet.js"
+import TweetService from "../../service/tweet.js"
 
 function DeleteTweet({closeDeleteModal,accessToken,tweetId}) {
     const [loading,setLoading] =useState(false)

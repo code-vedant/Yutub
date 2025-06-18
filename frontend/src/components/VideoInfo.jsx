@@ -4,9 +4,9 @@ import liked from "../assets/liked.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import "../style/videoplayerpage.css";
-import LikeService from "../Service/like";
+import LikeService from "../service/like";
 import { addLikedVideo, removeLikedVideo } from "../store/LikesSlice";
-import SubService from "../Service/subscription";
+import SubService from "../service/subscription";
 import { addSubscribedChannel, removeSubscribedChannel } from "../store/subsStore";
 
 const VideoInfo = ({ videoData }) => {

@@ -5,14 +5,11 @@ import "./index.css";
 import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { store,  persistor } from "./store/store.js";
-import HomePage from "./pages/HomePage.jsx";
 import Page404 from "./pages/Page404.jsx";
-import VideoPlayerPage from "./pages/VideoPlayerPage.jsx";
-import Profile from "./pages/Profile.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import TermsandCondition from "./pages/Terms-and-Condition.jsx";
 import Polices from "./pages/Polices.jsx";
-import SelfProfile from "./pages/SelfProfile.jsx";
+import Profile from "./pages/ProfilePage.jsx";
 import PlaylistPage from "./pages/PlaylistPage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import About from "./pages/About.jsx";
@@ -21,6 +18,8 @@ import Auth from "./pages/Auth.jsx";
 import LoginComponent from "./components/auth/LoginComponent.jsx";
 import SignupComponent from "./components/auth/SignupComponent.jsx";
 import { PersistGate } from "redux-persist/integration/react";
+import VideoPage from "./pages/VIdeoPage.jsx";
+import HomePage from "./pages/HomePage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,29 +28,31 @@ const router = createBrowserRouter([
     errorElement: <Page404 />,
     children: [
       {
-        path: "/", 
-        element: <HomePage />,
-        children: [
-          {
-            path: "/video/:id", 
+        path: "/",
+        element: <HomePage />
+      },    
+      
+      {
+            path: "/videos", 
             element:
             <ProtectedRoute>
-              <VideoPlayerPage />
+              <VideoPage />
             </ProtectedRoute>
             
           },
           {
             path: "/profile/:id",
             element:<ProtectedRoute>
-            <SelfProfile />
+            <Profile />
           </ProtectedRoute>,
           },
           {
             path: "/profile",
             element:<ProtectedRoute>
-            <SelfProfile />
+            <Profile />
           </ProtectedRoute>,
           },
+          
           {
             path: "/playlist/:id",
             element:<ProtectedRoute>
@@ -61,11 +62,13 @@ const router = createBrowserRouter([
           {
             path: "/about",
             element: <About/>
-          }
-        ]
-      },
-      
-
+          },
+          {
+            path: "/dashboard",
+            element: <ProtectedRoute>
+            <Dashboard/>
+          </ProtectedRoute>,
+          },
     ],
   },
   {
@@ -86,12 +89,7 @@ const router = createBrowserRouter([
       }
     ]
   },
-  {
-    path: "/dashboard",
-    element: <ProtectedRoute>
-    <Dashboard/>
-  </ProtectedRoute>,
-  },
+  
   {
     path: "/termsandcondition",
     element: <TermsandCondition />

@@ -3,7 +3,7 @@ import "../../style/tweet.style.css";
 import robot from "../../assets/robot.png";
 import like from "../../assets/like.png";
 import liked from "../../assets/liked.png";
-import LikeService from "../../Service/like.js";
+import LikeService from "../../service/like.js";
 import { useDispatch, useSelector } from "react-redux";
 import dots from "../../assets/dots.png";
 import PopupHolder from "../PopupHolder.jsx"

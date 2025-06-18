@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { login as AuthLogin, setAccessToken } from "../../store/userAuth.js";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import AuthService from "../../Service/auth.js";
+import AuthService from "../../service/auth.js";
 import logo from "../../assets/logo.png";
 import Input from './Input.jsx';
 import Label from './Label.jsx';

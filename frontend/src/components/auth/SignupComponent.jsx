@@ -5,7 +5,7 @@ import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import logo from "../../assets/logo.png";
 import upload from "../../assets/upload.png";
-import AuthService from "../../Service/auth.js";
+import AuthService from "../../service/auth.js";
 import Input from "./Input.jsx";
 import Label from "./Label.jsx";
 import Button from "./Button.jsx";

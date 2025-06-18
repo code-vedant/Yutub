@@ -1,6 +1,5 @@
-import React, { useCallback ,useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import "../style/dashboard.css";
-import plus from "../assets/plus.png";
 import like from "../assets/like.png";
 import subs from "../assets/subs.png";
 import views from "../assets/views.png";
@@ -10,56 +9,55 @@ import PopupHolder from "../components/PopupHolder";
 import VideoUploadModal from "../components/VideoUploadModal";
 import DeleteVideoModal from "../components/DeleteVideoModal";
 import { useSelector } from "react-redux";
-import DashboardService from "../Service/dashboard";
+import DashboardService from "../service/dashboard";
 import VideoEditModal from "../components/VideoEditModal";
 import Loader from "../components/Loader";
-import VideoService from "../Service/video";
-import offBtn from "../assets/offBtn.png"
-import onBtn from "../assets/onBtn.png"
+import VideoService from "../service/video";
+import offBtn from "../assets/offBtn.png";
+import onBtn from "../assets/onBtn.png";
+import { FaPlus } from "react-icons/fa6";
+import { IoIosArrowDown } from "react-icons/io";
 
 function Dashboard() {
-  
   const [viewModal, setViewModal] = useState(false);
   const [viewDeleteModal, setViewDeleteModal] = useState(null);
   const [viewEditModal, setViewEditModal] = useState(null);
-  const [user, setUser] = useState("");
   const [videos, setVideos] = useState([]);
   const accessToken = useSelector((state) => state.auth.accessToken);
+  const user = useSelector((state) => state.auth.userData);
   const [loading, setLoading] = useState(false);
 
   const handleModal = () => {
     setViewModal(true);
   };
-  
+
   const closeModal = () => {
     setViewModal(false);
   };
-  
+
   const handleDeleteModal = (videoId) => {
     setViewDeleteModal(videoId);
   };
-  
+
   const closeDeleteModal = () => {
     setViewDeleteModal(null);
   };
-  
+
   const handleEditModal = (videoId) => {
     setViewEditModal(videoId);
   };
-  
+
   const closeEditModal = () => {
     setViewEditModal(null);
   };
-  
 
   const getDashboardData = useCallback(async () => {
     setLoading(true);
     try {
       const [userRes, videoRes] = await Promise.all([
         DashboardService.getChannelStat(accessToken),
-        DashboardService.getChannelVideo(accessToken)
+        DashboardService.getChannelVideo(accessToken),
       ]);
-      setUser(userRes.data);
       setVideos(videoRes.data);
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
@@ -78,7 +76,9 @@ function Dashboard() {
       await VideoService.togglePublishStatus(accessToken, videoId);
       setVideos((prevVideos) =>
         prevVideos.map((video) =>
-          video._id === videoId ? { ...video, isPublished: !video.isPublished } : video
+          video._id === videoId
+            ? { ...video, isPublished: !video.isPublished }
+            : video
         )
       );
     } catch (error) {
@@ -106,6 +106,19 @@ function Dashboard() {
     return `${day}-${month}-${year}`;
   }, []);
 
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef();
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <>
       {loading && (
@@ -116,14 +129,22 @@ function Dashboard() {
       <div className="Dashboard-main">
         <nav>
           <div className="Dm-left">
-            <h1>Welcome Back, {user?.fullName || "_Name_Space"}</h1>
+            <h2>Welcome Back, {user?.fullName || "_Name_Space"}</h2>
             <h5>Seamless Video Management, Elevated Results.</h5>
           </div>
-          <div className="Dm-right">
-            <button onClick={handleModal}>
-              <img src={plus} alt="Upload" />
-              Upload Video
-            </button>
+          <div className="Dm-right" ref={dropdownRef}>
+          <button className="dropdown-button" onClick={() => setOpen(!open)}>
+            <FaPlus className="plus-icon" />
+        Upload 
+        <IoIosArrowDown className={`arrow-icon ${open ? "open" : ""}`} />
+      </button>
+      {open && (
+        <div className="dropdown-content">
+          <button onClick={() => alert("Upload Video")}>Upload Video</button>
+          <button onClick={() => alert("Upload Photo")}>Upload Photo</button>
+          <button onClick={() => alert("Upload Post")}>Upload Post</button>
+        </div>
+      )}
           </div>
           {viewModal && (
             <PopupHolder closeModal={closeModal}>
@@ -135,6 +156,21 @@ function Dashboard() {
         <div className="Separator"></div>
 
         <div className="Stats">
+          <div className="Stat">
+            <img src={views} alt="" />
+            <h2>Total Views</h2>
+            <h1>{user.totalVideoViews || "000"}</h1>
+          </div>{" "}
+          <div className="Stat">
+            <img src={views} alt="" />
+            <h2>Total Views</h2>
+            <h1>{user.totalVideoViews || "000"}</h1>
+          </div>{" "}
+          <div className="Stat">
+            <img src={views} alt="" />
+            <h2>Total Views</h2>
+            <h1>{user.totalVideoViews || "000"}</h1>
+          </div>{" "}
           <div className="Stat">
             <img src={views} alt="" />
             <h2>Total Views</h2>
@@ -163,11 +199,11 @@ function Dashboard() {
           {videos.map((Video) => (
             <div className="Video-data" key={Video?._id}>
               <div
-                  className="toggleBtn"
-                  onClick={() => togglePublish(Video?._id)}
-                >
-                  <img src={Video.isPublished? onBtn : offBtn}  />
-                </div>
+                className="toggleBtn"
+                onClick={() => togglePublish(Video?._id)}
+              >
+                <img src={Video.isPublished ? onBtn : offBtn} />
+              </div>
 
               <div className="video-detail">
                 <img
@@ -186,7 +222,6 @@ function Dashboard() {
               <div className="date">{getDate(Video.createdAt)}</div>
 
               <div className="fuxnBtns">
-                
                 <div
                   className="deleteBtn"
                   onClick={() => handleDeleteModal(Video?._id)}
