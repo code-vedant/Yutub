@@ -4,14 +4,11 @@ import VideoContainerForProfile from "../components/VideoContainerForProfile.jsx
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation, useParams } from "react-router-dom";
 import AuthService from "../service/auth.js";
-import VideoService from "../service/video.js";
 import PopupHolder from "../components/PopupHolder.jsx";
 import Loader from "../components/Loader.jsx";
 import NoTweet from "../components/TweetComponents/NoTweet.jsx";
 import TweetTab from "../components/TweetComponents/TweetTab.jsx";
-import TweetService from "../service/tweet.js";
 import PlaylistComponent from "../components/PlaylistComponents/PlaylistComponent.jsx";
-import PlaylistService from "../service/playlist.js";
 import NoPLaylist from "../components/PlaylistComponents/NoPLaylist.jsx";
 import NoSubscribers from "../components/SubscriptionComponents/NoSubscribers.jsx";
 import NoVideo from "../components/NoVideo.jsx";
