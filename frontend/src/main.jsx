@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { store,  persistor } from "./store/store.js";
+import { store, persistor } from "./store/store.js";
 import Page404 from "./pages/Page404.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import TermsandCondition from "./pages/Terms-and-Condition.jsx";
@@ -12,7 +12,6 @@ import Polices from "./pages/Polices.jsx";
 import Profile from "./pages/ProfilePage.jsx";
 import PlaylistPage from "./pages/PlaylistPage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
-import About from "./pages/About.jsx";
 import LandingPage from "./pages/LandingPage.jsx";
 import Auth from "./pages/Auth.jsx";
 import LoginComponent from "./components/auth/LoginComponent.jsx";
@@ -29,74 +28,82 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <HomePage />
-      },    
-      
+        element: <HomePage />,
+      },
+
       {
-            path: "/videos", 
-            element:
-            <ProtectedRoute>
-              <VideoPage />
-            </ProtectedRoute>
-            
-          },
-          {
-            path: "/profile/:id",
-            element:<ProtectedRoute>
+        path: "/videos",
+        element: (
+          <ProtectedRoute>
+            <VideoPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/profile/:id",
+        element: (
+          <ProtectedRoute>
             <Profile />
-          </ProtectedRoute>,
-          },
-          {
-            path: "/profile",
-            element:<ProtectedRoute>
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <ProtectedRoute>
             <Profile />
-          </ProtectedRoute>,
-          },
-          
-          {
-            path: "/playlist/:id",
-            element:<ProtectedRoute>
+          </ProtectedRoute>
+        ),
+      },
+
+      {
+        path: "/playlist/:id",
+        element: (
+          <ProtectedRoute>
             <PlaylistPage />
           </ProtectedRoute>
-          },
-          {
-            path: "/about",
-            element: <About/>
-          },
-          {
-            path: "/dashboard",
-            element: <ProtectedRoute>
-            <Dashboard/>
-          </ProtectedRoute>,
-          },
+        ),
+      },
+      // {
+      //   path: "/about",
+      //   element: <About />,
+      // },
+      {
+        path: "/dashboard",
+        element: (
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
   {
     path: "/landingPage",
-    element: <LandingPage/>
+    element: <LandingPage />,
   },
   {
     path: "/auth",
     element: <Auth />,
     children: [
       {
-        path:"login",
-        element: <LoginComponent />
+        path: "login",
+        element: <LoginComponent />,
       },
       {
-        path:"signup",
-        element: <SignupComponent />
-      }
-    ]
+        path: "signup",
+        element: <SignupComponent />,
+      },
+    ],
   },
-  
+
   {
     path: "/termsandcondition",
-    element: <TermsandCondition />
+    element: <TermsandCondition />,
   },
   {
     path: "/privacypolicy",
-    element: <Polices/>
+    element: <Polices />,
   },
   {
     path: "*",
@@ -108,7 +115,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-      <RouterProvider router={router} />
+        <RouterProvider router={router} />
       </PersistGate>
     </Provider>
   </React.StrictMode>

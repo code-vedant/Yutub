@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import "../style/videoContainer.css";
 import { useSelector } from "react-redux";
 import robot from "../assets/robot.png";
