@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import  { useCallback, useEffect, useRef, useState } from "react";
 import "../style/dashboard.css";
 import like from "../assets/like.png";
 import subs from "../assets/subs.png";
@@ -9,10 +9,10 @@ import PopupHolder from "../components/PopupHolder";
 import VideoUploadModal from "../components/VideoUploadModal";
 import DeleteVideoModal from "../components/DeleteVideoModal";
 import { useSelector } from "react-redux";
-import DashboardService from "../service/dashboard";
+// import DashboardService from "../service/dashboard";
 import VideoEditModal from "../components/VideoEditModal";
 import Loader from "../components/Loader";
-import VideoService from "../service/video";
+// import VideoService from "../service/video";
 import offBtn from "../assets/offBtn.png";
 import onBtn from "../assets/onBtn.png";
 import { FaPlus } from "react-icons/fa6";
@@ -51,42 +51,42 @@ function Dashboard() {
     setViewEditModal(null);
   };
 
-  const getDashboardData = useCallback(async () => {
-    setLoading(true);
-    try {
-      const [userRes, videoRes] = await Promise.all([
-        DashboardService.getChannelStat(accessToken),
-        DashboardService.getChannelVideo(accessToken),
-      ]);
-      setVideos(videoRes.data);
-    } catch (error) {
-      console.error("Error fetching dashboard data:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, [accessToken]);
+  // const getDashboardData = useCallback(async () => {
+  //   setLoading(true);
+  //   try {
+  //     const [userRes, videoRes] = await Promise.all([
+  //       DashboardService.getChannelStat(accessToken),
+  //       DashboardService.getChannelVideo(accessToken),
+  //     ]);
+  //     setVideos(videoRes.data);
+  //   } catch (error) {
+  //     console.error("Error fetching dashboard data:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // }, [accessToken]);
 
-  useEffect(() => {
-    getDashboardData();
-  }, [getDashboardData]);
+  // useEffect(() => {
+  //   getDashboardData();
+  // }, [getDashboardData]);
 
-  const togglePublish = async (videoId) => {
-    setLoading(true);
-    try {
-      await VideoService.togglePublishStatus(accessToken, videoId);
-      setVideos((prevVideos) =>
-        prevVideos.map((video) =>
-          video._id === videoId
-            ? { ...video, isPublished: !video.isPublished }
-            : video
-        )
-      );
-    } catch (error) {
-      console.error("Error toggling publish status:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // const togglePublish = async (videoId) => {
+  //   setLoading(true);
+  //   try {
+  //     await VideoService.togglePublishStatus(accessToken, videoId);
+  //     setVideos((prevVideos) =>
+  //       prevVideos.map((video) =>
+  //         video._id === videoId
+  //           ? { ...video, isPublished: !video.isPublished }
+  //           : video
+  //       )
+  //     );
+  //   } catch (error) {
+  //     console.error("Error toggling publish status:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   const shortTitle = useCallback((title) => {
     return title.length > 42 ? title.substring(0, 42) + " . . ." : title;
