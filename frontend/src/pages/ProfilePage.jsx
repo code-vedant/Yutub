@@ -52,7 +52,7 @@ function Profile() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      if (path === "/profile") {
+      if (path === "/profile" || userId === userData?._id) {
         setIsSelf(true);
         setUser(userData);
       } else {
