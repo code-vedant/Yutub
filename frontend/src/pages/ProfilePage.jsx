@@ -3,7 +3,7 @@ import "../style/profile.css";
 import VideoContainerForProfile from "../components/VideoContainerForProfile.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation, useParams } from "react-router-dom";
-import AuthService from "../service/auth.js";
+import AuthService from "../dfsdfsfds/auth.js";
 import PopupHolder from "../components/PopupHolder.jsx";
 import Loader from "../components/Loader.jsx";
 import NoTweet from "../components/TweetComponents/NoTweet.jsx";
@@ -12,7 +12,7 @@ import PlaylistComponent from "../components/PlaylistComponents/PlaylistComponen
 import NoPLaylist from "../components/PlaylistComponents/NoPLaylist.jsx";
 import NoSubscribers from "../components/SubscriptionComponents/NoSubscribers.jsx";
 import NoVideo from "../components/NoVideo.jsx";
-import SubService from "../service/subscription.js";
+import SubService from "../dfsdfsfds/subscription.js";
 import Subscribers from "../components/SubscriptionComponents/Subscribers.jsx";
 import { addSubscribedChannel, removeSubscribedChannel } from "../store/subsStore.js";
 import cover from "../assets/cover.png";

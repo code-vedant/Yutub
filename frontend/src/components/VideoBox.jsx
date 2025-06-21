@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../style/videobox.css";
-import VideoService from "../service/video";
+import VideoService from "../dfsdfsfds/video";
 import useFetch from "../hooks/useFetch";
 
 function VideoBox({ videoId,accessToken }) {

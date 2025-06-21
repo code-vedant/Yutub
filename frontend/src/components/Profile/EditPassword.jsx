@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux';
-import AuthService from '../../service/auth';
+import AuthService from '../../dfsdfsfds/auth';
 
 function EditPassword({closeModal}) {
   const accessToken = useSelector((state)=> state.auth.accessToken)
