@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "../../style/playlist.style.css";
 import { useSelector } from 'react-redux';
-import PlaylistService from '../../dfsdfsfds/playlist';
+import PlaylistService from '../../service/playlist';
 
 
 function AddToPlaylist({closePlaylistOptions,accessToken,videoId}) {

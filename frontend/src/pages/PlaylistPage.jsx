@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import "../style/playlist.style.css";
 import VideoBox from "../components/VideoBox";
-import PlaylistService from "../dfsdfsfds/playlist";
+import PlaylistService from "../service/playlist";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import AuthService from "../dfsdfsfds/auth";
+import AuthService from "../service/auth";
 import PopupHolder from "../components/PopupHolder";
 import DeletePlaylist from "../components/PlaylistComponents/DeletePlaylist";
 import UpdatePlaylist from "../components/PlaylistComponents/UpdatePlaylist";
