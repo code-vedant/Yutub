@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../style/playlist.style.css";
 import VideoBox from "../components/VideoBox";
 import PlaylistService from "../service/playlist";

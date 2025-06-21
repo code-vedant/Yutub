@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = import.meta.env.NODE_ENV !== "production" ?  import.meta.env.VITE_API_URL + '/comments' : "localhost:8000/api/v1/comments";
+const API_URL = (import.meta.env.VITE_NODE_ENV !== "development" ? import.meta.env.VITE_API_URL  : "http://localhost:8000/api/v1") + '/comments'
 
 const CommentService = {
   getAllComments: async (accessToken,videoId) => {

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import "../../style/photoContainer.css";
 import { CiBookmark } from "react-icons/ci";
 import { IoHeartOutline } from "react-icons/io5";
+import alien from "../../assets/alien.jpeg";
 
 export default function PhotoContainer({ photo }) {
   return (
@@ -19,7 +20,7 @@ export default function PhotoContainer({ photo }) {
       <div className="photo-info">
         <div className="photo-info-btm">
           <div className="photo-info-btm-left">
-            <img src={photo.owner.avatar} alt="" />
+            <img src={photo.owner.avatar ? photo.owner.avatar : alien } alt="" />
           </div>
           <div className="photo-info-btm-right">
             <h3>{photo.title}</h3>

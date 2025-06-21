@@ -9,6 +9,7 @@
     border-radius: 10px;
     overflow: hidden;
     position: relative;
+    margin-bottom: 2vh;
 }
 
 .photo-container img{
