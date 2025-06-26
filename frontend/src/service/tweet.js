@@ -4,6 +4,16 @@ const API_URL = (import.meta.env.VITE_NODE_ENV !== "development" ? import.meta.e
 
 
 const TweetService = {
+    getAllTweets: async () => {
+        try {
+            const response = await axios.get(`${API_URL}/`);
+            return response.data;
+        } catch (error) {
+            console.error("Error fetching all tweets:", error.response.data.message);
+            throw error;
+            
+        }
+    },
     createTweet: async (accessToken,data) => {
         try {
             const response = await axios.post(`${API_URL}/`, data, {
