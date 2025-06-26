@@ -27,6 +27,9 @@ function Dashboard() {
   const user = useSelector((state) => state.auth.userData);
   const [loading, setLoading] = useState(false);
 
+  // const navigate = useNavigate();
+  // const location = useLocation();
+
   const handleModal = () => {
     setViewModal(true);
   };
@@ -142,7 +145,7 @@ function Dashboard() {
         <div className="dropdown-content">
           <button onClick={() => alert("Upload Video")}>Upload Video</button>
           <button onClick={() => alert("Upload Photo")}>Upload Photo</button>
-          <button onClick={() => alert("Upload Post")}>Upload Post</button>
+          <button onClick={() => ("Upload Post")}>Upload Post</button>
         </div>
       )}
           </div>

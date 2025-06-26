@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import LandingPage from "./pages/LandingPage.jsx";
 import Header from "./components/HomePage/Header.jsx";
 import { Outlet } from "react-router-dom";
+import Sidebar from "./components/silders/SideBar.jsx";
 
 function App() {
   const authStatus = useSelector((state) => state.auth.status);
@@ -19,6 +20,7 @@ function App() {
     <>
       {authStatus && (
         <section className="yutub-home">
+            <Sidebar/>
           <header>
             <Header />
           </header>

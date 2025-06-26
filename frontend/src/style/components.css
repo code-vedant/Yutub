@@ -5,6 +5,7 @@
     color: #fffefe;
     background-color: rgb(255, 37, 37) !important;
     transition: 0.1s ease-in-out;
+    border-radius: 10rem;
 }
 
 .logoutBtn:hover{

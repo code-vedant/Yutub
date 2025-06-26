@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AuthService from '../service/auth.js';
 import { logout as logoutAction } from '../store/userAuth.js';
@@ -9,6 +8,8 @@ const Logout = () => {
   const accessToken = useSelector((state) => state.auth.accessToken);
 
   const handleLogout = async () => {
+    console.log(accessToken);
+    
     try {
       if (!accessToken) {
         throw new Error("Access token is not available.");
