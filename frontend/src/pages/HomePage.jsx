@@ -2,12 +2,14 @@ import { useEffect, useState, useCallback } from "react";
 import "../style/homepage.css";
 import { Link } from "react-router-dom";
 import VideoService from '../service/video'
-// import { useSelector } from "react-redux";
 import VideoContainer from "../components/VideoContainer";
 import PhotoService from "../service/photo";
 import PhotoContainer from "../components/Photos/PhotoContainer";
 import PostCard from "../components/TweetComponents/PostCard";
 import TweetService from "../service/tweet";
+import LikeService from "../service/like";
+import { useDispatch, useSelector } from "react-redux";
+import { addLikedVideo } from "../store/LikesSlice";
 
 const HomePage = () => {
   const [videos, setVideos] = useState([]);
@@ -16,13 +18,18 @@ const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // const accessToken = useSelector((state) => state.auth.accessToken);
+  const dispatch = useDispatch();
+  const accessToken = useSelector((state) => state.auth.accessToken);
+  const status = useSelector((state) => state.auth.status);
+
+  const getRandomSubset = (arr, count = 6) =>
+    [...arr].sort(() => Math.random() - 0.5).slice(0, count);
+  
 
   const fetchVideos = useCallback(async () => {
     try {
       const res = await VideoService.getAllVideos();
-      const randomArr = res.data.docs.sort(() => Math.random() - 0.5).slice(0, 6);
-      setVideos(randomArr);
+      setVideos(getRandomSubset(res.data.docs, 6));
     } catch (error) {
       console.error("Error fetching videos:", error.response?.data?.message || error.message);
       setError(prev => ({ ...prev, videos: error.message }));
@@ -32,8 +39,7 @@ const HomePage = () => {
   const fetchPhotos = useCallback(async () => {
     try {
       const res = await PhotoService.getAllPhotos();
-      const randomArr = res.data.docs.sort(() => Math.random() - 0.5).slice(0, 6);
-      setPhotos(randomArr);
+      setPhotos(getRandomSubset(res.data.docs, 6));
     } catch (error) {
       console.error("Error fetching photos:", error.response?.data?.message || error.message);
       setError(prev => ({ ...prev, photos: error.message }));
@@ -43,31 +49,46 @@ const HomePage = () => {
   const fetchPosts = useCallback(async () => {
     try {
       const res = await TweetService.getAllTweets();
-      const randomArr = res.data.docs.sort(() => Math.random() - 0.5).slice(0, 6);
-      setPosts(randomArr);
+      setPosts(getRandomSubset(res.data.docs, 6));
     } catch (error) {
       console.error("Error fetching posts:", error.response?.data?.message || error.message);
       setError(prev => ({ ...prev, posts: error.message }));
     }
   }, []);
 
+  const fetchLikedVideos = useCallback(async () => {
+    try {
+      const res = await LikeService.getLikedVideos(accessToken)
+      console.log("Liked Videos:", res.data);
+      dispatch(addLikedVideo(res.data));
+    } catch (error) {
+      setError(prev => ({ ...prev, likedVideos: error.message }));
+    }
+  },[])
+
   const fetchAllData = useCallback(async () => {
     setIsLoading(true);
     setError(null);
-    
+  
     try {
-      // Fetch all data concurrently for better performance
-      await Promise.all([
+      const promises = [
         fetchVideos(),
         fetchPhotos(),
         fetchPosts()
-      ]);
+      ];
+  
+      if (status === true) {
+        promises.push(fetchLikedVideos());
+      }
+  
+      await Promise.all(promises);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
       setIsLoading(false);
     }
-  }, [fetchVideos, fetchPhotos, fetchPosts]);
+  }, [fetchVideos, fetchPhotos, fetchPosts, fetchLikedVideos, status]);
+  
     
   useEffect(() => {
     fetchAllData();
@@ -114,8 +135,8 @@ const HomePage = () => {
           <Link to={"/posts"}>view more</Link>
         </div>
         <div className="post_container">
-          {displayPosts.map((post) => (
-            <PostCard key={post._id} post={post} />
+          {displayPosts.map((post,idx) => (
+            <PostCard key={idx} post={post} />
           ))}
         </div>
       </div>

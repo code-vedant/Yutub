@@ -1,8 +1,5 @@
-import React from "react";
-import bin from "../assets/bin.png";
-import "../style/deleteVideo.css";
-import plus from "../assets/plus.png";
-import VideoService from "../service/video";
+import "../../style/deleteVideo.css";
+import VideoService from "../../service/video";
 
 function DeleteVideoModal({closeDeleteModal, videoId ,accessToken }) {
 
@@ -22,13 +19,11 @@ function DeleteVideoModal({closeDeleteModal, videoId ,accessToken }) {
     <section className="DV-main">
       <div className="DV-head">
         <div className="DV-head-left">
-          <img src={bin} alt="" />
           </div>
         <div className="DV-head-right">
           <div className="top">
             <h2>Delete Video</h2>
             <div className="closeBtn" onClick={closeDeleteModal}>
-              <img src={plus} alt="" />
             </div>
           </div>
           <p>

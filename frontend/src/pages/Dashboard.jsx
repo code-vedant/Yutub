@@ -7,7 +7,7 @@ import bin from "../assets/bin.png";
 import edit from "../assets/edit.png";
 import PopupHolder from "../components/PopupHolder";
 import VideoUploadModal from "../components/VideoUploadModal";
-import DeleteVideoModal from "../components/DeleteVideoModal";
+import DeleteVideoModal from "../components/VideoComponents/DeleteVideoModal";
 import { useSelector } from "react-redux";
 // import DashboardService from "../service/dashboard";
 import VideoEditModal from "../components/VideoEditModal";

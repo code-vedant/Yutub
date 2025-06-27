@@ -1,5 +1,3 @@
-import React from 'react';
-
 const VideoPlayer = ({ url }) => {
   return (
     <div className="video-player">

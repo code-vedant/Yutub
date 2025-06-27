@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import robot from "../assets/robot.png";
-import PopupHolder from "./PopupHolder";
+import robot from "../../assets/robot.png";
+import PopupHolder from "../PopupHolder";
 import { useForm } from "react-hook-form";
-import bin from "../assets/bin.png";
-import edit from "../assets/edit.png";
-import like from "../assets/like.png";
-import liked from "../assets/liked.png";
+import { BiLike ,BiSolidLike } from "react-icons/bi";
+import { MdOutlineDelete } from "react-icons/md";
+import { LuPencil } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
-import CommentService from "../service/comment";
-import LikeService from "../service/like";
+import CommentService from "../../service/comment";
+import LikeService from "../../service/like";
 import {
   addLikedComment,
   removeLikedComment,
-} from "../store/LikesSlice";
+} from "../../store/LikesSlice";
+import DeleteCommentModal from "./DeleteCommentModal";
 
 function CommentComponent({ accessToken, comments }) {
   const [loading, setLoading] = useState(false);
@@ -111,7 +111,7 @@ function CommentComponent({ accessToken, comments }) {
       {comments.map((comment) => {
         const owner = comment.owner[0];
         return (
-          <div key={comment.id} className="comment">
+          <div key={comment.id} className="comment-box">
             <div className="comment-left">
               <div className="comment-user-img">
                 <img src={owner.avatar || robot} alt="" />
@@ -119,51 +119,41 @@ function CommentComponent({ accessToken, comments }) {
             </div>
             <div className="comment-right">
               <div className="comment-user-date">
-                <span>{owner.fullName || "Full Name"}</span>
-                <span>{timeAgo(comment.createdAt) || "5 days ago"}</span>
-                <div
-                  className="CLikeBtn"
-                  onClick={() => {
-                    toggleLike(comment?._id);
-                  }}
-                >
-                  <img
-                    src={likedComment.includes(comment?._id) ? liked : like}
-                    alt="Edit"
-                  />
-                </div>
+                <span>{owner.fullName}</span>
+                <span>{timeAgo(comment.createdAt)}</span>
                 {userData?._id === owner?._id && (
                   <div className="editComment">
                     <>
-                      <div
-                        className="CeditBtn"
+                      <button
+                        className="editBtn"
                         onClick={() => {
                           setCommentId(comment?._id);
                           handleUpdateModal();
                         }}
                       >
-                        <img src={edit} alt="Edit" />
-                        <h3>0 likes</h3>
-                      </div>
+                        <LuPencil className="edit-icon" />
+                        
+                      </button>
 
-                      <div
-                        className="CdeleteBtn"
+                      <button
+                        className="editBtn"
                         onClick={() => {
                           setCommentId(comment?._id);
                           handleDeleteModal();
                         }}
                       >
-                        <img src={bin} alt="Delete" />
-                      </div>
+                        <MdOutlineDelete className="edit-icon" />
+                      </button>
                     </>
                   </div>
                 )}
               </div>
               <div className="comment-text">
                 <p>
-                  {comment.content ||
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
-                </p>
+                  {comment.content}</p>
+                  <button className="comment-like-button">
+                    {false ? <BiSolidLike/> : <BiLike/>}
+                  </button>
               </div>
             </div>
           </div>
@@ -189,14 +179,7 @@ function CommentComponent({ accessToken, comments }) {
       )}
       {deleteModal && (
         <PopupHolder>
-          <div className="deleteCommentBox">
-            <h2>Delete Comment</h2>
-            <p>Are you sure you want to delete this comment.</p>
-            <div className="Dbtnss">
-              <button onClick={closeDeleteModal}>Cancel</button>
-              <button onClick={deleteComment}>Delete</button>
-            </div>
-          </div>
+         <DeleteCommentModal closeDeleteModal={closeDeleteModal} deleteComment={deleteComment}/>
         </PopupHolder>
       )}
     </div>

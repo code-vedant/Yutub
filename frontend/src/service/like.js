@@ -3,7 +3,7 @@ import axios from "axios";
 const API_URL = (import.meta.env.VITE_NODE_ENV !== "development" ? import.meta.env.VITE_API_URL  : "http://localhost:8000/api/v1") + '/likes';
 
 const LikeService = {
-    toggleVideoLike: async (accessToken,videoId) => {
+    toggleVideoLike: async ({accessToken},videoId) => {
         try {
             const response = await axios.patch(`${API_URL}/toggle/v/${videoId}`,{}, {
                 headers: {
@@ -16,7 +16,7 @@ const LikeService = {
             throw error;
         }
     },
-    toggleCommentLike: async (accessToken,commentId) => {
+    toggleCommentLike: async ({accessToken},commentId) => {
         try {
             const response = await axios.patch(`${API_URL}/toggle/c/${commentId}`,{}, {
                 headers: {
@@ -29,7 +29,7 @@ const LikeService = {
             throw error;
         }
     },
-    toggleTweetLike: async (accessToken,tweetId) => {
+    toggleTweetLike: async ({accessToken},tweetId) => {
         try {
             
             const response = await axios.patch(`${API_URL}/toggle/t/${tweetId}`,{}, {
@@ -43,7 +43,7 @@ const LikeService = {
             throw error;
         }
     },
-    getLikedVideos: async (accessToken) => {
+    getLikedVideos: async ({accessToken}) => {
         try {
             const response = await axios.get(`${API_URL}/videos`, {
                 headers: {
@@ -56,7 +56,7 @@ const LikeService = {
             throw error;
         }
     },
-    getLikedTweet: async (accessToken) => {
+    getLikedTweet: async ({accessToken}) => {
         try {
             const response = await axios.get(`${API_URL}/tweets`, {
                 headers: {
@@ -69,7 +69,7 @@ const LikeService = {
             throw error;
         }
     },
-    getLikedComment: async (accessToken) => {
+    getLikedComment: async ({accessToken}) => {
         try {
             const response = await axios.get(`${API_URL}/comments`, {
                 headers: {
@@ -81,7 +81,16 @@ const LikeService = {
             console.error("Error fetching likes by comment:", error);
             throw error;
         }
-    } 
+    },
+    getVideoLikes: async (videoId) => {
+        try {
+            const response = await axios.get(`${API_URL}/video/${videoId}`);
+            return response.data;
+        } catch (error) {
+            console.error(`Error fetching likes for video with ID ${videoId}:`, error);
+            throw error;
+        }
+    }
 
 }
 

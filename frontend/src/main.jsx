@@ -21,6 +21,7 @@ import VideoPage from "./pages/VIdeoPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import PhotoPage from "./pages/PhotoPage.jsx";
 import PostPage from "./pages/PostPage.jsx";
+import VideoPlayerPage from "./pages/VideoPlayerPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -66,7 +67,12 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-
+      {
+        path: "/video/:id",
+        element: (
+          <VideoPlayerPage />
+        ),
+      },
       {
         path: "/playlist/:id",
         element: (

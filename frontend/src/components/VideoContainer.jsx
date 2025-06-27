@@ -73,7 +73,7 @@ function VideoContainer({ video }) {
     <div className="video-container">
       <div className="VC-top">
         <div className="video-thumbnail">
-          <Link to={`/videopage/${video?._id}`}>
+          <Link to={`/video/${video?._id}`}>
           <img src={video.thumbnail ? video.thumbnail : ""} alt="title" />
           <span className="video-duration">
             {duration(video.duration) || `10 min`}
@@ -110,7 +110,6 @@ function VideoContainer({ video }) {
                 : "Lorem ipsum dolor sit amet consectetur."}
             </p> */}
             <div className="video-stats">
-              <span>{video?.views || "0"}&nbsp;views</span>
               <span>
                 {video.createdAt ? timeAgo(video.createdAt) : "days ago"}
               </span>

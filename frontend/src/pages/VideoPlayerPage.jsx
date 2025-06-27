@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "../style/videoplayerpage.css";
-import VideoPlayer from "../components/VideoPlayer.jsx";
+import VideoPlayer from "../components/VideoComponents/VideoPlayer.jsx";
 import VideoInfo from "../components/VideoInfo.jsx";
-import Comments from "../components/Comments.jsx";
+import Comments from "../components/VideoComponents/Comments.jsx";
 import { useParams } from "react-router-dom";
 import VideoService from "../service/video.js";
 import { useSelector } from "react-redux";
@@ -54,15 +54,21 @@ const VideoPlayerPage = () => {
         </PopupHolder>
       ) : videoData ? (
         <>
+        <div className="video-player-container"> 
           <VideoPlayer
             url={
               videoData.videoFile
-                ? videoData.videoFile
-                : "https://www.w3schools.com/html/mov_bbb.mp4"
+              ? videoData.videoFile
+              : "https://www.w3schools.com/html/mov_bbb.mp4"
             }
-          />
+            />
           <VideoInfo accessToken={accessToken} videoData={videoData} />
           <Comments accessToken={accessToken} videoId={videoId} comments={comments} />
+          </div>
+        <div className="related-videos">
+          <h3>Watch More</h3>
+          {/* Placeholder for related videos section */}
+          </div>
         </>
       ) : (
         <div>No video data available.</div>

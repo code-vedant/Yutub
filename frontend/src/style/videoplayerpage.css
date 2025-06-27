@@ -2,16 +2,38 @@
 .video-player-page {
   width: 100%;
   min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: repeat(15, 1fr);
+  align-items: start;
+  padding-top: 2vh;
+}
+
+.video-player-container {
+  width: 100%;
+  height: 100%;
+  grid-column: 1/12;
   display: flex;
   flex-direction: column;
-  padding-top: 8.5vh;
-  padding-right: 10vh;
-  padding-left: 10vh;
-  background-color: #fffefe;
+  align-items: center;
+  justify-content: center;
+}
+
+.related-videos {
+  width: 100%;
+  height: fit-content;
+  grid-column: 13/15;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  background-color: #ffb3b3;
+  border-radius: 10px;
+  margin-bottom: 2vh;
 }
 
 .video-player {
-  height: 85vh;
+  height: auto;
   width: 100%;
   background-color: #fffefe;
   -webkit-backdrop-filter: blur(5px);
@@ -31,26 +53,48 @@
   width: 100%;
   margin-bottom: 0.5vh;
   /* background-color: aqua; */
-  border-radius: 2vh;
 }
 
 .VI-video-info .title {
-  font-size: 3vh;
+  font-size: 1.7rem;
   margin-bottom: 2vh;
+  font-weight: 500;
 }
 
 .VI-channel-info {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   gap: 2vh;
   /* background-color: beige; */
   height: 8vh;
 }
 
-.VI-channel-info h3 {
-  font-size: 3vh;
+.VI-channel-info-left {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1vw;
+}
+
+.VI-channel-info-right {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1vw;
+}
+
+.VI-channel-info .VI-channel-name h3 {
+  font-size: 1.2rem;
   color: #0f0f0f;
+  font-weight: 500;
+}
+
+.VI-channel-info .VI-channel-name h4 {
+  font-size: 1.1rem;
+  color: #323232;
   font-weight: 500;
 }
 
@@ -58,7 +102,6 @@
   width: 6.2vh;
   height: 6.2vh;
   aspect-ratio: 1/1;
-  background-color: #333;
   border-radius: 50%;
 }
 
@@ -70,36 +113,62 @@
 }
 
 .VI-likes {
-  height: 6vh;
-  width: 13vh;
+  height: 5vh;
+  width: auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding:0 2vh;
-  border-radius: 40px;
+  justify-content: start;
+  padding: 0 1vh;
+  /* background-color: #ececec; */
+}
+
+.like-button {
   background-color: #ececec;
-}
-
-.VI-likes img {
-  height: 55%;
-  width: 35%;
-  object-fit: cover;
-  cursor: pointer;
-}
-
-.VI-likes h5 {
-  margin-left: 1vh;
-  font-size: 2vh;
-  width: 5vh;
-  height: 80%;
+  width: fit-content;
+  height: 100%;
+  aspect-ratio: 1/1;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0.2rem;
+  padding-left: 0.3rem;
+  border-radius: 50%;
+}
+.like-icon {
+  height: 100%;
+  /* background-color: #ececec; */
+  aspect-ratio: 1/1;
+  width: auto;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: scale 0.1s ease-in-out;
+}
+
+.like-button:active {
+  scale: 0.9;
+}
+
+.VI-likes h5 {
+  font-size: 1.4rem;
+  color: #000000;
+  font-weight: 500;
+  background-color: #ececec;
+  width: fit-content;
+  padding: 0vh 1vw;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 40px;
+  /* aspect-ratio: 1/1; */
 }
 
 .subscribe-button {
-  padding: 1.8vh 2.3vh;
+  padding: 0 2.3vh;
   font-size: 2.1vh;
+  height: 5vh;
   cursor: pointer;
   background-color: #333;
   color: #ececec;
@@ -111,6 +180,36 @@
   background-color: #ececec;
   color: #333;
   font-weight: 500;
+}
+
+.playlist-button {
+  padding: 0 2.3vh;
+  font-size: 2.1vh;
+  height: 5vh;
+  cursor: pointer;
+  background-color: #ececec;
+  border: none;
+  border-radius: 40px;
+}
+
+.share-button {
+  padding: 0 2.3vh;
+  font-size: 2.1vh;
+  height: 5vh;
+  cursor: pointer;
+  background-color: #ececec;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5vw;
+  border: none;
+  border-radius: 40px;
+}
+
+.share-button .share-icon {
+  width: 2.5vh;
+  height: 2.5vh;
+  object-fit: cover;
 }
 
 .VI-statAndDes {
@@ -135,7 +234,6 @@
 
 .comments {
   width: 100%;
-
   padding: 1vh 2vh;
   border-radius: 10px;
   margin-bottom: 2vh;
@@ -149,7 +247,7 @@
   margin-bottom: 2vh;
   display: flex;
   align-items: center;
-  gap: 1vh;
+  gap: 0.5vw;
   margin-top: 2vh;
 }
 
@@ -256,11 +354,12 @@
   flex-direction: column;
   gap: 2vh;
 }
-.comment {
+
+.comment-box {
   width: 100%;
   display: flex;
   align-items: flex-start;
-  gap: 2vh;
+  gap: 0.4vw;
 }
 
 .comment-left {
@@ -269,12 +368,11 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 1vh;
 }
 
 .comment-user-img {
-  width: 6.2vh;
-  height: 6.2vh;
+  width: 5.8vh;
+  height: 5.8vh;
   border-radius: 50%;
 }
 
@@ -290,8 +388,9 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1vh;
-  justify-content: center;
+  justify-content: flex-start;
+  align-items: flex-start;
+  /* background-color: #ececec; */
 }
 
 .comment-user-date {
@@ -300,23 +399,22 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 3vh;
   font-weight: 500;
   color: #000000;
 }
 
-.CLikeBtn{
-  width: 12vh;
+.like-button-comment {
+  width: 2vw;
   height: 4vh;
 }
 
-.CLikeBtn img{
+.CLikeBtn img {
   width: 4vh;
   height: 4vh;
   overflow: hidden;
 }
 
-.CLikeBtn h3{
+.CLikeBtn h3 {
   font-size: 2.5vh;
   width: 100%;
   display: flex;
@@ -325,48 +423,45 @@
   color: #000;
 }
 
-.editComment{
-  width: 10vh;
+.editComment {
+  width: 8vh;
   height: 4vh;
+  background-color: #ececec;
+  margin-left: 3vw;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-radius: 40px;
 }
 
-.CdeleteBtn{
-  width: 3.9vh;
-  height: 3.9vh;
-  overflow: hidden;
-}
-
-.CdeleteBtn img{
+.editBtn{
   width: 100%;
   height: 100%;
-  overflow: hidden;
-}
-
-
-
-.CeditBtn{
-  width: 3.9vh;
-  height: 3.9vh;
-  overflow: hidden;
-}
-
-.CeditBtn img{
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .comment-text {
   width: 100%;
   font-size: 2vh;
-  color: #000000;
+  color: #000000c4;
   font-weight: 500;
 }
 
-.updateCommentBox{
+.comment-like-button{
+  margin-top: 1vw;
+  background-color: #ececec;
+  width: 1.5vw;
+  height: auto;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.updateCommentBox {
   width: 50vw;
   height: 30vh;
   display: flex;
@@ -375,19 +470,19 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   background-color: #fffefe;
-  padding:1vh 2vh;
+  padding: 1vh 2vh;
   border-radius: 10px;
 }
 
-.updateCommentBox h2{
+.updateCommentBox h2 {
   font-size: 3vh;
   height: 10%;
   font-weight: 500;
 }
 
-.updateCommentBox form{
+.updateCommentBox form {
   width: 100%;
   height: 90%;
   display: flex;
@@ -395,7 +490,7 @@
   gap: 2vh;
 }
 
-.updateCommentBox form textarea{
+.updateCommentBox form textarea {
   width: 100%;
   height: 90%;
   border: 1px solid #000;
@@ -407,16 +502,16 @@
   padding: 0.5vh;
 }
 
-.btnss{
+.btnss {
   width: 100%;
   height: 10%;
   display: flex;
-  justify-content:flex-end;
+  justify-content: flex-end;
   align-items: center;
   gap: 2vh;
 }
 
-.btnss button{
+.btnss button {
   border: none;
   outline: none;
   border-radius: 40px;
@@ -427,416 +522,96 @@
   font-weight: 500;
 }
 
-.deleteCommentBox{
-  width: 50vw;
-  height: 20vh;
+.deleteCommentBox {
+  width: 40vw;
+  height: fit-content;
   display: flex;
   flex-direction: column;
+  align-items: center;
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   background-color: #fffefe;
-  padding:1vh 2vh;
+  padding: 2vh 2vh;
   border-radius: 10px;
 }
 
-.deleteCommentBox h2{
-  font-size: 3vh;
-  height: 20%;
+.deleteCommentBox .deleteCommentBox-close {
+  width:2vw;
+  height: auto;
+  aspect-ratio: 1/1;
+  display: flex;
+  position: fixed;
+  top: 1vh;
+  right: 1vh;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2vh;
   font-weight: 500;
-  border-bottom: 1px solid #000;
 }
 
-.deleteCommentBox p{
-  font-size: 3.5vh;
-  height: 60%;
-  font-weight: 500;
-  color: #000000;
+.deleteCommentBox .deleteCommentBox-close .icon{
+  width: 70%;
+  height: 70%;
+  color: #636363;
 }
 
-.Dbtnss{
+.deleteCommentBox .deleteCommentBox-head {
+  width:4vw;
+  height: auto;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2vh;
+  font-weight: 500;
+}
+
+.deleteCommentBox .deleteCommentBox-head .icon{
+  width: 70%;
+  height: 70%;
+  color: #636363;
+}
+
+.deleteCommentBox p {
+  font-size: 1.2rem;
+  text-align: center;
+  width: 80%;
+  font-weight: 500;
+  color: #636363;
+}
+
+.Dbtnss {
   width: 100%;
   height: fit-content;
+  margin-top: 3vh;
   display: flex;
-  justify-content:flex-end;
+  justify-content: center;
   align-items: center;
   gap: 2vh;
+  margin-bottom: 1vh;
 }
 
-.Dbtnss button{
+.Dbtnss button {
   border: none;
   outline: none;
   border-radius: 40px;
-  background-color: #fa3434;
+  background-color: #271212;
   color: #ececec;
   font-size: 2vh;
   padding: 1.5vh 3vh;
   font-weight: 500;
 }
 
-.separator {
-  width: 100%;
-  height: 1px;
-  margin: 1vh 0;
-  background-color: #c0bdbd;
-}
-
-.VI-video-info p {
+.Dbtnss button.cancel {
+  background-color: #cfcfcf;
+  color: #271212;
   font-size: 2vh;
+  padding: 1.5vh 3vh;
   font-weight: 500;
 }
 
-.expand-button {
-  font-size: 2vh;
-  cursor: pointer;
-  margin-top: 1vh;
-  background-color: none;
-  font-weight: 500;
-  color: #000000;
-  border: none;
-}
-
-
-@media screen and (max-width: 500px){
-.video-player-page {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding-top: 7vh;
-  padding-left: 0.5vh;
-  padding-right: 0.5vh;
-  background-color: #fffefe;
-}
-
-.video-player {
-  height: 27vh;
-}
-
-.VI-channel-info {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1vh;
-}
-
-.VI-channel-info h3 {
-  font-size: 2.5vh;
-}
-
-.VI-profileImg {
-  width: 6.2vh;
-  height: 6.2vh;
-  aspect-ratio: 1/1;
-  background-color: #333;
-  border-radius: 50%;
-}
-
-.VI-profileImg img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.VI-likes {
-  height: 6vh;
-  width: 11vh;
-  padding:0 1vh;
-}
-
-.VI-likes h5 {
-  margin-left: 0.7vh;
-}
-
-.subscribe-button {
-  padding: 1.8vh 2.3vh;
-  font-size: 2.1vh;
-  cursor: pointer;
-  background-color: #333;
-  color: #ececec;
-  border: none;
-  border-radius: 40px;
-}
-
-.subscribe-button.subscribed {
-  background-color: #ececec;
-  color: #333;
-  font-weight: 500;
-}
-
-.VI-statAndDes {
-  width: 100%;
-  height: fit-content;
-  padding: 2vh 1vh;
-  background-color: #ececec;
-  border-radius: 10px;
-  margin-bottom: 1vh;
-  margin-top: 1vh;
-}
-
-.VI-statAndDes-v {
-  font-size: 2vh;
-  font-weight: 500;
-  margin-bottom: 1vh;
-  display: flex;
-  color: #0f0f0f;
-  align-items: center;
-  gap: 1vh;
-}
-
-.comments {
-  width: 100%;
-  padding: 1vh 0.5vh;
-  border-radius: 10px;
-  margin-bottom: 2vh;
-  min-height:20vh ;
-  /* background-color: #333; */
-}
-
-.addCommentSection {
-  width: 100%;
-  height: 7vh;
-  margin-bottom: 2vh;
-  display: flex;
-  align-items: center;
-  gap: 1vh;
-  margin-top: 2vh;
-}
-
-.acs-left {
-  width: 15%;
-  height: 100%;
-}
-
-.acs-left-img {
-  width: 6.2vh;
-  height: 6.2vh;
-  border-radius: 50%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #c0bdbd;
-}
-
-.acs-left-img a {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.acs-left-img img {
-  width: 80%;
-  height: 80%;
-  object-fit: cover;
-}
-
-.acs-left-img img.recImg {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.acs-right {
-  width: 95%;
-  height: 100%;
-}
-
-.acs-right form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 2vh;
-}
-
-.acs-right form input {
-  width: 100%;
-  border: none;
-  outline: none;
-  border-bottom: 1px solid #c0bdbd;
-  background-color: none;
-  font-weight: 500;
-  font-size: 2vh;
-  padding: 0.5vh;
-}
-
-.acs-right form input:focus {
-  width: 100%;
-  border: none;
-  outline: none;
-  border-bottom: 1px solid #000000;
-  background-color: none;
-  font-weight: 500;
-  font-size: 2vh;
-  padding: 0.5vh;
-}
-
-.Commentbtns {
-  display: flex;
-  gap: 1vh;
-}
-
-.Commentbtns button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1vh 2.3vh;
-  border-radius: 40px;
-  border: none;
-  font-size: 2vh;
-  font-weight: 500;
-  background-color: #ececec;
-}
-.Commentbtns button.CBsubmitbtn {
-  background-color: #333;
-  color: #ececec;
-}
-.CommentConatiner {
-  width: 100%;
-  height: fit-content;
-  padding: 2vh 0vh;
-}
-
-.CommentComponent {
-  display: flex;
-  flex-direction: column;
-  gap: 2vh;
-}
-.comment {
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  gap: 2vh;
-}
-
-.comment-left {
-  width: fit-content;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1vh;
-}
-
-.comment-user-img {
-  width: 6.2vh;
-  height: 6.2vh;
-  border-radius: 50%;
-}
-
-.comment-left img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.comment-right {
-  width: 95%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1vh;
-  justify-content: center;
-}
-
-.comment-user-date {
-  font-size: 2vh;
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 3vh;
-  font-weight: 500;
-  color: #000000;
-}
-
-.CLikeBtn{
-  width: 3.6vh;
-  height: 3.6vh;
-}
-
-.CLikeBtn img{
-  width: 4vh;
-  height: 4vh;
-  overflow: hidden;
-}
-
-.CLikeBtn h3{
-  font-size: 2.5vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #000;
-}
-
-.editComment{
-  width: 10vh;
-  height: 4vh;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.CdeleteBtn{
-  width: 100%;
-  height: 90%;
-  overflow: hidden;
-}
-
-.CdeleteBtn img{
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.CeditBtn{
-  width:100%;
-  height: 90%;
-  overflow: hidden;
-}
-
-.CeditBtn img{
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.editComment button {
-  padding: 1vh 2.3vh;
-  border-radius: 40px;
-  border: none;
-  font-size: 2vh;
-  font-weight: 500;
-  background-color: #ececec;
-}
-
-.comment-text {
-  width: 100%;
-  font-size: 2vh;
-  color: #000000;
-  font-weight: 500;
-}
-
-.related-videos h2 {
-  margin-bottom: 2vh;
-}
-
-.related-videos ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  display: block;
-}
 
 .separator {
   width: 100%;
@@ -860,4 +635,365 @@
   border: none;
 }
 
+@media screen and (max-width: 500px) {
+  .video-player-page {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 7vh;
+    padding-left: 0.5vh;
+    padding-right: 0.5vh;
+    background-color: #fffefe;
+  }
+
+  .video-player {
+    height: 27vh;
+  }
+
+  .VI-channel-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1vh;
+  }
+
+  .VI-channel-info h3 {
+    font-size: 2.5vh;
+  }
+
+  .VI-profileImg {
+    width: 6.2vh;
+    height: 6.2vh;
+    aspect-ratio: 1/1;
+    background-color: #333;
+    border-radius: 50%;
+  }
+
+  .VI-profileImg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .VI-likes {
+    height: 6vh;
+    width: 11vh;
+    padding: 0 1vh;
+  }
+
+  .VI-likes h5 {
+    margin-left: 0.7vh;
+  }
+
+  .subscribe-button {
+    padding: 1.8vh 2.3vh;
+    font-size: 2.1vh;
+    cursor: pointer;
+    background-color: #333;
+    color: #ececec;
+    border: none;
+    border-radius: 40px;
+  }
+
+  .subscribe-button.subscribed {
+    background-color: #ececec;
+    color: #333;
+    font-weight: 500;
+  }
+
+  .VI-statAndDes {
+    width: 100%;
+    height: fit-content;
+    padding: 2vh 1vh;
+    background-color: #ececec;
+    border-radius: 10px;
+    margin-bottom: 1vh;
+    margin-top: 1vh;
+  }
+
+  .VI-statAndDes-v {
+    font-size: 2vh;
+    font-weight: 500;
+    margin-bottom: 1vh;
+    display: flex;
+    color: #0f0f0f;
+    align-items: center;
+    gap: 1vh;
+  }
+
+  .comments {
+    width: 100%;
+    padding: 1vh 0.5vh;
+    border-radius: 10px;
+    margin-bottom: 2vh;
+    min-height: 20vh;
+    /* background-color: #333; */
+  }
+
+  .addCommentSection {
+    width: 100%;
+    height: 7vh;
+    margin-bottom: 2vh;
+    display: flex;
+    align-items: center;
+    gap: 1vh;
+    margin-top: 2vh;
+  }
+
+  .acs-left {
+    width: 15%;
+    height: 100%;
+  }
+
+  .acs-left-img {
+    width: 6.2vh;
+    height: 6.2vh;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #c0bdbd;
+  }
+
+  .acs-left-img a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .acs-left-img img {
+    width: 80%;
+    height: 80%;
+    object-fit: cover;
+  }
+
+  .acs-left-img img.recImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .acs-right {
+    width: 95%;
+    height: 100%;
+  }
+
+  .acs-right form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 2vh;
+  }
+
+  .acs-right form input {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #c0bdbd;
+    background-color: none;
+    font-weight: 500;
+    font-size: 2vh;
+    padding: 0.5vh;
+  }
+
+  .acs-right form input:focus {
+    width: 100%;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #000000;
+    background-color: none;
+    font-weight: 500;
+    font-size: 2vh;
+    padding: 0.5vh;
+  }
+
+  .Commentbtns {
+    display: flex;
+    gap: 1vh;
+  }
+
+  .Commentbtns button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1vh 2.3vh;
+    border-radius: 40px;
+    border: none;
+    font-size: 2vh;
+    font-weight: 500;
+    background-color: #ececec;
+  }
+  .Commentbtns button.CBsubmitbtn {
+    background-color: #333;
+    color: #ececec;
+  }
+  .CommentConatiner {
+    width: 100%;
+    height: fit-content;
+    padding: 2vh 0vh;
+  }
+
+  .CommentComponent {
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+  }
+  .comment {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 2vh;
+  }
+
+  .comment-left {
+    width: fit-content;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1vh;
+  }
+
+  .comment-user-img {
+    width: 6.2vh;
+    height: 6.2vh;
+    border-radius: 50%;
+  }
+
+  .comment-left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
+  .comment-right {
+    width: 95%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    justify-content: center;
+  }
+
+  .comment-user-date {
+    font-size: 2vh;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 3vh;
+    font-weight: 500;
+    color: #000000;
+  }
+
+  .CLikeBtn {
+    width: 3.6vh;
+    height: 3.6vh;
+  }
+
+  .CLikeBtn img {
+    width: 4vh;
+    height: 4vh;
+    overflow: hidden;
+  }
+
+  .CLikeBtn h3 {
+    font-size: 2.5vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+  }
+
+  .editComment {
+    width: 10vh;
+    height: 4vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .CdeleteBtn {
+    width: 100%;
+    height: 90%;
+    overflow: hidden;
+  }
+
+  .CdeleteBtn img {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .CeditBtn {
+    width: 100%;
+    height: 90%;
+    overflow: hidden;
+  }
+
+  .CeditBtn img {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .editComment button {
+    padding: 1vh 2.3vh;
+    border-radius: 40px;
+    border: none;
+    font-size: 2vh;
+    font-weight: 500;
+    background-color: #ececec;
+  }
+
+  .comment-text {
+    width: 100%;
+    font-size: 2vh;
+    color: #000000;
+    font-weight: 500;
+  }
+
+  .related-videos h2 {
+    margin-bottom: 2vh;
+  }
+
+  .related-videos ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: block;
+  }
+
+  .separator {
+    width: 100%;
+    height: 1px;
+    margin: 1vh 0;
+    background-color: #c0bdbd;
+  }
+
+  .VI-video-info p {
+    font-size: 2vh;
+    font-weight: 500;
+  }
+
+  .expand-button {
+    font-size: 2vh;
+    cursor: pointer;
+    margin-top: 1vh;
+    background-color: none;
+    font-weight: 500;
+    color: #000000;
+    border: none;
+  }
 }

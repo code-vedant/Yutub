@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "../style/profile.css";
-import VideoContainerForProfile from "../components/VideoContainerForProfile.jsx";
+import VideoContainer from "../components/VideoContainer.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation, useParams } from "react-router-dom";
 import AuthService from "../service/auth.js";
@@ -153,7 +153,7 @@ function Profile() {
               filteredVideos.map((video) => (
                 <div key={video.id} className="videoTabItem">
                   <Link to={`/videopage/${video?._id}`}>
-                    <VideoContainerForProfile video={video} />
+                    <VideoContainer video={video} />
                   </Link>
                 </div>
               ))

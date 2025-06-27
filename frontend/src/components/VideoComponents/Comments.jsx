@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import robot from "../assets/robot.png";
+import robot from "../../assets/robot.png";
 import { useForm } from "react-hook-form";
 import CommentComponent from "./CommentComponent";
-import CommentService from "../service/comment";
+import CommentService from "../../service/comment";
 import { useSelector } from "react-redux";
 
 const Comments = ({ accessToken,videoId, comments }) => {
   const { register, handleSubmit } = useForm();
-  const [comment, setComment] = useState([]);
+  const [comment, setComment] = useState(comments || []);
   const [handleBtns, setHandleBtns] = useState(false);
   const [error, setError] = useState("")
 
   const ownerData = useSelector((state) => state.auth.userData);
+
+
 
 
   const handleBtn = () => {
@@ -36,7 +38,7 @@ const Comments = ({ accessToken,videoId, comments }) => {
 
   return (
     <div className="comments">
-      <h2>{comments.length || "0"}&nbsp;Comments</h2>
+      <h2>{comment.length || "0"}&nbsp;Comments</h2>
       <div className="addCommentSection">
         <div className="acs-left">
           <div className="acs-left-img">
@@ -76,7 +78,7 @@ const Comments = ({ accessToken,videoId, comments }) => {
         </div>
       </div>
       <div className="CommentConatiner">
-        <CommentComponent accessToken={accessToken} comments={comments} />
+        <CommentComponent accessToken={accessToken} comments={comment} />
       </div>
     </div>
   );
