@@ -97,18 +97,18 @@ function VideoContainer({ video }) {
           <div className="video-info">
           <Link to={`/videopage/${video?._id}`}>
           <h3 className="video-title">
-              {video.title ? shorter(video.title,40) : "title of video"}
+              {video.title ? shorter(video.title,70) : "title of video"}
             </h3>
             <Link to={`/profile/${video?.owner || ""}`}>
               <h3 className="video-channel">
                 {video.ownerData ? video.ownerData?.fullName : "Channel Name"}
               </h3>
             </Link>
-            <p className="video-description">
+            {/* <p className="video-description">
               {video.description
                 ? shorter(video.description,45)
                 : "Lorem ipsum dolor sit amet consectetur."}
-            </p>
+            </p> */}
             <div className="video-stats">
               <span>{video?.views || "0"}&nbsp;views</span>
               <span>

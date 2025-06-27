@@ -19,6 +19,8 @@ import SignupComponent from "./components/auth/SignupComponent.jsx";
 import { PersistGate } from "redux-persist/integration/react";
 import VideoPage from "./pages/VIdeoPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
+import PhotoPage from "./pages/PhotoPage.jsx";
+import PostPage from "./pages/PostPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -30,13 +32,22 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
       },
-
       {
         path: "/videos",
         element: (
-          <ProtectedRoute>
             <VideoPage />
-          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/photos",
+        element: (
+            <PhotoPage />
+        ),
+      },
+      {
+        path: "posts",
+        element: (
+            <PostPage />
         ),
       },
       {
