@@ -43,7 +43,8 @@ const LikeService = {
             throw error;
         }
     },
-    getLikedVideos: async ({accessToken}) => {
+    getLikedVideos: async (accessToken) => {
+
         try {
             const response = await axios.get(`${API_URL}/videos`, {
                 headers: {
@@ -56,7 +57,8 @@ const LikeService = {
             throw error;
         }
     },
-    getLikedTweet: async ({accessToken}) => {
+    getLikedTweet: async (accessToken) => {
+
         try {
             const response = await axios.get(`${API_URL}/tweets`, {
                 headers: {
@@ -69,7 +71,8 @@ const LikeService = {
             throw error;
         }
     },
-    getLikedComment: async ({accessToken}) => {
+    getLikedComment: async (accessToken) => {
+
         try {
             const response = await axios.get(`${API_URL}/comments`, {
                 headers: {

@@ -18,7 +18,6 @@ function Auth() {
       )}
       <div className="auth-main">
         <div className="auth-back-test">
-          <div className="auth-back-corner-blur" />
           <div className="auth-back-blur-glass"></div>
 
           <InfiniteMarquee direction={"top"} items={testimonials} />

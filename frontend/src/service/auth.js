@@ -18,7 +18,6 @@ const AuthService = {
   },
   
   logout: async (accessToken) => {
-    console.log(accessToken);
     
     const response = await axios.post(
       `${API_URL}/logout`,

@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import "../style/homepage.css";
 import { Link } from "react-router-dom";
 import VideoService from '../service/video'
-import VideoContainer from "../components/VideoContainer";
+import VideoContainer from "../components/VideoComponents/VideoContainer";
 import PhotoService from "../service/photo";
 import PhotoContainer from "../components/Photos/PhotoContainer";
 import PostCard from "../components/TweetComponents/PostCard";
@@ -59,7 +59,6 @@ const HomePage = () => {
   const fetchLikedVideos = useCallback(async () => {
     try {
       const res = await LikeService.getLikedVideos(accessToken)
-      console.log("Liked Videos:", res.data);
       dispatch(addLikedVideo(res.data));
     } catch (error) {
       setError(prev => ({ ...prev, likedVideos: error.message }));

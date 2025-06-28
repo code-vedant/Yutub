@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { logout } from './userAuth.js';
 
 const initialState = {
   likedVideos: [],
@@ -10,6 +11,7 @@ const likeSlice = createSlice({
   name: 'like',
   initialState,
   reducers: {
+    // Existing reducers...
     addLikedVideo: (state, action) => {
       state.likedVideos.push(action.payload);
     },
@@ -34,6 +36,30 @@ const likeSlice = createSlice({
         (commentId) => commentId !== action.payload
       );
     },
+    
+    // New bulk set actions for login
+    setLikedVideos: (state, action) => {
+      state.likedVideos = action.payload;
+    },
+    setLikedTweets: (state, action) => {
+      state.likedTweets = action.payload;
+    },
+    setLikedComments: (state, action) => {
+      state.likedComments = action.payload;
+    },
+    
+    resetLikes: (state) => {
+      state.likedVideos = [];
+      state.likedTweets = [];
+      state.likedComments = [];
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(logout, (state) => {
+      state.likedVideos = [];
+      state.likedTweets = [];
+      state.likedComments = [];
+    });
   },
 });
 
@@ -44,6 +70,10 @@ export const {
   removeLikedVideo,
   removeLikedTweet,
   removeLikedComment,
+  setLikedVideos,
+  setLikedTweets,
+  setLikedComments,
+  resetLikes,
 } = likeSlice.actions;
 
 export default likeSlice.reducer;

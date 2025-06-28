@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "../style/profile.css";
-import VideoContainer from "../components/VideoContainer.jsx";
+import VideoContainer from "../components/VideoComponents/VideoContainer.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation, useParams } from "react-router-dom";
 import AuthService from "../service/auth.js";
@@ -42,7 +42,6 @@ function Profile() {
   const { id: userId } = useParams();
   const location = useLocation();
 
-  // console.log(userId, "userId from params");
   
 
   const path =

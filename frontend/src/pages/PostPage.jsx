@@ -16,7 +16,6 @@ export default function PostPage() {
 
     try {
     const res = await TweetService.getAllTweets();
-      console.log("Fetched tweets:", res.data.docs);
       setPosts(res.data.docs);
     } catch (error) {
       console.error(

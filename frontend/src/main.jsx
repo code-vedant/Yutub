@@ -17,7 +17,7 @@ import Auth from "./pages/Auth.jsx";
 import LoginComponent from "./components/auth/LoginComponent.jsx";
 import SignupComponent from "./components/auth/SignupComponent.jsx";
 import { PersistGate } from "redux-persist/integration/react";
-import VideoPage from "./pages/VIdeoPage.jsx";
+import VideoPage from "./pages/VideoPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import PhotoPage from "./pages/PhotoPage.jsx";
 import PostPage from "./pages/PostPage.jsx";

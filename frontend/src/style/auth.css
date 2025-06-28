@@ -2,7 +2,7 @@
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background-color: #fdf5f5;
+  background-color: #ffffff;
   position: relative;
   display: flex;
   justify-content: center;
@@ -19,18 +19,9 @@
   justify-content: center;
   align-items: center;
   gap: 1vw;
+  padding: 0 0.8vw;
 }
 
-.auth-back-blur{
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 5rem;
-  background: linear-gradient(to right, rgb(42, 40, 40), transparent);
-  z-index: 10;
-  pointer-events: none;
-}
 
 .auth-back-blur-glass{
   width: 100%;
@@ -40,7 +31,7 @@
   z-index: 8;
   left: 0;
   background-color: #00000041;
-  box-shadow: inset 0px 0px 100px 10px #000;
+  box-shadow: inset 0px 0px 100px 10px #0000007f;
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(1px);
 }
@@ -268,8 +259,14 @@
 }
 
 @media screen and (max-width : 500px) {
+
+  .auth-main {
+    width: 100vw;
+    height: 100vh;
+  }
+
   .login-box {
-    width: 100%;
+    width: 98%;
     height: 100vh;
     display: block;
   }

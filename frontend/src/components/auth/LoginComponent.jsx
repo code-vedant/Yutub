@@ -8,6 +8,7 @@ import logo from "../../assets/logo.png";
 import Input from './Input.jsx';
 import Label from './Label.jsx';
 import Button from './Button.jsx';
+import { useUserData } from '../../hooks/useUserData.jsx';
 
 export default function LoginComponent() {
   const { isLoading, setIsLoading } = useOutletContext();
@@ -15,29 +16,38 @@ export default function LoginComponent() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [error, setError] = useState("");
+  
+  const { fetchUserData } = useUserData();
 
   const login = async (data) => {
-    setError("");
-    setIsLoading(true);
+  setError("");
+  setIsLoading(true);
 
-    try {
-      const res = await AuthService.login(data);
+  try {
+    const res = await AuthService.login(data);
 
-      if (res?.statusCode === 200) {
-        const { accessToken, user } = res.data;
-        dispatch(AuthLogin({ user, accessToken }));
-        dispatch(setAccessToken({accessToken}))
-        navigate("/");
-      } else {
-        setError(res.message || "Login failed.");
-      }
-    } catch (error) {
-      console.error("Login error:", error.response?.data || error.message);
-      setError(error.response?.data?.message || "Login failed. Please try again.");
-    } finally {
-      setIsLoading(false);
+    if (res?.statusCode === 200) {
+      const { user, accessToken } = res.data;
+
+      dispatch(AuthLogin({ user, accessToken }));
+      dispatch(setAccessToken({ accessToken }));
+
+      // Fetch user-specific data if needed
+      await fetchUserData(accessToken, user._id);
+      
+      console.log("Login successful and user data loaded");
+      navigate("/");
+    } else {
+      setError(res.message || "Login failed.");
     }
-  };
+  } catch (error) {
+    console.error("Login error:", error.response?.data || error.message);
+    setError(error.response?.data?.message || "Login failed. Please try again.");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
 
   return (
     <div className="Login-box">

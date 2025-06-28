@@ -1,10 +1,9 @@
-import  { useState } from "react";
-import "../style/videoContainer.css";
+import { useState } from "react";
+import "../../style/videoContainer.css";
 import { useSelector } from "react-redux";
-import robot from "../assets/robot.png";
 import { Link } from "react-router-dom";
-import AddToPlaylist from "./PlaylistComponents/AddToPlaylist";
-import PopupHolder from "./PopupHolder";
+import AddToPlaylist from "../PlaylistComponents/AddToPlaylist";
+import PopupHolder from "../PopupHolder";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
 function VideoContainer({ video }) {
@@ -47,12 +46,11 @@ function VideoContainer({ video }) {
     }
   };
 
-  const shorter = (item,len) => {
+  const shorter = (item, len) => {
     if (item.length > len) {
       return item.substring(0, len) + "...";
     } else return item;
   };
-
 
   const duration = (item) => {
     if (item < 60) {
@@ -74,52 +72,51 @@ function VideoContainer({ video }) {
       <div className="VC-top">
         <div className="video-thumbnail">
           <Link to={`/video/${video?._id}`}>
-          <img src={video.thumbnail ? video.thumbnail : ""} alt="title" />
-          <span className="video-duration">
-            {duration(video.duration) || `10 min`}
-          </span>
+            <img src={video.thumbnail ? video.thumbnail : ""} alt="title" />
+            <span className="video-duration">
+              {duration(video.duration) || `10 min`}
+            </span>
           </Link>
         </div>
       </div>
       <div className="VC-bottom">
         <div className="VC-left">
-          <Link to={`/profile/${video.ownerData?._id === user?._id ? "" : video.ownerData?._id}`}>
+          <Link
+            to={`/profile/${
+              video.ownerData?._id === user?._id ? "" : video.ownerData?._id
+            }`}
+          >
             <div className="VC-left-imgHolder">
-              {video?.ownerData?.avatar ? (
                 <img src={video?.ownerData?.avatar} className="imgRec" />
-              ) : (
-                <img src={robot} />
-              )}
             </div>
           </Link>
         </div>
         <div className="VC-right">
           <div className="video-info">
-          <Link to={`/videopage/${video?._id}`}>
-          <h3 className="video-title">
-              {video.title ? shorter(video.title,70) : "title of video"}
-            </h3>
-            <Link to={`/profile/${video?.owner || ""}`}>
-              <h3 className="video-channel">
-                {video.ownerData ? video.ownerData?.fullName : "Channel Name"}
+            <Link to={`/videopage/${video?._id}`}>
+              <h3 className="video-title">
+                {video.title ? shorter(video.title, 70) : "title of video"}
               </h3>
-            </Link>
-            {/* <p className="video-description">
+              <Link to={`/profile/${video?.owner || ""}`}>
+                <h3 className="video-channel">
+                  {video.ownerData ? video.ownerData?.fullName : "Channel Name"}
+                </h3>
+              </Link>
+              {/* <p className="video-description">
               {video.description
                 ? shorter(video.description,45)
                 : "Lorem ipsum dolor sit amet consectetur."}
             </p> */}
-            <div className="video-stats">
-              <span>
-                {video.createdAt ? timeAgo(video.createdAt) : "days ago"}
-              </span>
-            </div>
-          </Link>
-            
+              <div className="video-stats">
+                <span>
+                  {video.createdAt ? timeAgo(video.createdAt) : "days ago"}
+                </span>
+              </div>
+            </Link>
           </div>
           <div className="video-options">
             <div className="vo-icon">
-            <BsThreeDotsVertical className="vo-three-dot" />
+              <BsThreeDotsVertical className="vo-three-dot" />
             </div>
             <div className="vo-options">
               <button onClick={handlePlaylistOptions}>Add to playlist</button>

@@ -15,7 +15,6 @@ export default function PhotoPage() {
     setError(null);
     try {
       const res = await PhotoService.getAllPhotos();
-      console.log("Fetched photos:", res.data.docs);
 
       setPhotos(res.data.docs);
     } catch (error) {

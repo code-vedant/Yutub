@@ -1,14 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
 import VideoService from '../service/video'
-import VideoContainer from '../components/VideoContainer'
+import VideoContainer from '../components/VideoComponents/VideoContainer'
 import '../style/videopage.css'
 
 export default function VideoPage() {
 
   const [video,setVideo] = useState([])
   const [error,setError] = useState("")
-  const accessToken = useSelector(state=>state.auth.accessToken)
 
   const getVideos = async () => {
     setError("")
@@ -24,9 +22,6 @@ export default function VideoPage() {
   useEffect(()=>{
     getVideos()
   },[])
-
-  console.log(video);
-  
 
 
   return (

@@ -1,17 +1,17 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import "../style/videoplayerpage.css";
-import LikeService from "../service/like";
-import { addLikedVideo, removeLikedVideo } from "../store/LikesSlice";
-import SubService from "../service/subscription";
+import "../../style/videoplayerpage.css";
+import LikeService from "../../service/like";
+import { addLikedVideo, removeLikedVideo } from "../../store/LikesSlice";
+import SubService from "../../service/subscription";
 import { BiLike, BiSolidLike } from "react-icons/bi";
 import { PiShareFatLight } from "react-icons/pi";
 
 import {
   addSubscribedChannel,
   removeSubscribedChannel,
-} from "../store/subsStore";
+} from "../../store/subsStore";
 
 const VideoInfo = ({ videoData }) => {
   const { title, description, owner } = videoData;
@@ -178,7 +178,9 @@ const VideoInfo = ({ videoData }) => {
           </Link>
           {isOwnVideo ? (
             <Link to="/dashboard">
-              <button className="subscribe-button">Go to Dashboard</button>
+              <button className="subscribe-button">
+               GO to Dashboard
+              </button>
             </Link>
           ) : (
             <button

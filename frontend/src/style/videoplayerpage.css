@@ -135,7 +135,7 @@
   border-radius: 50%;
 }
 .like-icon {
-  height: 100%;
+  height: 80%;
   /* background-color: #ececec; */
   aspect-ratio: 1/1;
   width: auto;
@@ -151,7 +151,7 @@
 }
 
 .VI-likes h5 {
-  font-size: 1.4rem;
+  font-size: 1.1rem;
   color: #000000;
   font-weight: 500;
   background-color: #ececec;
@@ -167,13 +167,20 @@
 
 .subscribe-button {
   padding: 0 2.3vh;
-  font-size: 2.1vh;
+  font-size: 1.1rem;
   height: 5vh;
   cursor: pointer;
   background-color: #333;
   color: #ececec;
   border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 40px;
+}
+
+.subscribe-button .icon{
+  display: none;
 }
 
 .subscribe-button.subscribed {
@@ -184,7 +191,7 @@
 
 .playlist-button {
   padding: 0 2.3vh;
-  font-size: 2.1vh;
+  font-size: 1.1rem;
   height: 5vh;
   cursor: pointer;
   background-color: #ececec;
@@ -194,7 +201,7 @@
 
 .share-button {
   padding: 0 2.3vh;
-  font-size: 2.1vh;
+  font-size: 1.1rem;
   height: 5vh;
   cursor: pointer;
   background-color: #ececec;
@@ -393,14 +400,25 @@
   /* background-color: #ececec; */
 }
 
-.comment-user-date {
-  font-size: 2vh;
+.comment-right-header {
   width: 100%;
   display: flex;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-end;
   font-weight: 500;
   color: #000000;
+  gap: 0.3vw;
+}
+
+.comment-right-header span {
+  font-size: 1rem;
+  height: 100%;
+}
+
+.comment-right-header .time {
+  font-size: 0.8rem;
+  line-height: 1.2rem;
+  color: #3c3c3c;
 }
 
 .like-button-comment {
@@ -434,7 +452,7 @@
   border-radius: 40px;
 }
 
-.editBtn{
+.editBtn {
   width: 100%;
   height: 100%;
   display: flex;
@@ -444,13 +462,13 @@
 
 .comment-text {
   width: 100%;
-  font-size: 2vh;
-  color: #000000c4;
+  font-size: 1rem;
+  color: #000000;
   font-weight: 500;
 }
 
-.comment-like-button{
-  margin-top: 1vw;
+.comment-like-button {
+  margin-top: 0.4vh;
   background-color: #ececec;
   width: 1.5vw;
   height: auto;
@@ -460,158 +478,6 @@
   align-items: center;
   border-radius: 50%;
 }
-
-.updateCommentBox {
-  width: 50vw;
-  height: 30vh;
-  display: flex;
-  flex-direction: column;
-  gap: 2vh;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fffefe;
-  padding: 1vh 2vh;
-  border-radius: 10px;
-}
-
-.updateCommentBox h2 {
-  font-size: 3vh;
-  height: 10%;
-  font-weight: 500;
-}
-
-.updateCommentBox form {
-  width: 100%;
-  height: 90%;
-  display: flex;
-  flex-direction: column;
-  gap: 2vh;
-}
-
-.updateCommentBox form textarea {
-  width: 100%;
-  height: 90%;
-  border: 1px solid #000;
-  outline: none;
-  resize: none;
-  background-color: none;
-  font-weight: 500;
-  font-size: 2vh;
-  padding: 0.5vh;
-}
-
-.btnss {
-  width: 100%;
-  height: 10%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 2vh;
-}
-
-.btnss button {
-  border: none;
-  outline: none;
-  border-radius: 40px;
-  background-color: #fa3434;
-  color: #ececec;
-  font-size: 2vh;
-  padding: 1.5vh 3vh;
-  font-weight: 500;
-}
-
-.deleteCommentBox {
-  width: 40vw;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fffefe;
-  padding: 2vh 2vh;
-  border-radius: 10px;
-}
-
-.deleteCommentBox .deleteCommentBox-close {
-  width:2vw;
-  height: auto;
-  aspect-ratio: 1/1;
-  display: flex;
-  position: fixed;
-  top: 1vh;
-  right: 1vh;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 2vh;
-  font-weight: 500;
-}
-
-.deleteCommentBox .deleteCommentBox-close .icon{
-  width: 70%;
-  height: 70%;
-  color: #636363;
-}
-
-.deleteCommentBox .deleteCommentBox-head {
-  width:4vw;
-  height: auto;
-  aspect-ratio: 1/1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 2vh;
-  font-weight: 500;
-}
-
-.deleteCommentBox .deleteCommentBox-head .icon{
-  width: 70%;
-  height: 70%;
-  color: #636363;
-}
-
-.deleteCommentBox p {
-  font-size: 1.2rem;
-  text-align: center;
-  width: 80%;
-  font-weight: 500;
-  color: #636363;
-}
-
-.Dbtnss {
-  width: 100%;
-  height: fit-content;
-  margin-top: 3vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2vh;
-  margin-bottom: 1vh;
-}
-
-.Dbtnss button {
-  border: none;
-  outline: none;
-  border-radius: 40px;
-  background-color: #271212;
-  color: #ececec;
-  font-size: 2vh;
-  padding: 1.5vh 3vh;
-  font-weight: 500;
-}
-
-.Dbtnss button.cancel {
-  background-color: #cfcfcf;
-  color: #271212;
-  font-size: 2vh;
-  padding: 1.5vh 3vh;
-  font-weight: 500;
-}
-
 
 .separator {
   width: 100%;
@@ -656,8 +522,18 @@
   .VI-channel-info {
     display: flex;
     align-items: center;
+    height: fit-content;
+    width: 100%;
     justify-content: flex-start;
-    gap: 1vh;
+    flex-direction: column-reverse;
+  }
+
+  .VI-channel-info-right{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1vw;
   }
 
   .VI-channel-info h3 {
@@ -687,16 +563,6 @@
 
   .VI-likes h5 {
     margin-left: 0.7vh;
-  }
-
-  .subscribe-button {
-    padding: 1.8vh 2.3vh;
-    font-size: 2.1vh;
-    cursor: pointer;
-    background-color: #333;
-    color: #ececec;
-    border: none;
-    border-radius: 40px;
   }
 
   .subscribe-button.subscribed {
@@ -860,12 +726,11 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 1vh;
   }
 
   .comment-user-img {
-    width: 6.2vh;
-    height: 6.2vh;
+    width: 5.6vh;
+    height: 5.6vh;
     border-radius: 50%;
   }
 
@@ -881,19 +746,30 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1vh;
+    gap: 0;
     justify-content: center;
   }
 
-  .comment-user-date {
-    font-size: 2vh;
+  .comment-right-header {
     width: 100%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 3vh;
+    gap:0.2vw; 
     font-weight: 500;
     color: #000000;
+  }
+
+  .comment-like-button {
+    margin-top: 0.4vh;
+    background-color: #ececec;
+    width: 2rem;
+    height: auto;
+    aspect-ratio: 1/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
   }
 
   .CLikeBtn {

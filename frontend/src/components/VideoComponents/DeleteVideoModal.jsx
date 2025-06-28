@@ -9,7 +9,7 @@ function DeleteVideoModal({closeDeleteModal, videoId ,accessToken }) {
         await VideoService.deleteVideo(accessToken,videoId)
         closeDeleteModal();
       } catch (error) {
-        console.log(error.message);
+        console.error(error.response.data.message);
         
       }
   }

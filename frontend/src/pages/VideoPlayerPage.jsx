@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "../style/videoplayerpage.css";
 import VideoPlayer from "../components/VideoComponents/VideoPlayer.jsx";
-import VideoInfo from "../components/VideoInfo.jsx";
+import VideoInfo from "../components/VideoComponents/VideoInfo.jsx";
 import Comments from "../components/VideoComponents/Comments.jsx";
 import { useParams } from "react-router-dom";
 import VideoService from "../service/video.js";

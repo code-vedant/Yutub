@@ -31,7 +31,7 @@ function VideoEditModal({ closeEditModal, accessToken, videoId }) {
       alert("Video updated successfully");
       closeEditModal();
     } catch (error) {
-      console.log(error.message);
+      console.error(error.response.data.message || error.message);
     } finally {
       setLoading(false);
     }

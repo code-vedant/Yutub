@@ -1,29 +1,45 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-const subscribedChannelsFromStorage = sessionStorage.getItem('subscribedChannels')
-  ? JSON.parse(sessionStorage.getItem('subscribedChannels'))
-  : [];
+import { logout } from './userAuth.js';
 
 const initialState = {
-  subscribedChannels: subscribedChannelsFromStorage,
+  subscribedChannels: [],
 };
 
 const subscriptionSlice = createSlice({
   name: 'subscription',
   initialState,
   reducers: {
+    // Existing reducers...
     addSubscribedChannel: (state, action) => {
       state.subscribedChannels.push(action.payload);
-      sessionStorage.setItem('subscribedChannels', JSON.stringify(state.subscribedChannels));
     },
     removeSubscribedChannel: (state, action) => {
       state.subscribedChannels = state.subscribedChannels.filter(
         (channelId) => channelId !== action.payload
       );
-      sessionStorage.setItem('subscribedChannels', JSON.stringify(state.subscribedChannels));
     },
+    
+    // New bulk set action for login
+    setSubscribedChannels: (state, action) => {
+      state.subscribedChannels = action.payload;
+    },
+    
+    resetSubscriptions: (state) => {
+      state.subscribedChannels = [];
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(logout, (state) => {
+      state.subscribedChannels = [];
+    });
   },
 });
 
-export const { addSubscribedChannel, removeSubscribedChannel } = subscriptionSlice.actions;
+export const { 
+  addSubscribedChannel, 
+  removeSubscribedChannel, 
+  setSubscribedChannels,
+  resetSubscriptions 
+} = subscriptionSlice.actions;
+
 export default subscriptionSlice.reducer;
