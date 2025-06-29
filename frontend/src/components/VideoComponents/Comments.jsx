@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
+import {  useState } from "react";
 import { Link } from "react-router-dom";
-import robot from "../../assets/robot.png";
+import alien from "../../assets/alien.jpeg";
 import { useForm } from "react-hook-form";
 import CommentComponent from "./CommentComponent";
 import CommentService from "../../service/comment";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setError } from "../../store/globalError";
 
 const Comments = ({ accessToken,videoId, comments }) => {
   const { register, handleSubmit } = useForm();
   const [comment, setComment] = useState(comments || []);
   const [handleBtns, setHandleBtns] = useState(false);
-  const [error, setError] = useState("")
 
   const ownerData = useSelector((state) => state.auth.userData);
-
-
-
+  const likedComments = useSelector((state) => state.like.likedComments);
+  const dispatch = useDispatch()
+  
 
   const handleBtn = () => {
     setHandleBtns(true);
@@ -23,16 +23,12 @@ const Comments = ({ accessToken,videoId, comments }) => {
 
   const addComment = async (data) => {
     try {
-      const res = await CommentService.addComments(accessToken,videoId,data)
-      
+      await CommentService.addComments(accessToken,videoId,data)
       setHandleBtns(false);
     } catch (error) {
-      console.error(error || "Error adding comment")
-      setError("Error adding comment")
+      dispatch(setError(error?.response?.data?.message || "Error adding comment"))
     }
   }
-
-  
 
   const owner = comments.owner;
 
@@ -43,10 +39,10 @@ const Comments = ({ accessToken,videoId, comments }) => {
         <div className="acs-left">
           <div className="acs-left-img">
             <Link to={`/profile/${owner}`}>
-              {ownerData ? (
+              {ownerData.avatar ? (
                 <img src={ownerData.avatar} className="recImg" alt="" />
               ) : (
-                <img src={robot} alt="" />
+                <img src={alien} alt="" />
               )}
             </Link>
           </div>

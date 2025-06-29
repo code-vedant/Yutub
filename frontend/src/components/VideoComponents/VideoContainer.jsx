@@ -6,7 +6,7 @@ import AddToPlaylist from "../PlaylistComponents/AddToPlaylist";
 import PopupHolder from "../PopupHolder";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-function VideoContainer({ video }) {
+function VideoContainer({ video ,withUser = false}) {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const user = useSelector((state) => state.auth.userData);
   const [editModal, setEditModal] = useState(false);
@@ -80,17 +80,17 @@ function VideoContainer({ video }) {
         </div>
       </div>
       <div className="VC-bottom">
-        <div className="VC-left">
+      {withUser && <div className="VC-left">
           <Link
             to={`/profile/${
               video.ownerData?._id === user?._id ? "" : video.ownerData?._id
             }`}
           >
-            <div className="VC-left-imgHolder">
+             <div className="VC-left-imgHolder">
                 <img src={video?.ownerData?.avatar} className="imgRec" />
             </div>
           </Link>
-        </div>
+        </div>}
         <div className="VC-right">
           <div className="video-info">
             <Link to={`/videopage/${video?._id}`}>
@@ -98,15 +98,10 @@ function VideoContainer({ video }) {
                 {video.title ? shorter(video.title, 70) : "title of video"}
               </h3>
               <Link to={`/profile/${video?.owner || ""}`}>
-                <h3 className="video-channel">
+               {withUser && <h3 className="video-channel">
                   {video.ownerData ? video.ownerData?.fullName : "Channel Name"}
-                </h3>
+                </h3>}
               </Link>
-              {/* <p className="video-description">
-              {video.description
-                ? shorter(video.description,45)
-                : "Lorem ipsum dolor sit amet consectetur."}
-            </p> */}
               <div className="video-stats">
                 <span>
                   {video.createdAt ? timeAgo(video.createdAt) : "days ago"}

@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import PopupHolder from "../components/PopupHolder.jsx";
 import Loader from "../components/Loader.jsx";
 import CommentService from "../service/comment.js";
+import RelatedVideos from "../components/VideoComponents/RelatedVideos.jsx";
 
 const VideoPlayerPage = () => {
   const [videoData, setVideoData] = useState(null);
@@ -66,8 +67,8 @@ const VideoPlayerPage = () => {
           <Comments accessToken={accessToken} videoId={videoId} comments={comments} />
           </div>
         <div className="related-videos">
-          <h3>Watch More</h3>
           {/* Placeholder for related videos section */}
+          <RelatedVideos owner={videoData.owner}/>
           </div>
         </>
       ) : (

@@ -7,6 +7,7 @@
   grid-template-columns: repeat(15, 1fr);
   align-items: start;
   padding-top: 2vh;
+  gap: 1vw;
 }
 
 .video-player-container {
@@ -22,13 +23,90 @@
 .related-videos {
   width: 100%;
   height: fit-content;
-  grid-column: 13/15;
+  grid-column: 12/16;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: start;
-  background-color: #ffb3b3;
   border-radius: 10px;
+  margin-bottom: 2vh;
+}
+
+.related-videos-renderer{
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+}
+
+.related-videos-list{
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2vh;
+  gap: 2vh;
+}
+
+.addVideoAd{
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fffefe;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 2vh 1vw;
+}
+
+.addVideoAd h3{
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 2vh;
+}
+
+.addVideoAd p{
+  font-size: 1rem;
+  color: #666;
+  margin: 2vh 0;
+}
+
+.addVideoAd button{
+  padding: 1vh 2vw;
+  font-size: 1rem;
+  background-color: #190b0b;
+  color: #fff;
+  border: none;
+  border-radius: 40px;
+  cursor: pointer;
+}
+
+.camera-icon-container{
+  width: 8vh;
+  height: 8vh;
+  object-fit: cover;
+  background-color: #fffefe;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2vh;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid black;
+}
+
+.more-title{
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
   margin-bottom: 2vh;
 }
 
@@ -86,13 +164,14 @@
   gap: 1vw;
 }
 
-.VI-channel-info .VI-channel-name h3 {
+.VI-channel-info .VI-channel-name .h3 {
   font-size: 1.2rem;
   color: #0f0f0f;
   font-weight: 500;
+  display: block;
 }
 
-.VI-channel-info .VI-channel-name h4 {
+.VI-channel-info .VI-channel-name .h4 {
   font-size: 1.1rem;
   color: #323232;
   font-weight: 500;
@@ -536,10 +615,6 @@
     gap: 1vw;
   }
 
-  .VI-channel-info h3 {
-    font-size: 2.5vh;
-  }
-
   .VI-profileImg {
     width: 6.2vh;
     height: 6.2vh;
@@ -555,20 +630,54 @@
     border-radius: 50%;
   }
 
+  .VI-channel-name {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: left;
+    margin-left: 0.5vw;
+    margin-right: 2vw;
+  }
+  .VI-channel-info .VI-channel-name .h3 {
+  font-size: 1.2rem;
+  color: #0f0f0f;
+  font-weight: 500;
+  display: block;
+}
+
+.VI-channel-info .VI-channel-name .h4 {
+  font-size: 1.1rem;
+  color: #323232;
+  font-weight: 500;
+}
+
   .VI-likes {
-    height: 6vh;
-    width: 11vh;
-    padding: 0 1vh;
+    height: 5vh;
+    padding: 0;
   }
 
   .VI-likes h5 {
-    margin-left: 0.7vh;
+    font-size: 1rem;
+    padding: 0 4vw;
   }
+
+  
+.playlist-button {
+  padding: 0 4vw;
+  font-size: 1rem;
+}
+
+.share-button {
+  padding: 0 4vw;
+  font-size: 1rem;
+}
 
   .subscribe-button.subscribed {
     background-color: #ececec;
     color: #333;
     font-weight: 500;
+    font-size: 1rem;
   }
 
   .VI-statAndDes {
@@ -598,6 +707,13 @@
     margin-bottom: 2vh;
     min-height: 20vh;
     /* background-color: #333; */
+  }
+
+  .comments h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #000000;
+    margin-bottom: 1vh;
   }
 
   .addCommentSection {

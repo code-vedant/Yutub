@@ -4,12 +4,23 @@ const API_URL = (import.meta.env.VITE_NODE_ENV !== "development" ? import.meta.e
 
 
 const VideoService = {
-  getAllVideos: async (accessToken) => {
+  getAllVideos: async () => {
     try {
       const response = await axios.get(`${API_URL}/`);
       return response.data;
     } catch (error) {
       console.error("Error fetching videos:", error);
+      throw error;
+    }
+  },
+
+  getUserVideos: async (userId) => {
+    
+    try {
+      const response = await axios.get(`${API_URL}/user/${userId}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching user videos:", error);
       throw error;
     }
   },

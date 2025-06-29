@@ -28,7 +28,7 @@ export default function VideoPage() {
     <section className='videopage-main'>
       {error && <p>{error}</p>}
       {video.map((vid)=> 
-      <VideoContainer key={vid._id} video={vid} />
+      <VideoContainer key={vid._id} video={vid} withUser={true} />
       )}
     </section>
   )

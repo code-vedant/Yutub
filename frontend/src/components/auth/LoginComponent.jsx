@@ -35,7 +35,6 @@ export default function LoginComponent() {
       // Fetch user-specific data if needed
       await fetchUserData(accessToken, user._id);
       
-      console.log("Login successful and user data loaded");
       navigate("/");
     } else {
       setError(res.message || "Login failed.");

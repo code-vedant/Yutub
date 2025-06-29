@@ -2,6 +2,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import authSlice from './userAuth.js';
 import subscriptionSlice from './subsStore.js';
 import LikesSlice from './LikesSlice.js';
+import globalErrorSlice from './globalError.js';
 
 import {
   persistStore,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   auth: authSlice,
   subscription: subscriptionSlice,
   like: LikesSlice,
+  globalError: globalErrorSlice
 });
 
 const persistConfig = {

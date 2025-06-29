@@ -111,7 +111,7 @@ const HomePage = () => {
         </div>
         <div className="video_container">
           {displayVideos.map((video) => (
-            <VideoContainer key={video._id} video={video} />
+            <VideoContainer key={video._id} video={video} withUser={true} />
           ))}
         </div>
       </div>

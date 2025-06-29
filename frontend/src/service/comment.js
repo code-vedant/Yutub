@@ -16,7 +16,7 @@ const CommentService = {
       throw error;
     }
   },
-  addComments: async ( accessToken,videoId, data) => {
+  addComments: async ( {accessToken},videoId, data) => {
     try {
       const response = await axios.post(`${API_URL}/${videoId}`, data, {
         headers: {
@@ -29,7 +29,7 @@ const CommentService = {
       throw error;
     }
   },
-  updateComment: async (accessToken, commentId,data) => {
+  updateComment: async ({accessToken}, commentId,data) => {
     try {
       const response = await axios.patch(
         `${API_URL}/c/${commentId}`,
@@ -46,7 +46,7 @@ const CommentService = {
       throw error;
     }
   },
-  deleteComment: async (accessToken, commentId) => {
+  deleteComment: async ({accessToken}, commentId) => {
     try {
       const response = await axios.delete(
         `${API_URL}/c/${commentId}`,

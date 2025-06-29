@@ -134,3 +134,91 @@
     font-weight: 500;
   }
   
+
+  @media screen and (max-width:600px) {
+    .updateCommentBox {
+      width: 90vw;
+      min-height: 20vh;
+    }
+    
+    .updateCommentBox h2 {
+      font-size: 1.5rem;
+    }
+    
+    .updateCommentBox form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .updateCommentBox form textarea {
+      height: 25vh;
+    }
+    
+    .deleteBox {
+      width: 90vw;
+    }
+    
+
+    .deleteBox .deleteBox-head {
+      width:14vw;
+    }
+    
+    .deleteBox .deleteBox-head .icon{
+      width: 70%;
+      height: 70%;
+      color: #636363;
+    }
+    
+    .deleteBox p {
+      font-size: 1.2rem;
+      text-align: center;
+      width: 80%;
+      font-weight: 500;
+      color: #636363;
+    }
+    
+    .btn {
+      width: 100%;
+      height: fit-content;
+      margin-top: 3vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2vh;
+      /* margin-bottom: 1vh; */
+    }
+    
+    .btn button {
+      border: none;
+      outline: none;
+      border-radius: 40px;
+      background-color: #271212;
+      color: #ececec;
+      font-size: 2vh;
+      padding: 1.3vh 5vw;
+      font-weight: 500;
+    }
+    
+    .btn button.cancel {
+      background-color: #cfcfcf;
+      color: #271212;
+      font-size: 2vh;
+      font-weight: 500;
+      padding: 1.3vh 5vw;
+
+    }
+
+    .modal-close {
+      width:2rem;
+    }
+    
+  .modal-close .icon{
+      width: 70%;
+      height: 70%;
+      color: #636363;
+    }
+    
+    
+    
+  }

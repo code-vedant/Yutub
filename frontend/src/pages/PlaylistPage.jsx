@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "../style/playlist.style.css";
-import VideoBox from "../components/VideoBox";
+import VideoBox from "../components/VideoComponents/VideoBox";
 import PlaylistService from "../service/playlist";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";

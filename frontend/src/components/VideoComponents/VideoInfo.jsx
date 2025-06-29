@@ -7,6 +7,7 @@ import { addLikedVideo, removeLikedVideo } from "../../store/LikesSlice";
 import SubService from "../../service/subscription";
 import { BiLike, BiSolidLike } from "react-icons/bi";
 import { PiShareFatLight } from "react-icons/pi";
+import {getTimeAgo} from "../../utils/getTimeAgo";
 
 import {
   addSubscribedChannel,
@@ -14,7 +15,7 @@ import {
 } from "../../store/subsStore";
 
 const VideoInfo = ({ videoData }) => {
-  const { title, description, owner } = videoData;
+  const { title, description, owner, createdAt } = videoData;
   const [isExpanded, setIsExpanded] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
   const [isLoadingLike, setIsLoadingLike] = useState(false);
@@ -28,13 +29,12 @@ const VideoInfo = ({ videoData }) => {
   );
   const dispatch = useDispatch();
 
-  const isVideoLiked = useMemo(
-    () => likedVideos.includes(videoData?._id),
-    [likedVideos, videoData?._id]
-  );
+  const isVideoLiked = useMemo(() => {
+    return likedVideos.some(like => like.video?._id === videoData?._id);
+  }, [likedVideos, videoData?._id]);
 
   const isChannelSubscribed = useMemo(
-    () => subscribedChannels.includes(owner?._id),
+    () => subscribedChannels.some(subs => subs.video?._id === videoData?._id),
     [subscribedChannels, owner?._id]
   );
 
@@ -42,34 +42,6 @@ const VideoInfo = ({ videoData }) => {
     () => user?._id === owner?._id,
     [user?._id, owner?._id]
   );
-
-  const formattedTimeAgo = useMemo(() => {
-    if (!videoData?.createdAt) return "days ago";
-    const now = new Date();
-    const past = new Date(videoData.createdAt);
-    const diffInMs = now - past;
-
-    const seconds = Math.floor(diffInMs / 1000);
-    const minutes = Math.floor(seconds / 60);
-    const hours = Math.floor(minutes / 60);
-    const days = Math.floor(hours / 24);
-    const weeks = Math.floor(days / 7);
-    const months = Math.floor(days / 30);
-
-    if (months > 0) {
-      return `${months} month${months > 1 ? "s" : ""} ago`;
-    } else if (weeks > 0) {
-      return `${weeks} week${weeks > 1 ? "s" : ""} ago`;
-    } else if (days > 0) {
-      return `${days} day${days > 1 ? "s" : ""} ago`;
-    } else if (hours > 0) {
-      return `${hours} hour${hours > 1 ? "s" : ""} ago`;
-    } else if (minutes > 0) {
-      return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
-    } else {
-      return `${seconds} second${seconds > 1 ? "s" : ""} ago`;
-    }
-  }, [videoData?.createdAt]);
 
   const shouldShowExpandButton = useMemo(
     () => description && description.length > 120,
@@ -96,10 +68,10 @@ const VideoInfo = ({ videoData }) => {
         accessToken,
         videoData._id
       );
-
+      
       if (response.statusCode === 200) {
         if (response.data !== null) {
-          dispatch(addLikedVideo(videoData._id));
+          dispatch(addLikedVideo(response.data));
           setLikeCount((prev) => prev + 1);
         } else {
           dispatch(removeLikedVideo(videoData._id));
@@ -173,13 +145,13 @@ const VideoInfo = ({ videoData }) => {
             </Link>
           </div>
           <Link to={`/profile/${owner._id}`} className="VI-channel-name">
-            <h3>{owner.fullName}</h3>
-            <h4>{owner.username}</h4>
+            <span className="h3">{owner.fullName}</span>
+            <span className="h4">{owner.username}</span>
           </Link>
           {isOwnVideo ? (
             <Link to="/dashboard">
               <button className="subscribe-button">
-               GO to Dashboard
+               Go to Dashboard
               </button>
             </Link>
           ) : (
@@ -232,7 +204,7 @@ const VideoInfo = ({ videoData }) => {
       {/* DESCRIPTION */}
       <div className="VI-statAndDes">
         <div className="VI-statAndDes-v">
-          <span>Uploaded: {formattedTimeAgo}</span>
+          <span>Uploaded: {getTimeAgo(createdAt)}</span>
         </div>
         <div className="separator"></div>
         <p>{displayDescription}</p>

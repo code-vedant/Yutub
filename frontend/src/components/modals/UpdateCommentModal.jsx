@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { IoClose } from "react-icons/io5";
 import "../../style/modal.css";
 
-export default function UpdateCommentModal({ updateFn, closeFn }) {
+export default function UpdateCommentModal({ updateFn, closeFn,comment }) {
   const { register, handleSubmit } = useForm();
 
   return (
@@ -16,6 +16,7 @@ export default function UpdateCommentModal({ updateFn, closeFn }) {
           type="text"
           placeholder="Write a comment..."
           {...register("content")}
+          defaultValue={comment?.content || ""}
         />
         <div className="btn">
           <button className="cancel" onClick={closeFn}>Cancel</button>

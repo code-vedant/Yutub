@@ -133,20 +133,34 @@
 
 @media (max-width: 480px) {
   .sidebar {
-    width: 80vw;
+    width: 70vw;
   }
 
   .menu-logo {
-    font-size: 1rem;
-    left: 16vw;
+    font-size: 1.8rem;
+    left: 20vw;
+  }
+
+  .sidebar li {
+    cursor: pointer;
+    margin-bottom: 0;
+    transition: color 0.3s;
+  }
+
+  .sidebar .separator{
+    margin: 2vh 0;
   }
 
   .sidebar li a {
-    font-size: 0.95rem;
+    font-size: 1.2rem;
+  /* gap: 1vw;  */
   }
 
   .link-icon {
-    height: 1rem;
-    width: 1rem;
+    height: 1.2rem;
+    width: 1.2rem;
+  }
+  .menu-logout {
+    margin-top: 0vh;
   }
 }

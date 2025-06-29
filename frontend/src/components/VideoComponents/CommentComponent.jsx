@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import robot from "../../assets/robot.png";
 import PopupHolder from "../PopupHolder";
 import { BiLike, BiSolidLike } from "react-icons/bi";
@@ -13,6 +13,9 @@ import {
 } from "../../store/LikesSlice";
 import DeleteModal from "../modals/DeleteModal";
 import UpdateCommentModal from "../modals/UpdateCommentModal";
+import { getTimeAgo } from "../../utils/getTimeAgo";
+import { setError } from "../../store/globalError";
+
 
 function CommentComponent({ accessToken, comments }) {
   const [loading, setLoading] = useState(false);
@@ -23,36 +26,6 @@ function CommentComponent({ accessToken, comments }) {
   const userData = useSelector((state) => state.auth.userData);
   const likedComments = useSelector((state) => state.like.likedComments);
   const dispatch = useDispatch();
-
-  // Memoized time calculation function
-  const timeAgo = useMemo(() => {
-    return (timestamp) => {
-      const now = new Date();
-      const past = new Date(timestamp);
-      const diffInMs = now - past;
-
-      const seconds = Math.floor(diffInMs / 1000);
-      const minutes = Math.floor(seconds / 60);
-      const hours = Math.floor(minutes / 60);
-      const days = Math.floor(hours / 24);
-      const weeks = Math.floor(days / 7);
-      const months = Math.floor(days / 30);
-
-      if (months > 0) {
-        return `${months} month${months > 1 ? "s" : ""} ago`;
-      } else if (weeks > 0) {
-        return `${weeks} week${weeks > 1 ? "s" : ""} ago`;
-      } else if (days > 0) {
-        return `${days} day${days > 1 ? "s" : ""} ago`;
-      } else if (hours > 0) {
-        return `${hours} hour${hours > 1 ? "s" : ""} ago`;
-      } else if (minutes > 0) {
-        return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
-      } else {
-        return `${seconds} second${seconds > 1 ? "s" : ""} ago`;
-      }
-    };
-  }, []);
 
   // Modal handlers
   const handleDeleteModal = useCallback((id) => {
@@ -78,13 +51,13 @@ function CommentComponent({ accessToken, comments }) {
   // API operations
   const updateComment = useCallback(async (data) => {
     if (!commentId) return;
-    
     setLoading(true);
     try {
       await CommentService.updateComment(accessToken, commentId, data);
       closeUpdateModal();
     } catch (error) {
       console.error("Failed to update comment:", error);
+      dispatch(setError(error.response?.data?.message || "Failed to update comment"));
     } finally {
       setLoading(false);
     }
@@ -146,7 +119,7 @@ function CommentComponent({ accessToken, comments }) {
         const isLiked = isCommentLiked(comment._id);
         
         return (
-          <div key={comment.id} className="comment-box">
+          <div key={comment._id} className="comment-box">
             <div className="comment-left">
               <div className="comment-user-img">
                 <img src={owner.avatar || robot} alt={`${owner.fullName}'s avatar`} />
@@ -155,7 +128,7 @@ function CommentComponent({ accessToken, comments }) {
             <div className="comment-right">
               <div className="comment-right-header">
                 <span>{owner.fullName}</span>
-                <span className="time">• {timeAgo(comment.createdAt)}</span>
+                <span className="time">• {getTimeAgo(comment.createdAt)}</span>
                 {isOwner && (
                   <div className="editComment">
                     <button
@@ -200,6 +173,7 @@ function CommentComponent({ accessToken, comments }) {
             updateFn={updateComment} 
             closeFn={closeUpdateModal}
             loading={loading}
+            comment={comments.find(c => c._id === commentId)}
           />
         </PopupHolder>
       )}

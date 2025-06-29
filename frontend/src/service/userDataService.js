@@ -2,7 +2,6 @@ import LikeService from "./like";
 import SubService from "./subscription";
 
 const getUserData = async (accessToken, userId) => {
-    console.log(accessToken);
     
   try {
     const [likedVideos, likedPosts, likedComments, subscribedChannels] =
