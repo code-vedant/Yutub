@@ -1,6 +1,15 @@
 .videopage-main {
   width: 100%;
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh 0.5%;
+  padding: 5vh 2vw;
+}
+
+.videopage-container {
+  width: 100%;
+  min-height: 100vh;
   /* background-color: aqua; */
   display: grid;
   grid-template-columns: repeat(4,1fr);

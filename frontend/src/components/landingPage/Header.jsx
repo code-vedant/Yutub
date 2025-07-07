@@ -10,7 +10,7 @@ function Header() {
             <ul className='header-list-ul'>
                 <li><a href="#home" className='header-list-ul-li'>Explore</a></li>
                 <li><a href="#services" className='header-list-ul-li'>Services</a></li>
-                <li><a href="#about" className='header-list-ul-li'>About</a></li>
+                <li><a href="https://vedantuekey.vercel.app/projects/web/yutub" target='_blank' className='header-list-ul-li'>About</a></li>
             </ul>
         </section>
         <section className='header-auth'>
