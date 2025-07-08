@@ -4,9 +4,11 @@ const API_URL = (import.meta.env.VITE_NODE_ENV !== "development" ? import.meta.e
 
 
 const PhotoService = {
-  getAllPhotos: async () => {
+  getAllPhotos: async (filters) => {
     try {
-      const response = await axios.get(`${API_URL}/`);
+      const response = await axios.get(`${API_URL}/`,{
+        params: filters
+      });
       return response.data;
     } catch (error) {
       console.error("Error fetching videos:", error);

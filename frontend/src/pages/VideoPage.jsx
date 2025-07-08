@@ -8,10 +8,17 @@ export default function VideoPage() {
   const [video, setVideo] = useState([]);
   const [error, setError] = useState("");
 
+  const [filters, setFilters] = useState({
+    query: "",
+    sortBy: "createdAt",
+    sortType: "desc",
+    page: 1,
+  });
+
   const getVideos = async () => {
     setError("");
     try {
-      const res = await VideoService.getAllVideos();
+      const res = await VideoService.getAllVideos(filters);
       setVideo(res.data.docs);
     } catch (error) {
       setError(error.response.data.message);
@@ -20,11 +27,11 @@ export default function VideoPage() {
 
   useEffect(() => {
     getVideos();
-  }, []);
+  }, [filters]);
 
   return (
     <section className="videopage-main">
-      <FilterComponent />
+      <FilterComponent type={"Videos"} filters={filters} setFilters={setFilters} />
       <section className="videopage-container">
         {error && <p>{error}</p>}
         {video.map((vid) => (
