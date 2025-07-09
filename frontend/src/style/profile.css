@@ -12,7 +12,7 @@
 .coverImageContainer{
     background-color: #000;
     width: 100%;
-    aspect-ratio: 2560/432;
+    aspect-ratio: 2560/256;
     border-radius: 10px;
     overflow: hidden;
 }
@@ -26,13 +26,13 @@
 .profileDataContainer{
     /* background: #ff0000; */
     width: 100%;
-    height: 26vh;
+    height: 24vh;
     border-radius: 10px;
     overflow: hidden;
     position: relative;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .profileImage{
@@ -40,7 +40,6 @@
     height: 100%;
     position: relative;
     padding: 1vh;
-
 }
 
 .profileImageHolder{
@@ -56,27 +55,37 @@
 }
 
 .profileDetail{
-    width: 90%;
-    height: 100%;
-    padding: 0.2vh 2vh;
+    width: 100%;
+    height: fit-content;
+    padding: 0.2vh 0.5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
 
 }
 .profileDetail h2{
-    font-size: 5.5vh;
-    color: #333;
+    font-size: 2rem;
+    color: #000000;
+    font-weight: 700;
 }
 
-.profileDetail h5{
-    font-size: 2vh;
-    color: #272727;
+.profileDetail h3{
+    font-size: 1rem;
+    color: #232323;
     margin-top: -0.5vh;
-    margin-bottom: 1.5vh;
-    margin-left: 0.3vh;
+    margin-bottom: 1vh;
+    font-weight: 600;
 }
 
-.profileDetail h4{
-    font-size: 2.5vh;
-    color: #333333;
+.profileStats{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 2vw;
+    font-size: 1.5rem;
 }
 
 .profileubscribeButton{
@@ -86,6 +95,7 @@
     display: flex;
     justify-content: start;
     align-items: start;
+    margin-top: 0.2vh;
 }
 
 .profileubscribeButton button{
@@ -97,7 +107,7 @@
     border-radius: 30px;
     font-size: 1.2rem;
     line-height: 2.1vh;
-    padding: 0.8rem 2rem;
+    padding: 0.6rem 2rem;
     text-align: center;
     cursor: pointer;
 }
@@ -116,7 +126,7 @@
     border-radius: 30px;
     font-size: 1.2rem;
     line-height: 2.1vh;
-    padding: 0.8rem 2rem;
+    padding: 0.6rem 2rem;
     text-align: center;
     cursor: pointer;
 }
@@ -147,7 +157,7 @@
 }
 
 
-.profilePageList ul li.active {
+.profilePageList li.active {
     border-bottom: 2px solid #000;
     font-weight: bold;
   }

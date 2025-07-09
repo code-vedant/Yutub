@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
 import "../style/profile.css";
-import VideoContainer from "../components/VideoComponents/VideoContainer.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation, useParams } from "react-router-dom";
 import AuthService from "../service/auth.js";
@@ -11,7 +10,6 @@ import TweetTab from "../components/TweetComponents/TweetTab.jsx";
 import PlaylistComponent from "../components/PlaylistComponents/PlaylistComponent.jsx";
 import NoPLaylist from "../components/PlaylistComponents/NoPLaylist.jsx";
 import NoSubscribers from "../components/SubscriptionComponents/NoSubscribers.jsx";
-import NoVideo from "../components/NoVideo.jsx";
 import SubService from "../service/subscription.js";
 import Subscribers from "../components/SubscriptionComponents/Subscribers.jsx";
 import { addSubscribedChannel, removeSubscribedChannel } from "../store/subsStore.js";
@@ -20,9 +18,9 @@ import coverUser from "../assets/coverUser.jpg";
 import alien from "../assets/alien.jpeg";
 import LogoutBtn from "../components/LogoutBtn.jsx";
 import EditDetails from "../components/Profile/EditDetails.jsx";
+import VideoTab from "../components/Profile/VideoTab.jsx";
 
 function Profile() {
-  const [videos, setVideos] = useState([]);
   const [playlist, setPlaylist] = useState([]);
   const [tweets, setTweets] = useState([]);
   const [subscribed, setSubscribed] = useState([]);
@@ -74,10 +72,6 @@ function Profile() {
 
   const handleTabClick = (tab) => setActiveTab(tab);
 
-  const filteredVideos = useMemo(() => {
-    return videos.filter((video) => video.owner === userId && video.isPublished);
-  }, [videos, userId]);
-
   const toggleSubscription = async () => {
     try {
       const response = await SubService.toggleSubscription(accessToken, userId);
@@ -113,16 +107,19 @@ function Profile() {
         </div>
         <div className="profileDetail">
           <h2>{user?.fullName || ""}</h2>
-          <h5>@ {user?.username || ""}</h5>
-          <h4>{subscribed?.length || "0"} Follows</h4>
-          <h4>{subscribers?.length || "0"} Subscribers</h4>
+          <h3>@{user?.username || ""}</h3>
+          <button>View more</button>
+          <div className="profileStats">
+          <p>{subscribed?.length || "0"} Follows</p>
+          <p>{subscribers?.length || "0"} Followers</p>
+          </div>
           <div className="profileubscribeButton">
             
             {!isSelf && <button
               onClick={toggleSubscription}
               className={subscription.includes(user?._id) ? "subscribed" : ""}
             >
-              {subscription.includes(user?._id) ? "Unsubscribe" : "Subscribe"}
+              {subscription.includes(user?._id) ? "Following" : "Follow"}
             </button>}
             {isSelf && <Link className="dashboard" to={"/dashboard"}>Dashboard</Link>}
             {isSelf && <button onClick={()=>setOpenEdit(true)}>Edit</button>}
@@ -133,8 +130,8 @@ function Profile() {
         </div>
       </section>
 
-      <section className="profilePageList">
-        {["Videos", "Playlist", "Tweet", "Subscribers"].map((tab) => (
+      <ul className="profilePageList">
+        {["Videos", "Playlist", "Tweet"].map((tab) => (
           <li
             key={tab}
             className={activeTab === tab ? "active" : ""}
@@ -143,22 +140,12 @@ function Profile() {
             {tab}
           </li>
         ))}
-      </section>
+      </ul>
 
       <section className="TabData">
         {activeTab === "Videos" && (
           <div className="VideoTab">
-            {filteredVideos.length ? (
-              filteredVideos.map((video) => (
-                <div key={video.id} className="videoTabItem">
-                  <Link to={`/videopage/${video?._id}`}>
-                    <VideoContainer video={video} />
-                  </Link>
-                </div>
-              ))
-            ) : (
-              <NoVideo />
-            )}
+            <VideoTab id={user?._id} />
           </div>
         )}
 
