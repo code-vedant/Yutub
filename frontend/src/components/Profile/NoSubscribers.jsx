@@ -1,6 +1,5 @@
-import React from "react";
-import Subscriber from "../assets/Subscriber.png";
-import "../style/SmallComponents.css";
+import Subscriber from "../../assets/Subscriber.png";
+import "../../style/SmallComponents.css";
 
 function NoSubscriber() {
   return (

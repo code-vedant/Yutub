@@ -1,0 +1,78 @@
+.addNewPlaylist-main{
+    width: 30vw;
+    height: 59vh;
+    transform: translate(-50%,-50%);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    box-shadow: 2px 2px 100px 10px rgba(0, 0, 0, 0.414);
+    border-radius: 20px;
+    background-color: #fffefe;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.addNewPlaylist-main h2{
+    font-size: 1.3rem;
+    border-bottom: none;
+    font-weight: 500;
+    width: 100%;
+    text-align: center;
+    padding: 1vh 0;
+}
+
+.addNewPlaylist-main form{
+    width: 100%;
+    /* background-color: antiquewhite; */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1vh 0.5vw;
+}
+
+.addNewPlaylist-main form label{
+    width: 100%;
+    font-size: 1.2rem;
+}
+
+.addNewPlaylist-main form input{
+    width: 100%;
+    background-color: #ececec;
+    font-size: 1.2rem;
+    padding: 0.5vh 0.4vw;
+    border-radius: 4rem;
+    margin-bottom: 2vh;
+}
+
+.addNewPlaylist-main form textarea{
+    width: 100%;
+    background-color: #ececec;
+    font-size: 1.2rem;
+    padding: 0.8vh 0.4vw;
+    border-radius: 1rem;
+    margin-bottom: 1vh;
+    min-height: 30vh;
+    resize: none;
+}
+
+.form-btn{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1vw;
+}
+
+.form-btn button{
+    width: 100%;
+    height: 5vh;
+    background-color: #271212;
+    color: #cfcfcf;
+    border-radius: 2rem;
+}
+
+.form-btn button.cancel{
+    background-color: #cfcfcf;
+    color: #271212;
+}

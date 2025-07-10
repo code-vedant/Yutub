@@ -1,6 +1,5 @@
-import React from "react";
-import "../style/SmallComponents.css";
-import play from "../assets/play.png";
+import "../../style/SmallComponents.css";
+import play from "../../assets/play.png";
 
 
 function NoVideo() {

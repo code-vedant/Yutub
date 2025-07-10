@@ -22,6 +22,7 @@ import HomePage from "./pages/HomePage.jsx";
 import PhotoPage from "./pages/PhotoPage.jsx";
 import PostPage from "./pages/PostPage.jsx";
 import VideoPlayerPage from "./pages/VideoPlayerPage.jsx";
+import Playlists from "./pages/Playlists.jsx";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,18 @@ const router = createBrowserRouter([
         element: (
             <VideoPage />
         ),
+      },
+      {
+        path: "/videos/playlist",
+        element : (
+          <Playlists />
+        )
+      },
+      {
+        path : "/videos/playlist/:id",
+        element : (
+          <PlaylistPage/>
+        )
       },
       {
         path: "/photos",

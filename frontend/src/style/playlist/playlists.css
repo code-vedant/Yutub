@@ -1,0 +1,89 @@
+.playlists-main{
+    width: 100%;
+    height: 100%;
+    /* background-color: yellowgreen; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2vh 0;
+    gap: 2vh;
+}
+
+.playlists-main h2{
+    width: 100%;
+    font-size: 2rem;
+    font-weight: 600;
+    border-bottom: 3px solid black;
+}
+
+.playlist-containers{
+    width: 100%;
+    height: fit-content;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 1vw;
+}
+
+.addNewPlaylist{
+    width: 100%;
+    aspect-ratio: 16/9;
+    height: auto;
+    background-color: rgb(44, 19, 19);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    gap: 2vh;
+    color: #fffefe;
+    border-radius: 20px;
+}
+
+.addNewPlaylist .icon{
+    font-size: 4rem;
+}
+
+.playlist{
+    width: 100%;
+    aspect-ratio: 16/9;
+    height: auto;
+    background-color: rgb(44, 19, 19);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    gap: 2vh;
+    color: #fffefe;
+    border-radius: 20px;
+}
+
+@media screen and (max-width : 900px) {
+    
+    .playlist-containers{
+        grid-template-columns: repeat(2,1fr);
+    }
+    
+    .addNewPlaylist{
+        border-radius: 10px;
+    }
+    
+    .playlist{
+        border-radius: 10px;
+    }
+}
+
+@media screen and (max-width : 600px) {
+    .playlist-containers{
+        grid-template-columns: repeat(1,1fr);
+    }
+    
+    .addNewPlaylist{
+        border-radius: 10px;
+    }
+    
+    .playlist{
+        border-radius: 10px;
+    }
+}

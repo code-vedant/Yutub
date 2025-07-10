@@ -1,13 +1,12 @@
 import { useCallback, useEffect, useState } from "react";
 import VideoContainer from "../VideoComponents/VideoContainer";
 import { Link } from "react-router-dom";
-import NoVideo from "./NoVideo";
 import { useDispatch } from "react-redux";
 import { setError } from "../../store/globalError";
 import VideoService from "../../service/video";
 import "../../style/profile/videoTab.css";
 
-export default function VideoTab({ id }) {
+export default function PhotoTab({ id }) {
   const [videos, setVideos] = useState([]);
   const dispatch = useDispatch();
 
@@ -38,7 +37,7 @@ export default function VideoTab({ id }) {
           ))}
         </div>
       ) : (
-        <NoVideo />
+        <p>sdada</p>
       )}
     </div>
   );
