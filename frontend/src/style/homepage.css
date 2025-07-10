@@ -66,6 +66,26 @@
   overflow: hidden;
 }
 
+.home-header-login{
+  height: 100%;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.home-header-login .login-btn{
+  height: 5vh;
+  width: fit-content;
+  padding: 0 2vw;
+  border-radius: 3rem;
+  color: #fffefe;
+  background-color: #131313;
+  object-fit: cover;
+  object-position: center;
+}
+
 .home-header-user img{
   width: 100%;
   height: 100%;

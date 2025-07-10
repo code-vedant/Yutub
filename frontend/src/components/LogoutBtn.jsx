@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import AuthService from '../service/auth.js';
 import { logout as logoutAction } from '../store/userAuth.js';
 import { persistor } from '../store/store.js';
@@ -7,6 +8,7 @@ import "../style/components.css"
 const Logout = () => {
   const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.auth.accessToken);
+  const navigate = useNavigate()
 
   const handleLogout = async () => {
     
@@ -23,6 +25,7 @@ const Logout = () => {
       
       // Clear in-memory Redux state (this will also clear likes due to extraReducers)
       dispatch(logoutAction());
+      navigate('/');
       
     } catch (error) {
       console.error('Logout error:', error);

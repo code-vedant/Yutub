@@ -7,6 +7,7 @@ import alien from "../../assets/alien.jpeg"
 
 function Header() {
   const user = useSelector((state) => state.auth.userData);
+  const authStatus = useSelector((state) => state.auth.status)
   const [openSearch, setOpenSearch] = useState(false);
   const { width } = useDimension();
 
@@ -34,9 +35,11 @@ function Header() {
           </section>
         )}
         <section className="home-header-profile">
-          <Link to={"/profile"} className="home-header-user">
+          {authStatus ? <Link to={"/profile"} className="home-header-user">
             <img src={user?.avatar  || alien } />
-          </Link>
+          </Link> : <Link to={"/auth/login"} className="home-header-login">
+            <button className="login-btn">Login</button>
+          </Link>}
         </section>
       </nav>
     </>
