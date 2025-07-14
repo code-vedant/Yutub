@@ -68,54 +68,88 @@
 }
 
 .PlaylistPage-main {
-  width: 100vw;
-  height: 100vh;
-  padding: 3vh 3vh;
-  padding-top: 8vh;
+  width: 100%;
+  height: 100%;
+  max-height: 90vh;
+  position: relative;
+  margin-top: 2vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-direction: column;
+  background-color: #fffefe;
+  overflow-y: hidden;
 }
 
 .PP-left {
-  width: 50%;
-  height: 100%;
+  width: 100%;
+  height: fit-content;
   display: flex;
-  flex-direction: column;
-  padding: 2vh;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-  background: #fdd8d843;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  position: relative;
+  margin-bottom: 1vh;
+  /* background-color: #786b6b; */
 }
 
-.PP-img-holder {
-  width: 100%;
-  height: 35%;
+.PP-options{
+  width: fit-content;
+  position: absolute;
+  top: 0;
+  right: 2%;
+  height: 100%;
   display: flex;
-  justify-content: center;
+
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.PP-edits{
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding:0.5vh 2vh ;
+  gap: 2vh;
+  border-radius: 40px;
+}
+
+.PP-edit-btn{
+  display: flex;
   align-items: center;
-  margin-bottom: 2vh;
-  border-radius: 10px;
-  overflow: hidden;
-  background-color: #666;
-  aspect-ratio: 16/9;
+  border: none;
+  justify-content: center;
+  border-radius: 40px;
 }
 
-.PP-img-holder img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 10px;
+.PP-delete-btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
 }
+
+.PP-left .icon{
+  font-size: 1.3rem;
+}
+
 .PP-title {
   width: 100%;
-  font-size: 4vh;
-  font-weight: 500;
-  margin-bottom: 2vh;
+  
 }
+
+.PP-title h3{
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.PP-title h5{
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #272727;
+}
+
 .PP-owner {
   width: 100%;
   height: fit-content;
@@ -155,54 +189,19 @@
   padding: 2vh;
 }
 
-.PP-edits{
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding:0.5vh 2vh ;
-  gap: 2vh;
-  border-radius: 40px;
-}
 
-.PP-edit-btn{
-  width: 15vh;
-  height: 5vh;
-  display: flex;
-  align-items: center;
-  border: none;
-  justify-content: center;
-  border-radius: 40px;
-  color: #fffefe;
-  background-color: #db9976;
-}
-
-.PP-delete-btn{
-  width: 15vh;
-  height: 5vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  border-radius: 40px;
-  color: #fdd8d8;
-  background-color: #c31a1a;
-}
 
 .PP-description {
   width: 100%;
   font-size: 2vh;
   color: #151515;
   font-weight: 600;
-  margin-bottom: 2vh;
 }
 
 .PP-right {
   width: 100%;
   height: 89vh;
-  background: #fdd8d843;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  /* background: #731818; */
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   display: flex;
@@ -211,9 +210,9 @@
   align-items: flex-start;
   overflow-y: auto;
   gap: 2vh;
+  box-shadow: 0 -4px 6px -4px rgba(0, 0, 0, 0.3);
   padding: 2vh;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 4rem 4rem 0 0;
 }
 
 .PP-VideoList a{

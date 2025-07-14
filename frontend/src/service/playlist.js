@@ -3,7 +3,7 @@ import axios from "axios";
 const API_URL = (import.meta.env.VITE_NODE_ENV !== "development" ? import.meta.env.VITE_API_URL  : "http://localhost:8000/api/v1") + '/playlist';
 
 const PlaylistService = {
-  getUserPlaylists: async (accessToken, userId) => {
+  getUserPlaylists: async ({accessToken}, userId) => {
     try {
       const response = await axios.get(`${API_URL}/user/${userId}`, {
         headers: {
@@ -29,7 +29,7 @@ const PlaylistService = {
       console.error(error);
     }
   },
-  createPlaylist: async (accessToken,playlistData) => {
+  createPlaylist: async (playlistData,{accessToken}) => {
     try {
       const response = await axios.post(`${API_URL}/`, playlistData, {
         headers: {
@@ -38,7 +38,7 @@ const PlaylistService = {
       });
       return response.data;
     } catch (error) {
-      console.error(error);
+      throw new Error("Error creating playlist: " + error.response?.data.message);
     }
   },
   addVideo: async (accessToken, videoId, playlistId) => {

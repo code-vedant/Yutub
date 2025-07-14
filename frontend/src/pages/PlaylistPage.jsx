@@ -8,10 +8,14 @@ import AuthService from "../service/auth";
 import PopupHolder from "../components/PopupHolder";
 import DeletePlaylist from "../components/PlaylistComponents/DeletePlaylist";
 import UpdatePlaylist from "../components/PlaylistComponents/UpdatePlaylist";
+import NoVideo from "../components/Profile/NoVideo";
+import { BsThreeDotsVertical } from "react-icons/bs";
 
 function PlaylistPage() {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const user = useSelector((state) => state.auth.userData);
+  const [showOptions, setShowOptions] = useState(false);
+  const toggleOptions = () => setShowOptions((prev) => !prev);
 
   const { id: playlistId } = useParams();
 
@@ -65,55 +69,73 @@ function PlaylistPage() {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest(".PP-options")) {
+        setShowOptions(false);
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+  
+
   return (
     <>
       {loading && <div>Loading...</div>}
 
       <div className="PlaylistPage-main">
         <div className="PP-left">
-          <div className="PP-img-holder">
-            <img
-              src={
-                "https://images.unsplash.com/photo-1496449903678-68ddcb189a24?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              }
-              alt=""
-            />
+          <div className="PP-title">
+            <h3>{playlist.name || "Playlist Title"}</h3>
+            <h5>gautm</h5>
           </div>
-          <div className="PP-title">{playlist.name || "Playlist Title"}</div>
-          <div className="PP-owner">
+          {/* <div className="PP-owner">
             <div className="PP-owner-img">
               <img src={owner?.avatar} alt="" />
             </div>
             <h3>{owner.fullName || "Owner name"}</h3>
           </div>
           <div className="PP-stats">
-            <h5> 12 videos 100k views</h5>
-          </div>
-          <div className="PP-edits">
-            <button className="PP-edit-btn" onClick={handleEditModal}>
-              Edit
-            </button>
-            <button className="PP-delete-btn" onClick={handleDeleteModal}>
-              Delete
-            </button>
+            <h5> 12 videos</h5>
           </div>
           <div className="PP-description">
             {playlist.description || "Playlist Description"}
           </div>
+
+           */}
+          <div className="PP-options">
+            <BsThreeDotsVertical className="icon" onClick={toggleOptions} />
+            {showOptions && (
+              <div className="PP-edits">
+                <button>Details</button>
+                <button className="PP-edit-btn" onClick={handleEditModal}>
+                  Edit
+                </button>
+                <button className="PP-delete-btn" onClick={handleDeleteModal}>
+                  Delete
+                </button>
+              </div>
+            )}
+          </div>
         </div>
         <div className="PP-right">
-          {videos.map((v, index) => (
-            <div className="PP-VideoList" key={index}>
-              <Link to={`/videopage/${v}`}>
-                <VideoBox videoId={v} accessToken={accessToken} />
-              </Link>
-              {owner?._id === user?._id && (
-                <div className="PP-remove" onClick={() => removeVideo(v)}>
-                  <h6>Remove</h6>
-                </div>
-              )}
-            </div>
-          ))}
+          {videos.length > 0 ? (
+            videos.map((v, index) => (
+              <div className="PP-VideoList" key={index}>
+                <Link to={`/videopage/${v}`}>
+                  <VideoBox videoId={v} accessToken={accessToken} />
+                </Link>
+                {owner?._id === user?._id && (
+                  <div className="PP-remove" onClick={() => removeVideo(v)}>
+                    <h6>Remove</h6>
+                  </div>
+                )}
+              </div>
+            ))
+          ) : (
+            <NoVideo />
+          )}
         </div>
         {editModal && (
           <PopupHolder>
