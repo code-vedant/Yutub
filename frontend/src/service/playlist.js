@@ -16,14 +16,12 @@ const PlaylistService = {
       console.error(error);
     }
   },
-  getPlaylistById: async (playlistId, accessToken) => {
-    try {
-      const response = await axios.get(`${API_URL}/${playlistId}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+  getPlaylistById: async (playlistId) => {
 
+    console.log(`Fetching playlist with ID: ${playlistId}`);
+    
+    try {
+      const response = await axios.get(`${API_URL}/${playlistId}`);
       return response.data;
     } catch (error) {
       console.error(error);

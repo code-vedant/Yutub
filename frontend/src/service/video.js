@@ -26,13 +26,9 @@ const VideoService = {
     }
   },
 
-  getVideoById: async (accessToken, videoId) => {
+  getVideoById: async (videoId) => {
     try {
-      const response = await axios.get(`${API_URL}/${videoId}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const response = await axios.get(`${API_URL}/${videoId}`);
       return response.data;
     } catch (error) {
       console.error(`Error fetching video with ID ${videoId}:`, error);
