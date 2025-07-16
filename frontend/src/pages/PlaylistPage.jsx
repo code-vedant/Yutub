@@ -3,21 +3,21 @@ import "../style/playlist.style.css";
 import VideoBox from "../components/VideoComponents/VideoBox";
 import PlaylistService from "../service/playlist";
 import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import AuthService from "../service/auth";
 import PopupHolder from "../components/PopupHolder";
-import DeletePlaylist from "../components/PlaylistComponents/DeletePlaylist";
-import UpdatePlaylist from "../components/PlaylistComponents/UpdatePlaylist";
 import NoVideo from "../components/Profile/NoVideo";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import PlaylistDetails from "../components/modals/PlaylistDetails";
+import DeleteModal from "../components/modals/DeleteModal";
+import EditPlaylist from "../components/PlaylistComponents/EditPlaylist";
 
 function PlaylistPage() {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const user = useSelector((state) => state.auth.userData);
   const [showOptions, setShowOptions] = useState(false);
   const toggleOptions = () => setShowOptions((prev) => !prev);
-
+  const navigate = useNavigate();
   const { id: playlistId } = useParams();
 
   const [playlist, setPlaylist] = useState("");
@@ -56,10 +56,27 @@ function PlaylistPage() {
     getPlaylistData();
   }, [playlistId]);
 
+  const DeletePlaylist = async () => {
+    setLoading(true);
+    try {
+      await PlaylistService.deletePLaylist(accessToken, playlistId);
+      setLoading(false);
+       closeDeleteModal();
+      navigate(-1);
+    } catch (error) {
+      console.error(error.message);
+      setLoading(false);
+    }
+  };
+
   const removeVideo = async (videoId) => {
     try {
-      const res = await PlaylistService.removeVideo(accessToken, videoId, playlistId);
-      if(res.status == 200)
+      const res = await PlaylistService.removeVideo(
+        accessToken,
+        videoId,
+        playlistId
+      );
+      if (res.status == 200)
         setVideos((prevVideos) => prevVideos.filter((v) => v._id !== videoId));
     } catch (error) {
       console.error("Error removing video:", error.message);
@@ -107,12 +124,12 @@ function PlaylistPage() {
           {videos?.length > 0 ? (
             videos?.map((vidId, index) => (
               <div className="PP-VideoList" key={index}>
-                  <VideoBox
-                    videoId={vidId}
-                    playlistOwnerId={owner?._id}
-                    currentUserId={user?._id}
-                    removeFn={removeVideo}
-                  />
+                <VideoBox
+                  videoId={vidId}
+                  playlistOwnerId={owner?._id}
+                  currentUserId={user?._id}
+                  removeFn={removeVideo}
+                />
               </div>
             ))
           ) : (
@@ -130,20 +147,12 @@ function PlaylistPage() {
         )}
         {editModal && (
           <PopupHolder>
-            <UpdatePlaylist
-              closeEditModal={closeEditModal}
-              accessToken={accessToken}
-              playlistId={playlistId}
-            />
+            <EditPlaylist closeFn={closeEditModal} accessToken={accessToken} data={playlist} />
           </PopupHolder>
         )}
         {deleteModal && (
           <PopupHolder>
-            <DeletePlaylist
-              closeDeleteModal={closeDeleteModal}
-              accessToken={accessToken}
-              playlistId={playlistId}
-            />
+            <DeleteModal closeFn={closeDeleteModal} deleteFn={DeletePlaylist} item={"Playlist"} />
           </PopupHolder>
         )}
       </div>

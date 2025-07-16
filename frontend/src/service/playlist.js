@@ -72,7 +72,9 @@ const PlaylistService = {
       console.error(error);
     }
   },
-  updatePlaylist: async (accessToken, playlistId, playlistData) => {
+  updatePlaylist: async ({accessToken}, playlistId, playlistData) => {
+    console.log(`Updating playlist with ID: ${playlistId}`, playlistData);
+    
     try {
       const response = await axios.patch(
         `${API_URL}/${playlistId}`,
@@ -88,7 +90,7 @@ const PlaylistService = {
       console.error(error);
     }
   },
-  deletePLaylist: async (accessToken, playlistId) => {
+  deletePLaylist: async ({accessToken}, playlistId) => {
     try {
       const response = await axios.delete(`${API_URL}/${playlistId}`, {
         headers: {

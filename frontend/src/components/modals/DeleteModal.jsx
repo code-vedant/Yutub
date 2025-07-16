@@ -2,8 +2,6 @@ import { BsTrash3 } from "react-icons/bs";
 import { IoClose } from "react-icons/io5";
 import "../../style/modal.css"
 
-
-
 export default function DeleteModal({closeFn,deleteFn,item}) {
   return (
     <div className="deleteBox">

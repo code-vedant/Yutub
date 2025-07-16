@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../../style/playlist.style.css";
 import PopupHolder from "../PopupHolder.jsx"
 import Loader from "../Loader"
@@ -10,7 +10,7 @@ function CreatePlaylist({closeCreatePlaylistModal, accessToken}) {
 
     const {register, handleSubmit} = useForm()
 
-    const createPlaylist =async (data) => {
+    const createPlaylist = async (data) => {
         setLoading(true)
       try {
         await PlaylistService.createPlaylist(accessToken,data)

@@ -272,193 +272,6 @@
   font-weight: 600;
 }
 
-.AtP-main {
-  min-width: 10vw;
-  max-width: fit-content;
-  min-height: 30vh;
-  max-height: fit-content;
-  position: fixed;
-  background-color: #fffefe;
-  box-shadow: 5px 5px 100px 50px rgba(0, 0, 0, 0.2);
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 0.5vh 0.5vh;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-}
-
-.AtP-main h2 {
-  color: #333;
-  font-size: 2.8vh;
-  font-weight: 600;
-  width: 100%;
-  border-bottom: 1px solid #333;
-  margin-bottom: 1vh;
-}
-
-.AtP-list {
-  width: 100%;
-  height: fit-content;
-  margin-bottom: 0.4vh;
-  border: 1px solid #d2d2db69;
-  font-size: 3vh;
-}
-
-.AtP-list:hover {
-  border: 1px solid #000454;
-}
-
-.epm-main {
-  width: 70vw;
-  height: 50vh;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 10px;
-  background-color: #fffefe;
-  box-shadow: 10px 10px 100px #000;
-}
-
-.epm-main form {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding: 2vh;
-  gap: 2vh;
-  border-radius: 10px;
-}
-
-.epm-main input {
-  width: 100%;
-  height: 15%;
-  padding: 1vh 1vh;
-  font-size: 2.3vh;
-  font-weight: 600;
-  border: 1px solid #000;
-  outline: none;
-  border-radius: 10px;
-}
-
-.epm-main textarea {
-  width: 100%;
-  height: 80%;
-  resize: none;
-  padding: 1vh 1vh;
-  font-size: 2.3vh;
-  font-weight: 600;
-  border: 1px solid #000;
-  outline: none;
-  border-radius: 10px;
-}
-
-.epm-btn {
-  width: 100%;
-  height: 15%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 1vh;
-  border: none;
-  outline: none;
-  border-radius: 10px;
-  font-weight: 600;
-}
-
-.epm-btn button {
-  width: 6.5vw;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  outline: none;
-  border-radius: 3.25vw;
-  font-weight: 600;
-  background-color: #ececec;
-  cursor: pointer;
-}
-
-.cp-main {
-  width: 70vw;
-  height: 50vh;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 10px;
-  background-color: #fffefe;
-  box-shadow: 10px 10px 100px #000;
-}
-
-.cp-main form {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  padding: 2vh;
-  gap: 2vh;
-  border-radius: 10px;
-}
-
-.cp-main input {
-  width: 100%;
-  height: 15%;
-  padding: 1vh 1vh;
-  font-size: 2.3vh;
-  font-weight: 600;
-  border: 1px solid #000;
-  outline: none;
-  border-radius: 10px;
-}
-
-.cp-main textarea {
-  width: 100%;
-  height: 80%;
-  resize: none;
-  padding: 1vh 1vh;
-  font-size: 2.3vh;
-  font-weight: 600;
-  border: 1px solid #000;
-  outline: none;
-  border-radius: 10px;
-}
-
-.cp-btn {
-  width: 100%;
-  height: 15%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 1vh;
-  border: none;
-  outline: none;
-  border-radius: 10px;
-  font-weight: 600;
-}
-
-.cp-btn button {
-  width: 6.5vw;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: none;
-  outline: none;
-  border-radius: 3.25vw;
-  font-weight: 600;
-  background-color: #ececec;
-  cursor: pointer;
-}
-
 .detail-modal {
   width: 30vw;
   background-color: #ffffff;
@@ -705,192 +518,6 @@
     font-weight: 600;
   }
 
-  .AtP-main {
-    min-width: 10vw;
-    max-width: fit-content;
-    min-height: 30vh;
-    max-height: fit-content;
-    position: fixed;
-    background-color: #fffefe;
-    box-shadow: 5px 5px 100px 50px rgba(0, 0, 0, 0.2);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 0.5vh 0.5vh;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-  }
-
-  .AtP-main h2 {
-    color: #333;
-    font-size: 2.8vh;
-    font-weight: 600;
-    width: 100%;
-    border-bottom: 1px solid #333;
-    margin-bottom: 1vh;
-  }
-
-  .AtP-list {
-    width: 100%;
-    height: fit-content;
-    margin-bottom: 0.4vh;
-    border: 1px solid #d2d2db69;
-    font-size: 3vh;
-  }
-
-  .AtP-list:hover {
-    border: 1px solid #000454;
-  }
-
-  .epm-main {
-    width: 70vw;
-    height: 50vh;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 10px;
-    background-color: #fffefe;
-    box-shadow: 10px 10px 100px #000;
-  }
-
-  .epm-main form {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding: 2vh;
-    gap: 2vh;
-    border-radius: 10px;
-  }
-
-  .epm-main input {
-    width: 100%;
-    height: 15%;
-    padding: 1vh 1vh;
-    font-size: 2.3vh;
-    font-weight: 600;
-    border: 1px solid #000;
-    outline: none;
-    border-radius: 10px;
-  }
-
-  .epm-main textarea {
-    width: 100%;
-    height: 80%;
-    resize: none;
-    padding: 1vh 1vh;
-    font-size: 2.3vh;
-    font-weight: 600;
-    border: 1px solid #000;
-    outline: none;
-    border-radius: 10px;
-  }
-
-  .epm-btn {
-    width: 100%;
-    height: 15%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 1vh;
-    border: none;
-    outline: none;
-    border-radius: 10px;
-    font-weight: 600;
-  }
-
-  .epm-btn button {
-    width: 6.5vw;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    outline: none;
-    border-radius: 3.25vw;
-    font-weight: 600;
-    background-color: #ececec;
-    cursor: pointer;
-  }
-
-  .cp-main {
-    width: 70vw;
-    height: 50vh;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 10px;
-    background-color: #fffefe;
-    box-shadow: 10px 10px 100px #000;
-  }
-
-  .cp-main form {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    padding: 2vh;
-    gap: 2vh;
-    border-radius: 10px;
-  }
-
-  .cp-main input {
-    width: 100%;
-    height: 15%;
-    padding: 1vh 1vh;
-    font-size: 2.3vh;
-    font-weight: 600;
-    border: 1px solid #000;
-    outline: none;
-    border-radius: 10px;
-  }
-
-  .cp-main textarea {
-    width: 100%;
-    height: 80%;
-    resize: none;
-    padding: 1vh 1vh;
-    font-size: 2.3vh;
-    font-weight: 600;
-    border: 1px solid #000;
-    outline: none;
-    border-radius: 10px;
-  }
-
-  .cp-btn {
-    width: 100%;
-    height: 15%;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 1vh;
-    border: none;
-    outline: none;
-    border-radius: 10px;
-    font-weight: 600;
-  }
-
-  .cp-btn button {
-    width: 6.5vw;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    outline: none;
-    border-radius: 3.25vw;
-    font-weight: 600;
-    background-color: #ececec;
-    cursor: pointer;
-  }
 
   .detail-modal {
     width: 90vw;
@@ -965,4 +592,53 @@
     font-size: 1.2rem;
     color: #333;
   }
+
+  .PP-options {
+    position: relative;
+    width: fit-content;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .PP-options .icon {
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #444;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+  }
+  
+  .PP-options .icon:hover {
+    background-color: #f2f2f2;
+  }
+  
+  .PP-edits {
+    border-radius: 0.5rem;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    z-index: 200;
+    list-style: none;
+    min-width: 120px;
+    animation: fadeIn 0.2s ease-in-out;
+  }
+  
+  .PP-edits .PP-btn {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    border: none;
+  }
+  
+  .PP-edits .PP-btn:hover {
+    background-color: #f4f4f4;
+    color: #000;
+    border-radius: 0.3rem;
+  }
+
 }
