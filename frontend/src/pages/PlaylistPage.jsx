@@ -3,7 +3,7 @@ import "../style/playlist.style.css";
 import VideoBox from "../components/VideoComponents/VideoBox";
 import PlaylistService from "../service/playlist";
 import { useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import AuthService from "../service/auth";
 import PopupHolder from "../components/PopupHolder";
 import NoVideo from "../components/Profile/NoVideo";
@@ -61,7 +61,7 @@ function PlaylistPage() {
     try {
       await PlaylistService.deletePLaylist(accessToken, playlistId);
       setLoading(false);
-       closeDeleteModal();
+      closeDeleteModal();
       navigate(-1);
     } catch (error) {
       console.error(error.message);
@@ -123,14 +123,14 @@ function PlaylistPage() {
         <div className="PP-right">
           {videos?.length > 0 ? (
             videos?.map((vidId, index) => (
-              <div className="PP-VideoList" key={index}>
-                <VideoBox
-                  videoId={vidId}
-                  playlistOwnerId={owner?._id}
-                  currentUserId={user?._id}
-                  removeFn={removeVideo}
-                />
-              </div>
+              <VideoBox
+                key={index}
+                playlistId={playlistId}
+                videoId={vidId}
+                playlistOwnerId={owner?._id}
+                currentUserId={user?._id}
+                removeFn={removeVideo}
+              />
             ))
           ) : (
             <NoVideo />
@@ -147,12 +147,20 @@ function PlaylistPage() {
         )}
         {editModal && (
           <PopupHolder>
-            <EditPlaylist closeFn={closeEditModal} accessToken={accessToken} data={playlist} />
+            <EditPlaylist
+              closeFn={closeEditModal}
+              accessToken={accessToken}
+              data={playlist}
+            />
           </PopupHolder>
         )}
         {deleteModal && (
           <PopupHolder>
-            <DeleteModal closeFn={closeDeleteModal} deleteFn={DeletePlaylist} item={"Playlist"} />
+            <DeleteModal
+              closeFn={closeDeleteModal}
+              deleteFn={DeletePlaylist}
+              item={"Playlist"}
+            />
           </PopupHolder>
         )}
       </div>

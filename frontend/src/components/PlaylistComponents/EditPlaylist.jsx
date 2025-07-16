@@ -1,11 +1,13 @@
-import React, { useState } from "react";
 import {useForm} from "react-hook-form"
 import PlaylistService from "../../Service/playlist.js";
 import { IoClose } from "react-icons/io5";
 import "../../style/playlist/addNewPlaylist.css";
 import {setError} from "../../store/globalError"
+import { useDispatch } from "react-redux";
 
 function EditPlaylist({closeFn, accessToken, data}) {
+
+  const dispatch = useDispatch();
 
     const {register, handleSubmit} = useForm()
 
@@ -17,7 +19,9 @@ function EditPlaylist({closeFn, accessToken, data}) {
         alert("Playlist updated successfully");
         closeFn()
       } catch (error) {
-        console.error(error.message)
+        console.error(error.response?.data?.message || error.message);
+        dispatch(setError(error.response?.data?.message || error.message))
+
       }
     };
   return (

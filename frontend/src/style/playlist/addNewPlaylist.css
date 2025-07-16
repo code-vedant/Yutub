@@ -1,6 +1,6 @@
 .addNewPlaylist-main{
     width: 30vw;
-    height: 59vh;
+    min-height: 59vh;
     transform: translate(-50%,-50%);
     position: fixed;
     top: 50%;
@@ -80,6 +80,7 @@
 @media screen and (max-width: 600px) {
     .addNewPlaylist-main{
         width: 95vw;
+        min-height: 55vh;
         border-radius: 15px;
     }
 

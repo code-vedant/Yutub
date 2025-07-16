@@ -237,21 +237,6 @@
   border-radius: 4rem 4rem 0 0;
 }
 
-.PP-VideoList a {
-  width: 100%;
-  height: 100%;
-  text-decoration-color: none;
-}
-
-.PP-VideoList {
-  width: 100%;
-  height: fit-content;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-radius: 10px;
-}
-
 .PP-remove {
   width: 10vh;
   height: 5vh;
@@ -462,40 +447,12 @@
   }
 
   .PP-right {
-    width: 100%;
-    height: 89vh;
-    /* background: #731818; */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+    height: 99vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 3vh;
+    padding: 8vh 1vw 2vh;
     overflow-y: auto;
-    gap: 2vh;
-    box-shadow: 0 -4px 6px -4px rgba(0, 0, 0, 0.3);
-    padding: 2vh;
-    border-radius: 4rem 4rem 0 0;
-  }
-
-  .PP-VideoList a {
-    width: 100%;
-    height: 100%;
-    text-decoration-color: none;
-  }
-
-  .PP-VideoList {
-    width: 100%;
-    min-height: 120px;
-    display: flex;
-    align-items: center;
-    background: #fffafac0;
-    justify-content: space-between;
-    border-radius: 10px;
-    overflow: hidden;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   .PP-remove {

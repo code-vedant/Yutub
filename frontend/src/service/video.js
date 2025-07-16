@@ -36,7 +36,7 @@ const VideoService = {
     }
   },
 
-  uploadVideo: async (accessToken, data) => {
+  uploadVideo: async ({accessToken}, data) => {
     try {
       const response = await axios.post(`${API_URL}/`, data, {
         headers: {
@@ -51,7 +51,7 @@ const VideoService = {
     }
   },
 
-  updateVideo: async (accessToken, videoId, data) => {
+  updateVideo: async ({accessToken}, videoId, data) => {
     try {
       const response = await axios.patch(`${API_URL}/${videoId}`, data, {
         headers: {
@@ -65,7 +65,7 @@ const VideoService = {
       throw error;
     }
   },
-  deleteVideo: async (accessToken, videoId) => {
+  deleteVideo: async ({accessToken}, videoId) => {
     try {
       const response = await axios.delete(`${API_URL}/${videoId}`, {
         headers: {
@@ -78,7 +78,7 @@ const VideoService = {
       throw error;
     }
   },
-  togglePublishStatus: async (accessToken, videoId) => {
+  togglePublishStatus: async ({accessToken}, videoId) => {
     try {
       const response = await axios.patch(
         `${API_URL}/toggle/publish/${videoId}`,

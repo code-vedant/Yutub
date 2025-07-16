@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import PopupHolder from "../PopupHolder";
 import RemoveModal from "../modals/RemoveModal";
 
-function VideoBox({ videoId, playlistOwnerId, currentUserId,removeFn }) {
+function VideoBox({playlistId, videoId, playlistOwnerId, currentUserId,removeFn }) {
   const [video, setVideo] = useState({});
   const [showOptions, setShowOptions] = useState(false);
   const [showDeleteModel, setDeleteModal] = useState(false);
@@ -47,7 +47,7 @@ function VideoBox({ videoId, playlistOwnerId, currentUserId,removeFn }) {
   return (
     <div className="VideoBoxMain">
       <div className="video-box">
-        <Link to={`/videopage/${videoId}`}>
+        <Link to={`/video/${videoId}?ref=playlist&playlistId=${playlistId}`}>
           <div className="video-box-thumbnail">
             <img
               src={video.thumbnail}
@@ -63,7 +63,7 @@ function VideoBox({ videoId, playlistOwnerId, currentUserId,removeFn }) {
               className="channel-avatar"
             />
             <div className="video-text-info">
-              <Link to={`/videopage/${videoId}`}>
+              <Link to={`/video/${videoId}?ref=playlist&playlistId=${playlistId}`}>
                 <h3>{getShortenString(video?.title || "", 80)}</h3>
               </Link>
               <h5>{video.owner?.fullName || "Unknown Creator"}</h5>

@@ -10,18 +10,27 @@ import PopupHolder from "../components/PopupHolder.jsx";
 import Loader from "../components/Loader.jsx";
 import CommentService from "../service/comment.js";
 import RelatedVideos from "../components/VideoComponents/RelatedVideos.jsx";
+import { useQuery } from "../hooks/useQuery.jsx";
 
 const VideoPlayerPage = () => {
   const [videoData, setVideoData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [comments, setComments] = useState([]);
   const { id: videoId } = useParams();
+
+  const query = useQuery();
+
+  const ref = query.get("ref");
+  const playlistId = query.get("playlistId");
+
+  console.log(ref,playlistId);
+  
   const accessToken = useSelector((state) => state.auth.accessToken);
 
   useEffect(() => {
     const fetchVideo = async () => {
       try {
-        const data = await VideoService.getVideoById(accessToken, videoId);
+        const data = await VideoService.getVideoById(videoId);
         if (data) {
           setVideoData(data.data);
         }
