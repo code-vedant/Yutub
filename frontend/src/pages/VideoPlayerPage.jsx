@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import "../style/videoplayerpage.css";
 import VideoPlayer from "../components/VideoComponents/VideoPlayer.jsx";
 import VideoInfo from "../components/VideoComponents/VideoInfo.jsx";
@@ -15,74 +15,174 @@ import { useQuery } from "../hooks/useQuery.jsx";
 const VideoPlayerPage = () => {
   const [videoData, setVideoData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [comments, setComments] = useState([]);
-  const { id: videoId } = useParams();
-
-  const query = useQuery();
-
-  const ref = query.get("ref");
-  const playlistId = query.get("playlistId");
-
-  console.log(ref,playlistId);
+  const [commentsLoading, setCommentsLoading] = useState(false);
+  const [commentsError, setCommentsError] = useState(null);
   
+  const { id: videoId } = useParams();
+  const query = useQuery();
   const accessToken = useSelector((state) => state.auth.accessToken);
+  const authStatus = useSelector((state) => state.auth.status);
+
+  const queryParams = useMemo(() => ({
+    ref: query.get("ref"),
+    playlistId: query.get("playlistId")
+  }), [query]);
 
   useEffect(() => {
+    let isMounted = true;
+  
     const fetchVideo = async () => {
       try {
+        setLoading(true);
+        setError(null);
+  
         const data = await VideoService.getVideoById(videoId);
-        if (data) {
-          setVideoData(data.data);
+  
+        if (isMounted) {
+          if (data?.data) {
+            setVideoData(data.data);
+          } else {
+            setError("Video not found");
+          }
         }
-      } catch (error) {
-        console.error("Error fetching video:", error);
+      } catch (err) {
+        if (isMounted) {
+          setError(err.message || "Failed to fetch video");
+          console.error("Error fetching video:", err);
+        }
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
-    fetchVideo();
-  }, [accessToken, videoId]);
+  
+    const addToHistory = async () => {
+      if (authStatus) {
+        try {
+          const res = await VideoService.addToWatchHistory(accessToken, videoId);
+          if (res?.data) {
+            console.log("Video added to watch history:", res.data);
+          }
+        } catch (error) {
+          console.error("Error adding to watch history:", error);
+        }
+      }
+    };
+  
+    if (videoId) {
+      fetchVideo();
+      addToHistory();
+    }
+  
+    return () => {
+      isMounted = false;
+    };
+  }, [videoId, accessToken, authStatus]);
+  
 
   useEffect(() => {
+    let isMounted = true;
+    
     const fetchComments = async () => {
+      if (!accessToken || !videoId) return;
+      
       try {
+        setCommentsLoading(true);
+        setCommentsError(null);
+        
         const response = await CommentService.getAllComments(accessToken, videoId);
-        setComments(response.data);
-      } catch (error) {
-        console.error("Error fetching comments:", error.message);
+        
+        if (isMounted) {
+          setComments(response?.data || []);
+        }
+      } catch (err) {
+        if (isMounted) {
+          setCommentsError(err.message || "Failed to fetch comments");
+          console.error("Error fetching comments:", err);
+        }
+      } finally {
+        if (isMounted) {
+          setCommentsLoading(false);
+        }
       }
     };
 
     fetchComments();
+
+    return () => {
+      isMounted = false;
+    };
   }, [accessToken, videoId]);
 
-  return (
-    <div className="video-player-page">
-      {loading ? (
+  const videoUrl = useMemo(() => {
+    return videoData?.videoFile || "https://www.w3schools.com/html/mov_bbb.mp4";
+  }, [videoData?.videoFile]);
+
+  const handleCommentsUpdate = useCallback((newComments) => {
+    setComments(newComments);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="video-player-page">
         <PopupHolder>
           <Loader />
         </PopupHolder>
-      ) : videoData ? (
-        <>
-        <div className="video-player-container"> 
-          <VideoPlayer
-            url={
-              videoData.videoFile
-              ? videoData.videoFile
-              : "https://www.w3schools.com/html/mov_bbb.mp4"
-            }
-            />
-          <VideoInfo accessToken={accessToken} videoData={videoData} />
-          <Comments accessToken={accessToken} videoId={videoId} comments={comments} />
-          </div>
-        <div className="related-videos">
-          {/* Placeholder for related videos section */}
-          <RelatedVideos owner={videoData.owner}/>
-          </div>
-        </>
-      ) : (
-        <div>No video data available.</div>
-      )}
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="video-player-page">
+        <div className="error-message">
+          <h2>Error loading video</h2>
+          <p>{error}</p>
+          <button onClick={() => window.location.reload()}>
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!videoData) {
+    return (
+      <div className="video-player-page">
+        <div className="no-data-message">
+          <h2>No video data available</h2>
+          <p>The requested video could not be found.</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="video-player-page">
+      <div className="video-player-container">
+        <VideoPlayer url={videoUrl} />
+        
+        <VideoInfo 
+          accessToken={accessToken} 
+          videoData={videoData} 
+        />
+        
+        <Comments 
+          accessToken={accessToken}
+          videoId={videoId}
+          comments={comments}
+          loading={commentsLoading}
+          error={commentsError}
+          onCommentsUpdate={handleCommentsUpdate}
+        />
+      </div>
+      
+      <div className="related-videos">
+        <RelatedVideos owner={videoData.owner} />
+      </div>
     </div>
   );
 };

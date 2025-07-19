@@ -34,7 +34,7 @@ const AuthService = {
     return response.data;
   },
 
-  getUserData: async (accessToken) => {
+  getUserData: async ({accessToken}) => {
     try {
       const response = await axios.get(`${API_URL}/current-user`, {
         headers: {

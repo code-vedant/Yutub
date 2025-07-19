@@ -31,6 +31,11 @@
   font-weight: 700;
 }
 
+.menu-logo span{
+  color: #7f7f7f;
+  font-size: 1rem;
+}
+
 .sidebar ul {
   list-style: none;
   padding: 0;

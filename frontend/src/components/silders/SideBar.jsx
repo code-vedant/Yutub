@@ -33,7 +33,7 @@ const Sidebar = () => {
         animate={isOpen ? "open" : "closed"}
         variants={sidebarVariants}
       >
-        <Link to={"/"} className="menu-logo">YUTUB</Link>
+        <Link to={"/"} className="menu-logo">YUTUB <span>2.0</span></Link>
         <ul>
           <li><Link to={"/videos"}><GoVideo className="link-icon"/><span>Video</span></Link></li>
           <li><Link to={"/photos"}><MdOutlinePhotoSizeSelectActual className="link-icon"/><span>Photos</span></Link></li>

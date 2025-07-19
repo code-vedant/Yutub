@@ -1,0 +1,92 @@
+.VideoHorizMain{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+}
+
+.video-box{
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.video-box-thumbnail{
+    height: 100%;
+    max-height: 20vh;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-box-thumbnail img{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.video-box-infoH{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.video-text-infoH{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    padding: 0 1vw;
+}
+
+.video-text-infoH h3{
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.video-text-infoH h5{
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgb(45, 45, 45);
+}
+
+.video-text-infoH p{
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-top: 1.2vh;
+}
+
+.VideoHoriz-optionsH{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 100%;
+    position: relative;
+}
+
+.VideoHoriz-optionsH .icon{
+    height: 100%;
+    width: 1.2rem;
+    height: 1.2rem;
+}
+
+.VideoHoriz-edits{
+    position: absolute;
+    top: 0;
+    background-color: #fffefe;
+    box-shadow: 2px 1px 10px 1px #00000042;
+    right: 0;
+    display: flex;
+    padding: 1vh 1vw;
+    border-radius: 5px;
+    margin-top: 2vh;
+
+}

@@ -98,6 +98,33 @@ const VideoService = {
       throw error;
     }
   },
+  addToWatchHistory: async ({accessToken}, videoId) => {
+    try {
+      const response = await axios.post(`${API_URL}/watchhistory/${videoId}`, {}, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      return response.data
+    } catch (error) {
+      console.error(`Error adding video with ID ${videoId} to watch history:`, error);
+      throw error;
+      
+    }
+  },
+  removeFromWatchHistory: async ({accessToken}, videoId) => {
+    try {
+      const response = await axios.delete(`${API_URL}/watchhistory/${videoId}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      return response.data
+    } catch (error) {
+      console.error(`Error removing video with ID ${videoId} from watch history:`, error);
+      throw error;
+    }
+  }
 };
 
 export default VideoService;

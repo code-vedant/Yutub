@@ -3,11 +3,12 @@ import VideoService from "../service/video";
 import VideoContainer from "../components/VideoComponents/VideoContainer";
 import "../style/videopage.css";
 import FilterComponent from "../components/VideoComponents/FilterComponent";
+import { useDispatch } from "react-redux";
+import { setError } from "../store/globalError";
 
 export default function VideoPage() {
   const [video, setVideo] = useState([]);
-  const [error, setError] = useState("");
-
+  const dispatch = useDispatch()
   const [filters, setFilters] = useState({
     query: "",
     sortBy: "createdAt",
@@ -15,17 +16,18 @@ export default function VideoPage() {
     page: 1,
   });
 
-  const getVideos = async () => {
-    setError("");
-    try {
-      const res = await VideoService.getAllVideos(filters);
-      setVideo(res.data.docs);
-    } catch (error) {
-      setError(error.response.data.message);
-    }
-  };
+  
 
   useEffect(() => {
+    const getVideos = async () => {
+      setError("");
+      try {
+        const res = await VideoService.getAllVideos(filters);
+        setVideo(res.data.docs);
+      } catch (error) {
+        dispatch(setError(error.response.data.message));
+      }
+    };
     getVideos();
   }, [filters]);
 
@@ -33,7 +35,6 @@ export default function VideoPage() {
     <section className="videopage-main">
       <FilterComponent type={"Videos"} filters={filters} setFilters={setFilters} />
       <section className="videopage-container">
-        {error && <p>{error}</p>}
         {video.map((vid) => (
           <VideoContainer key={vid._id} video={vid} withUser={true} />
         ))}
