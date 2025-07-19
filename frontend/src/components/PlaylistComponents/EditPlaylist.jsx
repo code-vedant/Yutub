@@ -1,5 +1,5 @@
 import {useForm} from "react-hook-form"
-import PlaylistService from "../../Service/playlist.js";
+import PlaylistService from "../../service/playlist.js";
 import { IoClose } from "react-icons/io5";
 import "../../style/playlist/addNewPlaylist.css";
 import {setError} from "../../store/globalError"
@@ -37,13 +37,13 @@ function EditPlaylist({closeFn, accessToken, data}) {
           type="text"
           {...register("name")}
           placeholder="Add playlist name"
-          defaultValue={data.name || ""}
+          defaultValue={data?.name || ""}
         />
         <label>Description:</label>
         <textarea
           {...register("description")}
           placeholder="Add description for playlist"
-          defaultValue={data.description || ""}
+          defaultValue={data?.description || ""}
         ></textarea>
         <div className="form-btn">
           <button type="button" onClick={closeFn} className="cancel">

@@ -3,7 +3,7 @@ import "../../style/playlist.style.css";
 import PopupHolder from "../PopupHolder.jsx"
 import Loader from "../Loader"
 import {useForm} from "react-hook-form"
-import PlaylistService from "../../Service/playlist.js";
+import PlaylistService from "../../service/playlist.js";
 
 function CreatePlaylist({closeCreatePlaylistModal, accessToken}) {
     const [loading,setLoading] =useState(false)

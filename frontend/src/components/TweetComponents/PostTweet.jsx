@@ -3,7 +3,7 @@ import "../../style/tweet.style.css";
 import {useForm} from "react-hook-form"
 import PopupHolder from "../PopupHolder";
 import Loader from "../Loader";
-import TweetService from "../../Service/tweet.js";
+import TweetService from "../../service/tweet.js";
 function PostTweet({accessToken}) {
 
     const {register , handleSubmit} = useForm()
