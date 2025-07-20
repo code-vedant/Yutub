@@ -8,28 +8,21 @@ import { Link } from "react-router-dom";
 import PopupHolder from "../PopupHolder";
 import RemoveModal from "../modals/RemoveModal";
 
-function VideoHoriz({videoId ,accessToken}) {
+function VideoHoriz({
+  videoId,
+  showModel,
+  itemText,
+  mianFn,
+  handleFn,
+  closeFn,
+}) {
   const [video, setVideo] = useState({});
   const [showOptions, setShowOptions] = useState(false);
-  const [showDeleteModel, setDeleteModal] = useState(false);
 
   const toggleOptions = (e) => {
-    e.stopPropagation(); 
+    e.stopPropagation();
     setShowOptions((prev) => !prev);
   };
-
-  const handleDeleteModal = () => setDeleteModal(true);
-  const closeDeleteModal = () => setDeleteModal(false);
-
-  const removeVideoFromWatchHistory = async () => {
-    try {
-      await VideoService.removeFromWatchHistory(accessToken,videoId);
-      closeDeleteModal();
-      console.log("Video removed from watch history successfully.");
-    } catch (error) {
-      console.error("Error removing video from watch history:", error);
-    }
-  }
 
   const fetchVideo = useCallback(async () => {
     try {
@@ -54,45 +47,44 @@ function VideoHoriz({videoId ,accessToken}) {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
+  const sendingFn = () => mianFn(videoId);
+
   return (
     <div className="VideoHorizMain">
-      <div className="video-box">
+      <div className="video-boxH">
         <Link to={`/video/${videoId}`}>
-          <div className="video-box-thumbnail">
+          <div className="video-boxH-thumbnail">
             <img
               src={video.thumbnail}
               alt={video?.title || "Video Thumbnail"}
             />
           </div>
         </Link>
-        <div className="video-box-infoH">
-            <div className="video-text-infoH">
-              <Link to={`/video/${videoId}`}>
-                <h3>{getShortenString(video?.title || "", 120)}</h3>
-              </Link>
-              <h5>{video.owner?.fullName || "Unknown Creator"}</h5>
-              <p>{getTimeAgo(video?.createdAt)}</p>
-            </div>
-
-              <div className="VideoHoriz-optionsH">
-                <BsThreeDotsVertical className="icon" onClick={toggleOptions} />
-                {showOptions && (
-                  <ul className="VideoHoriz-edits">
-                    <li className="VideoHoriz-btn" onClick={handleDeleteModal}>
-                      Remove
-                    </li>
-                  </ul>
-                )}
-              </div>
+        <div className="video-boxH-infoH">
+          <div className="video-text-infoH">
+            <Link to={`/video/${videoId}`}>
+              <h3>{getShortenString(video?.title || "", 120)}</h3>
+            </Link>
+            <h5>{video.owner?.fullName || "Unknown Creator"}</h5>
+            <p>{getTimeAgo(video?.createdAt)}</p>
+          </div>
+          <div className="VideoHoriz-optionsH">
+            <BsThreeDotsVertical className="icon" onClick={toggleOptions} />
+            {showOptions && (
+              <ul className="VideoHoriz-edits">
+                <li className="VideoHoriz-btn" onClick={handleFn}>
+                  Remove
+                </li>
+              </ul>
+            )}
+          </div>
         </div>
       </div>
-      {
-        showDeleteModel && (
-          <PopupHolder>
-            <RemoveModal closeFn={closeDeleteModal} deleteFn={removeVideoFromWatchHistory} item={"Video from your Watch History"} />
-          </PopupHolder>
-        )
-      }
+      {showModel && (
+        <PopupHolder>
+          <RemoveModal closeFn={closeFn} deleteFn={sendingFn} item={itemText} />
+        </PopupHolder>
+      )}
     </div>
   );
 }

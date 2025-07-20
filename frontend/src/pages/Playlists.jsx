@@ -45,10 +45,10 @@ export default function Playlists() {
 
   const getPlaylists = async () => {
     try {
-      const response = await PlaylistService.getUserPlaylists(accessToken,user._id);
+      const response = await PlaylistService.getUserPlaylists(user._id);
       setPlaylists(response.data);
     } catch (error) {
-      console.error("Error fetching playlists:", error.message);
+      console.error("Error fetching playlists:", error.response?.data);
       dispatch(setError(error.response?.data?.message || "Failed to fetch playlists"));
     }
   }

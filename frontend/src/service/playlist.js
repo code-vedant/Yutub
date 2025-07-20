@@ -3,13 +3,9 @@ import axios from "axios";
 const API_URL = (import.meta.env.VITE_NODE_ENV !== "development" ? import.meta.env.VITE_API_URL  : "http://localhost:8000/api/v1") + '/playlist';
 
 const PlaylistService = {
-  getUserPlaylists: async ({accessToken}, userId) => {
+  getUserPlaylists: async (userId) => {
     try {
-      const response = await axios.get(`${API_URL}/user/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const response = await axios.get(`${API_URL}/user/${userId}`);
 
       return response.data;
     } catch (error) {

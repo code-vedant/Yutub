@@ -3,13 +3,13 @@
   border-radius: 1.2rem;
 }
 
-.video-box {
+.video-boxP {
   display: flex;
   flex-direction: column;
   cursor: pointer;
 }
 
-.video-box-thumbnail {
+.video-boxP-thumbnail {
   width: 100%;
   aspect-ratio: 16/9;
   border-radius: 12px;
@@ -17,26 +17,29 @@
   transition: transform 0.3s ease;
 }
 
-.video-box-thumbnail img {
+.video-boxP-thumbnail img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.video-box:hover .video-box-thumbnail {
+.video-boxP:hover .video-boxP-thumbnail {
   transform: scale(1.01);
 }
 
-.video-box-info {
+.video-boxP-infoP {
   display: flex;
-  flex-direction: column;
-  padding: 0.7rem 0.4rem 0;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 1vh 0;
 }
 
-.video-info-row {
+.video-boxP-bottom{
   display: flex;
-  gap: 0.8rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .channel-avatar {
@@ -46,7 +49,7 @@
   object-fit: cover;
 }
 
-.video-text-info h3 {
+.video-text-infoP h3 {
   font-size: 1rem;
   font-weight: 600;
   color: #111;
@@ -54,14 +57,14 @@
   line-height: 1.3;
 }
 
-.video-text-info h5 {
+.video-text-infoP h5 {
   font-size: 0.9rem;
   font-weight: 500;
   color: #555;
   margin: 0;
 }
 
-.video-text-info p {
+.video-text-infoP p {
   font-size: 0.8rem;
   color: #777;
   margin-top: 0.3rem;
@@ -136,13 +139,13 @@
     height: fit-content;
   }
   
-  .video-box {
+  .video-boxP {
     display: flex;
     flex-direction: column;
     cursor: pointer;
   }
   
-  .video-box-thumbnail {
+  .video-boxP-thumbnail {
     width: 100%;
     aspect-ratio: 16/9;
     border-radius: 12px;
@@ -150,18 +153,18 @@
     transition: transform 0.3s ease;
   }
   
-  .video-box-thumbnail img {
+  .video-boxP-thumbnail img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
   }
   
-  .video-box:hover .video-box-thumbnail {
+  .video-boxP:hover .video-boxP-thumbnail {
     transform: scale(1.01);
   }
   
-  .video-box-info {
+  .video-boxP-info {
     display: flex;
     flex-direction: column;
     padding: 0.7rem 0.4rem 0;
@@ -179,7 +182,7 @@
     object-fit: cover;
   }
   
-  .video-text-info h3 {
+  .video-text-infoP h3 {
     font-size: 1rem;
     font-weight: 600;
     color: #111;
@@ -187,14 +190,14 @@
     line-height: 1.3;
   }
   
-  .video-text-info h5 {
+  .video-text-infoP h5 {
     font-size: 0.9rem;
     font-weight: 500;
     color: #555;
     margin: 0;
   }
   
-  .video-text-info p {
+  .video-text-infoP p {
     font-size: 0.8rem;
     color: #777;
     margin-top: 0.3rem;

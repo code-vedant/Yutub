@@ -74,6 +74,9 @@
 }
 
 @media screen and (max-width : 600px) {
+    .playlists-main{
+        padding: 8vh 0;
+    }
     .playlist-containers{
         grid-template-columns: repeat(1,1fr);
     }

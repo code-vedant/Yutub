@@ -27,3 +27,30 @@
     justify-content: center;
     gap: 2vh;
 }
+
+@media screen and (max-width: 600px) {
+    .wh-main{
+        padding: 8vh 0;
+    }
+    
+    .wh-main h2{
+        font-size: 2rem;
+        margin: 0;
+        width: 100%;
+        font-weight: 600;
+        border-bottom: 3px solid black;
+        margin-bottom: 2vh;
+    }
+    
+    .wh-videos{
+        width: 98vw;
+        height: fit-content;
+        overflow-y: scroll;
+        scrollbar-width: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2vh;
+    }
+}

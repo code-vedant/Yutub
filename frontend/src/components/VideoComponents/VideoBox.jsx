@@ -46,26 +46,27 @@ function VideoBox({playlistId, videoId, playlistOwnerId, currentUserId,removeFn 
 
   return (
     <div className="VideoBoxMain">
-      <div className="video-box">
+      <div className="videoP-box">
         <Link to={`/video/${videoId}?ref=playlist&playlistId=${playlistId}`}>
-          <div className="video-box-thumbnail">
+          <div className="video-boxP-thumbnail">
             <img
               src={video.thumbnail}
               alt={video?.title || "Video Thumbnail"}
             />
           </div>
         </Link>
-        <div className="video-box-info">
-          <div className="video-info-row">
+        <div className="video-boxP-infoP">
             <img
               src={video.owner?.avatar || "https://www.gravatar.com/avatar?d=mp&s=48"}
               alt="channel"
               className="channel-avatar"
             />
-            <div className="video-text-info">
+            <div className="video-boxP-bottom">
+            <div className="video-text-infoP">
               <Link to={`/video/${videoId}?ref=playlist&playlistId=${playlistId}`}>
                 <h3>{getShortenString(video?.title || "", 80)}</h3>
               </Link>
+              
               <h5>{video.owner?.fullName || "Unknown Creator"}</h5>
               <p>{getTimeAgo(video?.createdAt)}</p>
             </div>
@@ -82,8 +83,8 @@ function VideoBox({playlistId, videoId, playlistOwnerId, currentUserId,removeFn 
                 )}
               </div>
             )}
+            </div>
           </div>
-        </div>
       </div>
       {
         showDeleteModel && (
