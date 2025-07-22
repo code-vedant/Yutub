@@ -101,7 +101,7 @@ function TweetTab({accessToken,tweets,user}) {
                 <div className="ttm-left-imgHolder">
                   {user ? (
                     <img
-                      src={user.avatar}
+                      src={user?.avatar}
                       className="imgRec"
                       alt="user avatar"
                     />

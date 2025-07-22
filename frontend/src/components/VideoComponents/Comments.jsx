@@ -39,8 +39,8 @@ const Comments = ({ accessToken,videoId, comments }) => {
         <div className="acs-left">
           <div className="acs-left-img">
             <Link to={`/profile/${owner}`}>
-              {ownerData.avatar ? (
-                <img src={ownerData.avatar} className="recImg" alt="" />
+              {ownerData?.avatar ? (
+                <img src={ownerData?.avatar} className="recImg" alt="" />
               ) : (
                 <img src={alien} alt="" />
               )}

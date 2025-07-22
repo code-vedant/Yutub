@@ -140,13 +140,13 @@ const VideoInfo = ({ videoData }) => {
       <div className="VI-channel-info">
         <div className="VI-channel-info-left">
           <div className="VI-profileImg">
-            <Link to={`/profile/${owner._id}`}>
-              <img src={owner.avatar || ""} alt={`${owner.fullName} avatar`} />
+            <Link to={`/profile/${owner?._id}`}>
+              <img src={owner?.avatar || ""} alt={`${owner?.fullName} avatar`} />
             </Link>
           </div>
-          <Link to={`/profile/${owner._id}`} className="VI-channel-name">
-            <span className="h3">{owner.fullName}</span>
-            <span className="h4">{owner.username}</span>
+          <Link to={`/profile/${owner?._id}`} className="VI-channel-name">
+            <span className="h3">{owner?.fullName}</span>
+            <span className="h4">{owner?.username}</span>
           </Link>
           {isOwnVideo ? (
             <Link to="/dashboard">

@@ -6,13 +6,11 @@ import { Provider } from "react-redux";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { store, persistor } from "./store/store.js";
 import Page404 from "./pages/Page404.jsx";
-import Dashboard from "./pages/Dashboard.jsx";
 import TermsandCondition from "./pages/Terms-and-Condition.jsx";
 import Polices from "./pages/Polices.jsx";
 import Profile from "./pages/ProfilePage.jsx";
 import PlaylistPage from "./pages/PlaylistPage.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
-import LandingPage from "./pages/LandingPage.jsx";
 import Auth from "./pages/Auth.jsx";
 import LoginComponent from "./components/auth/LoginComponent.jsx";
 import SignupComponent from "./components/auth/SignupComponent.jsx";
@@ -108,19 +106,7 @@ const router = createBrowserRouter([
       //   path: "/about",
       //   element: <About />,
       // },
-      {
-        path: "/dashboard",
-        element: (
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        ),
-      },
     ],
-  },
-  {
-    path: "/landingPage",
-    element: <LandingPage />,
   },
   {
     path: "/auth",

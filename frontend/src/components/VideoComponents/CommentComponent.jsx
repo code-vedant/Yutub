@@ -122,7 +122,7 @@ function CommentComponent({ accessToken, comments }) {
           <div key={comment._id} className="comment-box">
             <div className="comment-left">
               <div className="comment-user-img">
-                <img src={owner.avatar || robot} alt={`${owner.fullName}'s avatar`} />
+                <img src={owner?.avatar || robot} alt={`${owner.fullName}'s avatar`} />
               </div>
             </div>
             <div className="comment-right">
