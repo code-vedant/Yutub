@@ -4,11 +4,33 @@
   left: 0;
   width: 15vw;
   height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: thin;
   background-color: #fffefe;
   color: black;
   padding: 20px;
   z-index: 1000;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.disabled-link {
+  opacity: 0.75;
+  cursor: not-allowed;
+  pointer-events: none;
+  text-decoration: none;
+  color: black;
+  padding: 0.5vh 1vw;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 1vw; 
+}
+
+.disabled-link .link-icon,
+.disabled-link span {
+  color: grey;
 }
 
 .menu-button {
@@ -81,6 +103,14 @@
   height: 1.5rem;
   width: 1.5rem;
   aspect-ratio: 1/1;
+}
+
+.extra-menu{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 2vh;
+  font-size: 1rem !important;
 }
 
 .menu-logout{

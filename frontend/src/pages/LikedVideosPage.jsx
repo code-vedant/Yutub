@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
-import LikeService from "../service/like"
-import { useSelector } from "react-redux";
+import { useEffect, useCallback, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import LikeService from "../service/like";
 import "../style/videos/watchhistory.css";
 
 import VideoHoriz from "../components/VideoComponents/VideoHoriz";
+import { setLikedVideos } from "../store/LikesSlice";
 
 export default function LikedVideosPage() {
+  const dispatch = useDispatch();
   const accessToken = useSelector((state) => state.auth.accessToken);
   const likedVideos = useSelector((state) => state.like.likedVideos);
   const [showDeleteModel, setDeleteModal] = useState(false);
@@ -17,11 +19,26 @@ export default function LikedVideosPage() {
       const res = await LikeService.toggleVideoLike(accessToken, videoId);
       console.log(res.data);
       closeDeleteModal();
+      fetchLikedVideos();
     } catch (error) {
       console.error("Error removing video from watch history:", error);
     }
   };
-  console.log(likedVideos);
+
+  const fetchLikedVideos = useCallback(async () => {
+    try {
+      const response = await LikeService.getLikedVideos(accessToken);
+      dispatch(setLikedVideos(response.data));
+    } catch (error) {
+      console.error("Error fetching liked videos:", error);
+    }
+  }, [accessToken, dispatch]);
+
+  useEffect(() => {
+    if (!likedVideos || likedVideos.length === 0) {
+      fetchLikedVideos();
+    }
+  }, [likedVideos, fetchLikedVideos]);
 
   return (
     <div className="wh-main">

@@ -43,7 +43,7 @@ const LikeService = {
             throw error;
         }
     },
-    getLikedVideos: async (accessToken) => {
+    getLikedVideos: async ({accessToken}) => {
 
         try {
             const response = await axios.get(`${API_URL}/videos`, {
