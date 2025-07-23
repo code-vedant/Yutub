@@ -6,7 +6,7 @@ import AddToPlaylist from "../PlaylistComponents/AddToPlaylist";
 import PopupHolder from "../PopupHolder";
 import { BsThreeDotsVertical } from "react-icons/bs";
 
-function VideoContainer({ video ,withUser = false}) {
+function VideoContainer({ video, withUser = false }) {
   const accessToken = useSelector((state) => state.auth.accessToken);
   const user = useSelector((state) => state.auth.userData);
   const [editModal, setEditModal] = useState(false);
@@ -80,34 +80,40 @@ function VideoContainer({ video ,withUser = false}) {
         </div>
       </div>
       <div className="VC-bottom">
-      {withUser && <div className="VC-left">
-          <Link
-            to={`/profile/${
-              video.ownerData?._id === user?._id ? "" : video.ownerData?._id
-            }`}
-          >
-             <div className="VC-left-imgHolder">
+        {withUser && (
+          <div className="VC-left">
+            <Link
+              to={`/profile/${
+                video.ownerData?._id === user?._id ? "" : video.ownerData?._id
+              }`}
+            >
+              <div className="VC-left-imgHolder">
                 <img src={video?.ownerData?.avatar} className="imgRec" />
-            </div>
-          </Link>
-        </div>}
+              </div>
+            </Link>
+          </div>
+        )}
         <div className="VC-right">
           <div className="video-info">
-            <Link to={`/videopage/${video?._id}`}>
-              <h3 className="video-title">
-                {video.title ? shorter(video.title, 70) : "title of video"}
-              </h3>
+              <Link to={`/videopage/${video?._id}`}>
+                <h3 className="video-title">
+                  {video.title ? shorter(video.title, 70) : "title of video"}
+                </h3>
+              </Link>
               <Link to={`/profile/${video?.owner || ""}`}>
-               {withUser && <h3 className="video-channel">
-                  {video.ownerData ? video.ownerData?.fullName : "Channel Name"}
-                </h3>}
+                {withUser && (
+                  <h3 className="video-channel">
+                    {video.ownerData
+                      ? video.ownerData?.fullName
+                      : "Channel Name"}
+                  </h3>
+                )}
               </Link>
               <div className="video-stats">
                 <span>
                   {video.createdAt ? timeAgo(video.createdAt) : "days ago"}
                 </span>
               </div>
-            </Link>
           </div>
           <div className="video-options">
             <div className="vo-icon">

@@ -7,20 +7,16 @@ import PhotoService from "../service/photo";
 import PhotoContainer from "../components/Photos/PhotoContainer";
 import PostCard from "../components/TweetComponents/PostCard";
 import TweetService from "../service/tweet";
-import LikeService from "../service/like";
-import { useDispatch, useSelector } from "react-redux";
-import { addLikedVideo } from "../store/LikesSlice";
+import {setError} from "../store/globalError"
+import { useDispatch } from "react-redux";
 
 const HomePage = () => {
   const [videos, setVideos] = useState([]);
   const [photos, setPhotos] = useState([]);
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
 
-  const dispatch = useDispatch();
-  const accessToken = useSelector((state) => state.auth.accessToken);
-  const status = useSelector((state) => state.auth.status);
+  const dispatch = useDispatch()
 
   const getRandomSubset = (arr, count = 6) =>
     [...arr].sort(() => Math.random() - 0.5).slice(0, count);
@@ -32,7 +28,7 @@ const HomePage = () => {
       setVideos(getRandomSubset(res.data.docs, 6));
     } catch (error) {
       console.error("Error fetching videos:", error.response?.data?.message || error.message);
-      setError(prev => ({ ...prev, videos: error.message }));
+      dispatch(setError(error.response?.data?.message || error.message));
     }
   }, []);
 
@@ -42,7 +38,8 @@ const HomePage = () => {
       setPhotos(getRandomSubset(res.data.docs, 6));
     } catch (error) {
       console.error("Error fetching photos:", error.response?.data?.message || error.message);
-      setError(prev => ({ ...prev, photos: error.message }));
+      dispatch(setError(error.response?.data?.message || error.message));
+
     }
   }, []);
 
@@ -52,18 +49,11 @@ const HomePage = () => {
       setPosts(getRandomSubset(res.data.docs, 6));
     } catch (error) {
       console.error("Error fetching posts:", error.response?.data?.message || error.message);
-      setError(prev => ({ ...prev, posts: error.message }));
+      dispatch(setError(error.response?.data?.message || error.message));
+
     }
   }, []);
 
-  const fetchLikedVideos = useCallback(async () => {
-    try {
-      const res = await LikeService.getLikedVideos(accessToken)
-      dispatch(addLikedVideo(res.data));
-    } catch (error) {
-      setError(prev => ({ ...prev, likedVideos: error.message }));
-    }
-  },[])
 
   const fetchAllData = useCallback(async () => {
     setIsLoading(true);
@@ -76,24 +66,20 @@ const HomePage = () => {
         fetchPosts()
       ];
   
-      if (status === true) {
-        promises.push(fetchLikedVideos());
-      }
-  
       await Promise.all(promises);
     } catch (error) {
       console.error("Error fetching data:", error);
+      dispatch(setError(error.response?.data?.message || error.message));
     } finally {
       setIsLoading(false);
     }
-  }, [fetchVideos, fetchPhotos, fetchPosts, fetchLikedVideos, status]);
+  }, [fetchVideos, fetchPhotos, fetchPosts,dispatch]);
   
     
   useEffect(() => {
     fetchAllData();
   }, [fetchAllData]);
 
-  // Memoize the random sorting to avoid re-sorting on every render
   const displayVideos = videos.slice(0, 6);
   const displayPhotos = photos.slice(0, 6);
   const displayPosts = posts.slice(0, 6);

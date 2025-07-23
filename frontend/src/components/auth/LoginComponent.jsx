@@ -25,19 +25,15 @@ export default function LoginComponent() {
 
   try {
     const res = await AuthService.login(data);
-
+    console.log(res);
     if (res?.statusCode === 200) {
       const { user, accessToken } = res.data;
-
       dispatch(AuthLogin({ user, accessToken }));
       dispatch(setAccessToken({ accessToken }));
 
-      // Fetch user-specific data if needed
       await fetchUserData(accessToken, user._id);
       
       navigate("/");
-    } else {
-      setError(res.message || "Login failed.");
     }
   } catch (error) {
     console.error("Login error:", error.response?.data || error.message);

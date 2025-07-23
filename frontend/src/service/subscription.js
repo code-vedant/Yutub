@@ -4,6 +4,8 @@ const API_URL = (import.meta.env.VITE_NODE_ENV !== "development" ? import.meta.e
 
 const SubService = {
     getSubscribedChannel: async (accessToken, userId) => {
+        console.log(`Fetching subscribed channels for user ID: ${accessToken}, ${userId}`);
+        
         try {
             const response = await axios.get(`${API_URL}/u/${userId}`, {
                 headers: {

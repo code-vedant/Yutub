@@ -7,17 +7,26 @@ const API_URL =
 
 const AuthService = {
   login: async ({ email, password }) => {
-    const response = await axios.post(`${API_URL}/login`, { email, password });
-    return response.data;
+    try {
+      const response = await axios.post(`${API_URL}/login`, { email, password });
+      return response.data;
+    } catch (error) {
+      console.error("Login error:", error);
+      return error.response?.data.message || new Error("Login failed");
+    }
   },
 
   signup: async (data) => {
-    const response = await axios.post(`${API_URL}/register`, data, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    return response.data;
+    try {
+      const response = await axios.post(`${API_URL}/register`, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      return response.data;
+    } catch (error) {
+      return error.response?.data.message || new Error("Login failed");
+    }
   },
 
   logout: async (accessToken) => {

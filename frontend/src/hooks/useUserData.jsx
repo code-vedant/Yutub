@@ -8,6 +8,7 @@ export const useUserData = () => {
   const dispatch = useDispatch();
 
   const fetchUserData = async (accessToken,userId) => {
+    console.log(`Fetching user data with access token: ${accessToken}, userId: ${userId}`);
     try {
       // const userData = await getUserData(accessToken,userId);
       const [likedVideos, likedPosts, likedComments, subscribedChannels] =
