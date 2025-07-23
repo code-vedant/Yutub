@@ -18,7 +18,7 @@ export default function AddNewPlaylistModal({ closeFn,accessToken,dispatch }) {
 
   return (
     <div className="addNewPlaylist-main">
-      <h2>Add New Playlist</h2>
+      <h2>Add Playlist</h2>
       <button onClick={closeFn} className="modal-close">
         <IoClose className="icon" />
       </button>
