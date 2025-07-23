@@ -23,6 +23,9 @@ import VideoPlayerPage from "./pages/VideoPlayerPage.jsx";
 import Playlists from "./pages/Playlists.jsx";
 import WatchHistoryPage from "./pages/WatchHistoryPage.jsx";
 import LikedVideosPage from "./pages/LikedVideosPage.jsx";
+import LikedPostsPage from "./pages/LikedPostsPage.jsx";
+import LikedPhotosPage from "./pages/LikedPhotosPage.jsx";
+import Collections from "./pages/Collections.jsx";
 
 const router = createBrowserRouter([
   {
@@ -67,9 +70,33 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/photos/liked",
+        element: (
+            <ProtectedRoute>
+              <LikedPhotosPage />
+            </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/photos/collections",
+        element: (
+            <ProtectedRoute>
+              <Collections />
+            </ProtectedRoute>
+        ),
+      },
+      {
         path: "posts",
         element: (
             <PostPage />
+        ),
+      },
+      {
+        path: "/posts/liked",
+        element: (
+            <ProtectedRoute>
+              <LikedPostsPage />
+            </ProtectedRoute>
         ),
       },
       {

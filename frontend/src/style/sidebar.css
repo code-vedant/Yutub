@@ -51,6 +51,7 @@
   z-index: 1100;
   font-size: 1.5rem;
   font-weight: 700;
+  background-color: #fffefe;
 }
 
 .menu-logo span{
@@ -110,6 +111,7 @@
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 2vh;
+  /* gap: 1vw; */
   font-size: 1rem !important;
 }
 
@@ -197,5 +199,13 @@
   }
   .menu-logout {
     margin-top: 0vh;
+  }
+  .extra-menu{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 2vh;
+    gap: 1vw;
+    font-size: 1rem !important;
   }
 }

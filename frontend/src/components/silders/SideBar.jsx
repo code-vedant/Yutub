@@ -105,11 +105,6 @@ const Sidebar = () => {
           <div className="separator"></div>
           <h4>Photos</h4>
           <ProtectedLink
-            to="/photos/saved"
-            icon={<MdOutlineBookmarkAdded className="link-icon" />}
-            label="Saved"
-          />
-          <ProtectedLink
             to="/photos/liked"
             icon={<FaRegHeart className="link-icon" />}
             label="Liked"
@@ -122,7 +117,7 @@ const Sidebar = () => {
           <div className="separator"></div>
           <h4>Posts</h4>
           <ProtectedLink
-            to="/dashboard"
+            to="/profile"
             icon={<MdOutlinePostAdd className="link-icon" />}
             label="Write"
           />

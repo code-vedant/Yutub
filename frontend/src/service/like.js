@@ -43,6 +43,19 @@ const LikeService = {
             throw error;
         }
     },
+    togglePhotoLike: async ({accessToken},photoId) => {
+        try {
+            const response = await axios.patch(`${API_URL}/toggle/p/${photoId}`,{}, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error(`Error liking/unliking photo with ID ${photoId}:`, error);
+            throw error;
+        }
+    },
     getLikedVideos: async (accessToken) => {
         console.log(`Fetching liked videos with access token: ${accessToken}`);
         
@@ -86,6 +99,21 @@ const LikeService = {
             return response.data;
         } catch (error) {
             console.error("Error fetching likes by comment:", error);
+            throw error;
+        }
+    },
+    getLikedPhotos: async (accessToken) => {
+        console.log(`Fetching liked photos with access token: ${accessToken}`);
+        
+        try {
+            const response = await axios.get(`${API_URL}/photos`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error("Error fetching likes by photo:", error);
             throw error;
         }
     },
