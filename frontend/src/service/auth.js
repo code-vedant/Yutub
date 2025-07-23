@@ -11,8 +11,8 @@ const AuthService = {
       const response = await axios.post(`${API_URL}/login`, { email, password });
       return response.data;
     } catch (error) {
-      console.error("Login error:", error);
-      return error.response?.data.message || new Error("Login failed");
+      console.error("Login error:", error.response?.data.message);
+      throw error.response?.data.message || new Error("Login failed");
     }
   },
 

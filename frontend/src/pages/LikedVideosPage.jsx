@@ -47,8 +47,8 @@ export default function LikedVideosPage() {
         {likedVideos.length > 0 &&
           likedVideos.map((video) => (
             <VideoHoriz
-              key={video._id}
-              videoId={video.video._id}
+              key={video?._id}
+              videoId={video?.video?._id}
               showModel={showDeleteModel}
               itemText={"video's like"}
               mianFn={removeLike}

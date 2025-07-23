@@ -25,7 +25,6 @@ export default function LoginComponent() {
 
   try {
     const res = await AuthService.login(data);
-    console.log(res);
     if (res?.statusCode === 200) {
       const { user, accessToken } = res.data;
       dispatch(AuthLogin({ user, accessToken }));
@@ -36,8 +35,8 @@ export default function LoginComponent() {
       navigate("/");
     }
   } catch (error) {
-    console.error("Login error:", error.response?.data || error.message);
-    setError(error.response?.data?.message || "Login failed. Please try again.");
+    console.error("Login error:", error);
+    setError(error || "Login failed. Please try again.");
   } finally {
     setIsLoading(false);
   }
