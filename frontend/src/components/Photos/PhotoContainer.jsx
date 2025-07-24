@@ -6,7 +6,7 @@ import alien from "../../assets/alien.jpeg";
 
 export default function PhotoContainer({ photo }) {
   return (
-    <div className="photo-container">
+    <Link to={`/photos/${photo?._id}`} className="photo-container">
       <img src={photo.photoFile} alt="" />
       <div className="photo-options">
         <button>
@@ -30,6 +30,6 @@ export default function PhotoContainer({ photo }) {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

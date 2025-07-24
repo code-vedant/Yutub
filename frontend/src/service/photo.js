@@ -16,16 +16,14 @@ const PhotoService = {
     }
   },
 
-  getPhotoById: async (accessToken, videoId) => {
+  getPhotoById: async (photoId) => {
     try {
-      const response = await axios.get(`${API_URL}/${videoId}`, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const response = await axios.get(`${API_URL}/${photoId}`);
+      console.log(response);
+      
       return response.data;
     } catch (error) {
-      console.error(`Error fetching video with ID ${videoId}:`, error);
+      console.error(`Error fetching photo with ID ${photoId}:`, error);
       throw error;
     }
   },
@@ -45,9 +43,9 @@ const PhotoService = {
     }
   },
 
-  updatePhoto: async (accessToken, videoId, data) => {
+  updatePhoto: async (accessToken, photoId, data) => {
     try {
-      const response = await axios.put(`${API_URL}/${videoId}`, data, {
+      const response = await axios.put(`${API_URL}/${photoId}`, data, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "multipart/form-data",
@@ -55,20 +53,20 @@ const PhotoService = {
       });
       return response.data;
     } catch (error) {
-      console.error(`Error updating video with ID ${videoId}:`, error);
+      console.error(`Error updating video with ID ${photoId}:`, error);
       throw error;
     }
   },
-  deletePhoto: async (accessToken, videoId) => {
+  deletePhoto: async (accessToken, photoId) => {
     try {
-      const response = await axios.delete(`${API_URL}/${videoId}`, {
+      const response = await axios.delete(`${API_URL}/${photoId}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
       return response.data;
     } catch (error) {
-      console.error(`Error deleting video with ID ${videoId}:`, error);
+      console.error(`Error deleting video with ID ${photoId}:`, error);
       throw error;
     }
   },
