@@ -1,4 +1,4 @@
-import "../style/photos/photodetails.css";
+import "../style/photos/photoDetails.css";
 import {
   IoClose,
   IoHeartOutline,
