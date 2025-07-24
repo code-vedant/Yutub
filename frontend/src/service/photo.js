@@ -19,7 +19,7 @@ const PhotoService = {
   getPhotoById: async (photoId) => {
     try {
       const response = await axios.get(`${API_URL}/${photoId}`);
-      console.log(response);
+      //console.log(response);
       
       return response.data;
     } catch (error) {

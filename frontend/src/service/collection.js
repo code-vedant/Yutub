@@ -14,7 +14,7 @@ const CollectionService = {
   },
   getCollectionById: async (collectionId) => {
 
-    console.log(`Fetching collection with ID: ${collectionId}`);
+    //console.log(`Fetching collection with ID: ${collectionId}`);
     
     try {
       const response = await axios.get(`${API_URL}/${collectionId}`);
@@ -69,7 +69,7 @@ const CollectionService = {
     }
   },
   updateCollection: async ({accessToken}, collectionId, collectionData) => {
-    console.log(`Updating collection with ID: ${collectionId}`, collectionData);
+    //console.log(`Updating collection with ID: ${collectionId}`, collectionData);
     
     try {
       const response = await axios.patch(

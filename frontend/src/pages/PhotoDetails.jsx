@@ -56,8 +56,6 @@ export default function PhotoDetails() {
     if (!accessToken) return;
     try {
       const res = await LikeService.checkPhotoLiked(accessToken, photoId);
-      console.log(res.data);
-      
       setLiked(res.data);
     } catch (error) {
       dispatch(setError(error?.response?.data.message || error.message));

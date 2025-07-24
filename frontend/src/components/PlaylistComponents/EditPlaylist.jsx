@@ -14,8 +14,6 @@ function EditPlaylist({closeFn, accessToken, data}) {
     const createPlaylist = async (d) => {
       try {
         const res = await PlaylistService.updatePlaylist(accessToken,data?._id,d);
-        console.log(res);
-        
         alert("Playlist updated successfully");
         closeFn()
       } catch (error) {

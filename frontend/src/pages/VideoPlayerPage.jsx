@@ -64,7 +64,7 @@ const VideoPlayerPage = () => {
         try {
           const res = await VideoService.addToWatchHistory(accessToken, videoId);
           if (res?.data) {
-            console.log("Video added to watch history:", res.data);
+            //console.log("Video added to watch history:", res.data);
           }
         } catch (error) {
           console.error("Error adding to watch history:", error);

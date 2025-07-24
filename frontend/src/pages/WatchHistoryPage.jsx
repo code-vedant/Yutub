@@ -13,7 +13,7 @@ export default function WatchHistoryPage() {
   const getUserWatchHistory = async () => {
     try {
       const response = await AuthService.getUserData(accessToken);
-      console.log(response.data.watchHistory);
+      //console.log(response.data.watchHistory);
       setWatchHistory(response.data.watchHistory);
     } catch (error) {
       console.error("Error fetching current user:", error);
@@ -33,7 +33,7 @@ export default function WatchHistoryPage() {
     try {
       await VideoService.removeFromWatchHistory(accessToken, videoId);
       closeDeleteModal();
-      console.log("Video removed from watch history successfully.");
+      //console.log("Video removed from watch history successfully.");
     } catch (error) {
       console.error("Error removing video from watch history:", error);
     }

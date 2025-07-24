@@ -14,7 +14,7 @@ const PlaylistService = {
   },
   getPlaylistById: async (playlistId) => {
 
-    console.log(`Fetching playlist with ID: ${playlistId}`);
+    // console.log(`Fetching playlist with ID: ${playlistId}`);
     
     try {
       const response = await axios.get(`${API_URL}/${playlistId}`);
@@ -69,7 +69,7 @@ const PlaylistService = {
     }
   },
   updatePlaylist: async ({accessToken}, playlistId, playlistData) => {
-    console.log(`Updating playlist with ID: ${playlistId}`, playlistData);
+    // console.log(`Updating playlist with ID: ${playlistId}`, playlistData);
     
     try {
       const response = await axios.patch(

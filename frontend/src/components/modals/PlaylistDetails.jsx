@@ -3,7 +3,6 @@ import { getTimeAgo } from "../../utils/getTimeAgo";
 import { Link } from "react-router-dom";
 
 export default function PlaylistDetails({ playlist, owner, closeDetailModal }) {
-  console.log(playlist);
 
   return (
     <div className="detail-modal">

@@ -13,7 +13,7 @@ export default function PostTab({ id }) {
   const fetchVideos = useCallback(async () => {
     try {
       const res = await VideoService.getUserVideos(id);
-      console.log("Fetched Videos:", res.data);
+      //console.log("Fetched Videos:", res.data);
       setVideos(res.data || []);
     } catch (error) {
       dispatch(setError(error?.response?.data?.message || "Failed to fetch videos"));
