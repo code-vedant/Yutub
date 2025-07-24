@@ -11,7 +11,29 @@
 .photo_render_area {
   width: 100%;
   height: 100%;
-  columns: 6;
+  columns: 4;
   column-gap: 1vw;
   position: relative;
+}
+
+@media screen and (max-width: 600px) {
+  .photo_page {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    min-height: 100vh;
+    gap: 2vh 0.5vw;
+    padding: 5vh 2vw;
+  }
+  
+  .photo_render_area {
+    width: 100%;
+    height: 100%;
+    columns: 2;
+    column-gap: 0.5vw;
+    position: relative;
+  }
+  
+  
 }

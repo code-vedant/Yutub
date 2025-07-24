@@ -16,7 +16,7 @@ export default function LikedVideosPage() {
 
   const removeLike = async (videoId) => {
     try {
-      const res = await LikeService.toggleVideoLike(accessToken, videoId);
+      await LikeService.toggleVideoLike(accessToken, videoId);
       //console.log(res.data);
       closeDeleteModal();
       fetchLikedVideos();

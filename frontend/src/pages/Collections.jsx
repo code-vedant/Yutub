@@ -2,11 +2,11 @@ import { FaPlus } from "react-icons/fa";
 import "../style/playlist/playlists.css";
 import { useEffect, useState } from "react";
 import PopupHolder from "../components/PopupHolder";
-import AddNewPlaylistModal from "../components/modals/AddNewPlaylistModal";
 import { useDispatch, useSelector } from "react-redux";
-import PlaylistService from "../service/playlist";
 import { setError } from "../store/globalError";
 import { Link } from "react-router-dom";
+import AddNewCollectionModal from "../components/modals/AddNewCollectionModal";
+import CollectionService from "../service/collection";
 
 const bg = [
   "#DCE1E3",
@@ -34,7 +34,7 @@ const bg = [
 
 export default function Collections() {
   const [showModal, setShowModal] = useState(false);
-  const [playlists,setPlaylists] = useState([])
+  const [collections,setCollections] = useState([])
   const accessToken = useSelector((state) => state.auth.accessToken);
   const user = useSelector((state) => state.auth.userData);
   const dispatch = useDispatch();
@@ -43,18 +43,18 @@ export default function Collections() {
     setShowModal(!showModal);
   };
 
-  const getPlaylists = async () => {
+  const getCollections = async () => {
     try {
-      const response = await PlaylistService.getUserPlaylists(user._id);
-      setPlaylists(response.data);
+      const response = await CollectionService.getUserCollections(user._id);
+      setCollections(response.data);
     } catch (error) {
-      console.error("Error fetching playlists:", error.response?.data);
-      dispatch(setError(error.response?.data?.message || "Failed to fetch playlists"));
+      console.error("Error fetching collections:", error.response?.data);
+      dispatch(setError(error.response?.data?.message || "Failed to fetch collections"));
     }
   }
 
   useEffect(()=>{
-    getPlaylists();
+    getCollections();
   },[])
 
   return (
@@ -65,7 +65,7 @@ export default function Collections() {
           <FaPlus className="icon" />
           <span>New Collection</span>
         </button>
-        {playlists.map((play) => 
+        {collections.map((play) => 
         (<Link to={`${play._id}`}
         key={play._id}
           className="playlist"
@@ -79,7 +79,7 @@ export default function Collections() {
 
       {showModal && (
         <PopupHolder>
-          <AddNewPlaylistModal closeFn={toggleModal} accessToken={accessToken} dispatch={dispatch} />
+          <AddNewCollectionModal closeFn={toggleModal} accessToken={accessToken} dispatch={dispatch} />
         </PopupHolder>
       )}
     </section>

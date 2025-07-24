@@ -1,5 +1,10 @@
 import "../style/photos/photodetails.css";
-import { IoClose, IoHeartOutline, IoHeart, IoImagesOutline } from "react-icons/io5";
+import {
+  IoClose,
+  IoHeartOutline,
+  IoHeart,
+  IoImagesOutline,
+} from "react-icons/io5";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setError } from "../store/globalError";
@@ -8,13 +13,17 @@ import { useNavigate, useParams } from "react-router-dom";
 import { BsFullscreen } from "react-icons/bs";
 import CommentService from "../service/comment";
 import LikeService from "../service/like";
+import CollectionService from "../service/collection";
 
 export default function PhotoDetails() {
   const [photo, setPhoto] = useState(null);
   const [comments, setComments] = useState([]);
   const [liked, setLiked] = useState(false);
+  const [showCollection, setShowCollection] = useState(false);
+  const [collection, setCollection] = useState([]);
 
   const accessToken = useSelector((state) => state.auth.accessToken);
+  const user = useSelector((state) => state.auth.userData);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const imageContainerRef = useRef();
@@ -28,6 +37,10 @@ export default function PhotoDetails() {
     } else if (imageContainerRef.current.msRequestFullscreen) {
       imageContainerRef.current.msRequestFullscreen();
     }
+  };
+
+  const showCollectionFn = () => {
+    setShowCollection((prev) => !prev);
   };
 
   const closeFn = () => {
@@ -69,8 +82,33 @@ export default function PhotoDetails() {
     }
 
     try {
-      await LikeService.togglePhotoLike(accessToken , photoId);
+      await LikeService.togglePhotoLike(accessToken, photoId);
       setLiked((prev) => !prev);
+    } catch (error) {
+      dispatch(setError(error?.response?.data.message || error.message));
+    }
+  };
+
+  const fetchCollection = useCallback(async () => {
+    if (!accessToken) return;
+    try {
+      const res = await CollectionService.getUserCollections(user._id);
+      console.log(res.data);
+
+      setCollection(res.data);
+    } catch (error) {
+      dispatch(setError(error?.response?.data.message || error.message));
+    }
+  }, []);
+
+  const addPhotoToCollection = async (collectionId) => {
+    if (!accessToken) {
+      dispatch(setError("Login to add photo to collection."));
+      return;
+    }
+    try {
+      await CollectionService.addPhoto(accessToken, photoId, collectionId);
+      setShowCollection(false);
     } catch (error) {
       dispatch(setError(error?.response?.data.message || error.message));
     }
@@ -80,7 +118,17 @@ export default function PhotoDetails() {
     fetchPhotoDetails();
     fetchComments();
     fetchLikedStatus();
-  }, [fetchPhotoDetails, fetchComments, fetchLikedStatus]);
+
+    if (showCollection) {
+      fetchCollection();
+    }
+  }, [
+    fetchPhotoDetails,
+    fetchComments,
+    fetchLikedStatus,
+    fetchCollection,
+    showCollection,
+  ]);
 
   return (
     <div className="photoDetails-main">
@@ -109,11 +157,34 @@ export default function PhotoDetails() {
             <p>{photo?.description}</p>
             <div className="photoDetails-options">
               <button onClick={likePhoto}>
-                {liked ? <IoHeart style={{color: "#2b1515"}} className="liked" /> : <IoHeartOutline />}
+                {liked ? (
+                  <IoHeart style={{ color: "#2b1515" }} className="liked" />
+                ) : (
+                  <IoHeartOutline />
+                )}
               </button>
-              <button>
+              <button onClick={showCollectionFn} className="collection-icon">
                 <IoImagesOutline />
               </button>
+              {showCollection && (
+                <ul className="collectionList">
+                  <button onClick={showCollectionFn} className="modal-close">
+                    <IoClose className="icon" />
+                  </button>
+                  <h3>Add to</h3>
+                  {collection?.length > 0 ? (
+                    collection.map((item) => (
+                      <li key={item?._id} className="collection-item">
+                        <button onClick={() => addPhotoToCollection(item._id)}>
+                          {item.name}
+                        </button>
+                      </li>
+                    ))
+                  ) : (
+                    <p>No collections found</p>
+                  )}
+                </ul>
+              )}
             </div>
           </div>
 

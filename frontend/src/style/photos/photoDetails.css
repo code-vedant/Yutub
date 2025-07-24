@@ -105,6 +105,49 @@
   cursor: pointer;
 }
 
+.collectionList{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 10vw;
+  height: fit-content;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fffefe;
+  border-radius: 10px;
+}
+
+.collectionList button.modal-close{
+  scale: 0.6;
+  top: 0;
+  right: 0;
+  margin-top: -0.2vh;
+  padding: 0.2rem 0.4rem;
+}
+.collectionList h3{
+  width: 100%;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1vh;
+}
+
+.collectionList li{
+  width: 100%;
+  cursor: pointer;
+}
+.collectionList li button{
+  width: 100%;
+  padding: 0.5rem;
+  border: none;
+  text-align: left;
+  font-size: 1rem;
+}
+
 .photoDetails-details-right-mid{
   display: flex;
   align-items: flex-start;
@@ -285,6 +328,51 @@
     justify-content: flex-start;
     gap: 1.5vw;
   }
+
+  .collectionList{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw;
+    height: fit-content;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fffefe;
+    border-radius: 10px;
+    padding: 0.5vh 0.8vw;
+  }
+  
+  .collectionList button.modal-close{
+    scale: 1;
+    top: 0;
+    right: 0;
+    margin-top: -0.2vh;
+    padding: 0.2rem 0.4rem;
+  }
+  .collectionList h3{
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1vh;
+  }
+  
+  .collectionList li{
+    width: 100%;
+    cursor: pointer;
+  }
+  .collectionList li button{
+    width: 100%;
+    padding: 0.5rem;
+    border: none;
+    text-align: left;
+    font-size: 1rem;
+  }
+  
   
   .photoDetails-options button {
     padding: 0.5rem;

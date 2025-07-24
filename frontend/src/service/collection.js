@@ -35,10 +35,10 @@ const CollectionService = {
       throw new Error("Error creating collection: " + error.response?.data.message);
     }
   },
-  addVideo: async (accessToken, videoId, collectionId) => {
+  addPhoto: async (accessToken, photoId, collectionId) => {
     try {
       const response = await axios.patch(
-        `${API_URL}/add/${videoId}/${collectionId}`,
+        `${API_URL}/add/${photoId}/${collectionId}`,
         {},
         {
           headers: {
@@ -52,10 +52,10 @@ const CollectionService = {
       console.error(error);
     }
   },
-  removeVideo: async (accessToken, videoId, collectionId) => {
+  removePhoto: async (accessToken, photoId, collectionId) => {
     try {
       const response = await axios.patch(
-        `${API_URL}/remove/${videoId}/${collectionId}`,
+        `${API_URL}/remove/${photoId}/${collectionId}`,
         {},
         {
           headers: {
