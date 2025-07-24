@@ -93,7 +93,7 @@ const VideoPlayerPage = () => {
         setCommentsLoading(true);
         setCommentsError(null);
         
-        const response = await CommentService.getAllComments(accessToken, videoId);
+        const response = await CommentService.getVideoComments(videoId);
         
         if (isMounted) {
           setComments(response?.data || []);

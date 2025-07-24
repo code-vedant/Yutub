@@ -24,9 +24,9 @@ export default function PhotoContainer({ photo }) {
           </div>
           <div className="photo-info-btm-right">
             <h3>{photo.title}</h3>
-            <Link to={`/profile/${photo.owner._id}`}>
+            <div>
               @{photo.owner.username}
-            </Link>
+            </div>
           </div>
         </div>
       </div>

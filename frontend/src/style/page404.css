@@ -1,14 +1,39 @@
-.c404page{
-   width: 100vw; 
-   height: 100vh;
+.c404page {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  h1 {
+     color: #1e1010;
+     font-size: 24vh;
+     font-weight: bold;
+   }
+   
+   p{
+      color: #1e1010;
+      font-size: 4vh;
+      font-weight: 500;
+      margin-top: -2vh;
+   }
+}
+
+.go-back-btn{
+   padding: 1rem 3rem;
+   font-size: 2vh;
+   font-weight: 500;
+   color: #fff;
+   background-color: #1e1010;
+   border: none;
+   border-radius: 5rem;
+   cursor: pointer;
+   margin-top: 2vh;
+}
+
+.c404page-btns{
    display: flex;
    justify-content: center;
    align-items: center;
-   background: #000;
-
-   h1{
-    color: #ff0000;
-    font-size: 24vh;
-    font-weight: bold;
-   }
+   gap: 2rem;
 }

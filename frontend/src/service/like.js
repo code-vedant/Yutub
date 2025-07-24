@@ -1,132 +1,130 @@
 import axios from "axios";
 
-const API_URL = (import.meta.env.VITE_NODE_ENV !== "development" ? import.meta.env.VITE_API_URL  : "http://localhost:8000/api/v1") + '/likes';
+const API_URL =
+  (import.meta.env.VITE_NODE_ENV !== "development"
+    ? import.meta.env.VITE_API_URL
+    : "http://localhost:8000/api/v1") + "/likes";
 
 const LikeService = {
-    toggleVideoLike: async ({accessToken},videoId) => {
-        try {
-            const response = await axios.patch(`${API_URL}/toggle/v/${videoId}`,{}, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            return response.data;
-        } catch (error) {
-            console.error(`Error liking/unliking video with ID ${videoId}:`, error);
-            throw error;
-        }
-    },
-    toggleCommentLike: async ({accessToken},commentId) => {
-        try {
-            const response = await axios.patch(`${API_URL}/toggle/c/${commentId}`,{}, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            return response.data;
-        } catch (error) {
-            console.error(`Error liking/unliking comment with ID ${commentId}:`, error);
-            throw error;
-        }
-    },
-    toggleTweetLike: async ({accessToken},tweetId) => {
-        try {
-            
-            const response = await axios.patch(`${API_URL}/toggle/t/${tweetId}`,{}, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            return response.data;
-        } catch (error) {
-            console.error(`Error liking/unliking tweet with ID ${tweetId}:`, error);
-            throw error;
-        }
-    },
-    togglePhotoLike: async ({accessToken},photoId) => {
-        try {
-            const response = await axios.patch(`${API_URL}/toggle/p/${photoId}`,{}, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            return response.data;
-        } catch (error) {
-            console.error(`Error liking/unliking photo with ID ${photoId}:`, error);
-            throw error;
-        }
-    },
-    getLikedVideos: async (accessToken) => {
-        console.log(`Fetching liked videos with access token: ${accessToken}`);
-        
-        try {
-            const response = await axios.get(`${API_URL}/videos`, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            return response.data;
-        } catch (error) {
-            console.error("Error fetching likes by video:", error);
-            throw error;
-        }
-    },
-    getLikedTweet: async (accessToken) => {
-        console.log(`Fetching liked tweets with access token: ${accessToken}`);
-        
-        try {
-            const response = await axios.get(`${API_URL}/tweets`, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            return response.data;
-        } catch (error) {
-            console.error("Error updating tweet:", error);
-            throw error;
-        }
-    },
-    getLikedComment: async(accessToken) => {
-        console.log(`Fetching liked comments with access token: ${accessToken}`);
-        
+  // ---------- Toggle Likes ----------
+  toggleVideoLike: async ({ accessToken }, videoId) => {
+    return await LikeService._toggleLike(`/toggle/v/${videoId}`, accessToken);
+  },
 
-        try {
-            const response = await axios.get(`${API_URL}/comments`, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            return response.data;
-        } catch (error) {
-            console.error("Error fetching likes by comment:", error);
-            throw error;
-        }
-    },
-    getLikedPhotos: async (accessToken) => {
-        console.log(`Fetching liked photos with access token: ${accessToken}`);
-        
-        try {
-            const response = await axios.get(`${API_URL}/photos`, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
-            return response.data;
-        } catch (error) {
-            console.error("Error fetching likes by photo:", error);
-            throw error;
-        }
-    },
-    getVideoLikes: async (videoId) => {
-        try {
-            const response = await axios.get(`${API_URL}/video/${videoId}`);
-            return response.data;
-        } catch (error) {
-            console.error(`Error fetching likes for video with ID ${videoId}:`, error);
-            throw error;
-        }
+  toggleCommentLike: async ({ accessToken }, commentId) => {
+    return await LikeService._toggleLike(`/toggle/c/${commentId}`, accessToken);
+  },
+
+  toggleTweetLike: async ({ accessToken }, tweetId) => {
+    return await LikeService._toggleLike(`/toggle/t/${tweetId}`, accessToken);
+  },
+
+  togglePhotoLike: async ({ accessToken }, photoId) => {
+    return await LikeService._toggleLike(`/toggle/p/${photoId}`, accessToken);
+  },
+
+  _toggleLike: async (path, accessToken) => {
+    try {
+      const response = await axios.patch(`${API_URL}${path}`, {}, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error(`Error toggling like on ${path}:`, error);
+      throw error;
     }
+  },
 
-}
+  // ---------- Get Likes ----------
+  getVideoLikes: async (videoId) => {
+    return await LikeService._getLikes(`/video/${videoId}`);
+  },
+
+  getTweetLikes: async (tweetId) => {
+    return await LikeService._getLikes(`/tweet/${tweetId}`);
+  },
+
+  getCommentLikes: async (commentId) => {
+    return await LikeService._getLikes(`/comment/${commentId}`);
+  },
+
+  getPhotoLikes: async (photoId) => {
+    return await LikeService._getLikes(`/photo/${photoId}`);
+  },
+
+  _getLikes: async (path) => {
+    try {
+      const response = await axios.get(`${API_URL}${path}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching likes from ${path}:`, error);
+      throw error;
+    }
+  },
+
+  // ---------- Check if Liked ----------
+  checkVideoLiked: async ({accessToken}, videoId) => {
+    return await LikeService._checkLiked(`/check/v/${videoId}`, accessToken);
+  },
+
+  checkTweetLiked: async ({accessToken}, tweetId) => {
+    return await LikeService._checkLiked(`/check/t/${tweetId}`, accessToken);
+  },
+
+  checkPhotoLiked: async ({accessToken}, photoId) => {
+    return await LikeService._checkLiked(`/check/p/${photoId}`, accessToken);
+  },
+
+  checkCommentLiked: async ({accessToken}, commentId) => {
+    return await LikeService._checkLiked(`/check/c/${commentId}`, accessToken);
+  },
+
+  _checkLiked: async (path, accessToken) => {
+    try {
+      const response = await axios.get(`${API_URL}${path}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error(`Error checking like on ${path}:`, error);
+      throw error;
+    }
+  },
+
+  // ---------- Get All Liked Content ----------
+  getLikedVideos: async (accessToken) => {
+    return await LikeService._getLikedList("/videos", accessToken);
+  },
+
+  getLikedTweets: async (accessToken) => {
+    return await LikeService._getLikedList("/tweets", accessToken);
+  },
+
+  getLikedComments: async (accessToken) => {
+    return await LikeService._getLikedList("/comments", accessToken);
+  },
+
+  getLikedPhotos: async (accessToken) => {
+    return await LikeService._getLikedList("/photos", accessToken);
+  },
+
+  _getLikedList: async (path, accessToken) => {
+    try {
+      const response = await axios.get(`${API_URL}${path}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching liked content from ${path}:`, error);
+      throw error;
+    }
+  },
+};
 
 export default LikeService;
