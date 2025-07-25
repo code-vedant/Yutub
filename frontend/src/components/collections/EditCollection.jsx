@@ -1,19 +1,19 @@
 import {useForm} from "react-hook-form"
-import PlaylistService from "../../service/playlist.js";
 import { IoClose } from "react-icons/io5";
 import "../../style/playlist/addNewPlaylist.css";
 import {setError} from "../../store/globalError"
 import { useDispatch } from "react-redux";
+import CollectionService from "../../service/collection.js";
 
-function EditPlaylist({closeFn, accessToken, data}) {
+function EditCollection({closeFn, accessToken, data}) {
 
   const dispatch = useDispatch();
 
     const {register, handleSubmit} = useForm()
 
-    const editPlaylistFn = async (d) => {
+    const editCollectionFn = async (d) => {
       try {
-        await PlaylistService.updatePlaylist(accessToken,data?._id,d);
+        await CollectionService.updateCollection(accessToken,data?._id,d);
         alert("Playlist updated successfully");
         closeFn()
       } catch (error) {
@@ -29,18 +29,18 @@ function EditPlaylist({closeFn, accessToken, data}) {
         <IoClose className="icon" />
       </button>
 
-      <form onSubmit={handleSubmit(editPlaylistFn)}>
+      <form onSubmit={handleSubmit(editCollectionFn)}>
         <label>Name:</label>
         <input
           type="text"
           {...register("name")}
-          placeholder="Add playlist name"
+          placeholder="Add collection name"
           defaultValue={data?.name || ""}
         />
         <label>Description:</label>
         <textarea
           {...register("description")}
-          placeholder="Add description for playlist"
+          placeholder="Add description for collection"
           defaultValue={data?.description || ""}
         ></textarea>
         <div className="form-btn">
@@ -54,4 +54,4 @@ function EditPlaylist({closeFn, accessToken, data}) {
   );
 }
 
-export default EditPlaylist;
+export default EditCollection;

@@ -28,6 +28,7 @@ import LikedPhotosPage from "./pages/LikedPhotosPage.jsx";
 import Collections from "./pages/Collections.jsx";
 import PopupHolder from "./components/PopupHolder.jsx";
 import PhotoDetails from "./pages/PhotoDetails.jsx";
+import CollectionPage from "./pages/CollectionPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -92,6 +93,14 @@ const router = createBrowserRouter([
         element: (
             <ProtectedRoute>
               <Collections />
+            </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/photos/collections/:id",
+        element: (
+            <ProtectedRoute>
+              <CollectionPage />
             </ProtectedRoute>
         ),
       },

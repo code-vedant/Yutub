@@ -13,14 +13,12 @@ const CollectionService = {
     }
   },
   getCollectionById: async (collectionId) => {
-
-    //console.log(`Fetching collection with ID: ${collectionId}`);
-    
     try {
       const response = await axios.get(`${API_URL}/${collectionId}`);
       return response.data;
     } catch (error) {
       console.error(error);
+      throw error
     }
   },
   createCollection: async (collectionData,{accessToken}) => {
@@ -35,7 +33,7 @@ const CollectionService = {
       throw new Error("Error creating collection: " + error.response?.data.message);
     }
   },
-  addPhoto: async (accessToken, photoId, collectionId) => {
+  addPhoto: async ({accessToken}, photoId, collectionId) => {
     try {
       const response = await axios.patch(
         `${API_URL}/add/${photoId}/${collectionId}`,
@@ -50,9 +48,12 @@ const CollectionService = {
       return response.data;
     } catch (error) {
       console.error(error);
+      throw error
     }
   },
-  removePhoto: async (accessToken, photoId, collectionId) => {
+  removePhoto: async ({accessToken}, photoId, collectionId) => {
+    console.log(accessToken, photoId, collectionId);
+    
     try {
       const response = await axios.patch(
         `${API_URL}/remove/${photoId}/${collectionId}`,
@@ -69,8 +70,6 @@ const CollectionService = {
     }
   },
   updateCollection: async ({accessToken}, collectionId, collectionData) => {
-    //console.log(`Updating collection with ID: ${collectionId}`, collectionData);
-    
     try {
       const response = await axios.patch(
         `${API_URL}/${collectionId}`,

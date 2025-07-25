@@ -102,12 +102,14 @@ export default function PhotoDetails() {
   }, []);
 
   const addPhotoToCollection = async (collectionId) => {
+    console.log("Adding photo to collection:", collectionId);
+    
     if (!accessToken) {
       dispatch(setError("Login to add photo to collection."));
       return;
     }
     try {
-      await CollectionService.addPhoto(accessToken, photoId, collectionId);
+      await CollectionService.addPhoto(accessToken,photoId,collectionId);
       setShowCollection(false);
     } catch (error) {
       dispatch(setError(error?.response?.data.message || error.message));

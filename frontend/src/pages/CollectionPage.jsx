@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import "../style/playlist.style.css";
-import VideoBox from "../components/VideoComponents/VideoBox";
-import PlaylistService from "../service/playlist";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import AuthService from "../service/auth";
 import PopupHolder from "../components/PopupHolder";
@@ -10,7 +8,10 @@ import NoVideo from "../components/Profile/NoVideo";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import PlaylistDetails from "../components/modals/PlaylistDetails";
 import DeleteModal from "../components/modals/DeleteModal";
-import EditPlaylist from "../components/PlaylistComponents/EditPlaylist";
+import CollectionService from "../service/collection";
+import { setError } from "../store/globalError";
+import EditCollection from "../components/collections/EditCollection";
+import PhotoContainerForCollection from "../components/Photos/PhotoContainerForCollection";
 
 function CollectionPage() {
   const accessToken = useSelector((state) => state.auth.accessToken);
@@ -18,12 +19,13 @@ function CollectionPage() {
   const [showOptions, setShowOptions] = useState(false);
   const toggleOptions = () => setShowOptions((prev) => !prev);
   const navigate = useNavigate();
-  const { id: playlistId } = useParams();
+  const dispatch = useDispatch()
+  const { id: collectionId } = useParams();
 
-  const [playlist, setPlaylist] = useState("");
+  const [collection, setCollection] = useState("");
   const [loading, setLoading] = useState(false);
   const [owner, setOwner] = useState("");
-  const [videos, setVideos] = useState([]);
+  const [photos, setPhotos] = useState([]);
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [detailModel, setDetailModal] = useState(false);
@@ -38,28 +40,29 @@ function CollectionPage() {
   const closeDetailModal = () => setDetailModal(false);
 
   useEffect(() => {
-    const getPlaylistData = async () => {
+    const getCollectionData = async () => {
       setLoading(true);
       try {
-        const response = await PlaylistService.getPlaylistById(playlistId);
-        const playlistData = response.data;
-        setPlaylist(playlistData);
-        setVideos(playlistData.videos);
-        const ownerResponse = await AuthService.getUserById(playlistData.owner);
+        const response = await CollectionService.getCollectionById(collectionId);
+        const collectionData = response.data;
+        
+        setCollection(collectionData);
+        setPhotos(collectionData.photos);
+        const ownerResponse = await AuthService.getUserById(collectionData.owner);
         setOwner(ownerResponse.data);
       } catch (error) {
-        console.error("Error fetching playlist or owner data:", error.message);
+        dispatch(setError(error.response?.data?.message || "Failed to fetch collection data"));
       } finally {
         setLoading(false);
       }
     };
-    getPlaylistData();
-  }, [playlistId]);
+    getCollectionData();
+  }, [collectionId,dispatch]);
 
-  const DeletePlaylist = async () => {
+  const DeleteCollection = async () => {
     setLoading(true);
     try {
-      await PlaylistService.deletePLaylist(accessToken, playlistId);
+      await CollectionService.deleteCollection(accessToken, collectionId);
       setLoading(false);
       closeDeleteModal();
       navigate(-1);
@@ -69,15 +72,15 @@ function CollectionPage() {
     }
   };
 
-  const removeVideo = async (videoId) => {
+  const removePhoto = async (photoId) => {
     try {
-      const res = await PlaylistService.removeVideo(
+      const res = await CollectionService.removePhoto(
         accessToken,
-        videoId,
-        playlistId
+        photoId,
+        collectionId
       );
       if (res.status == 200)
-        setVideos((prevVideos) => prevVideos.filter((v) => v._id !== videoId));
+        setPhotos((prevVideos) => prevVideos.filter((v) => v._id !== photoId));
     } catch (error) {
       console.error("Error removing video:", error.message);
     }
@@ -100,7 +103,7 @@ function CollectionPage() {
       <div className="PlaylistPage-main">
         <div className="PP-left">
           <div className="PP-title">
-            <h3>{playlist.name || "Playlist Title"}</h3>
+            <h3>{collection.name || "Collection Title"}</h3>
             <h5>{owner.fullName}</h5>
           </div>
           <div className="PP-options">
@@ -121,15 +124,14 @@ function CollectionPage() {
           </div>
         </div>
         <div className="PP-right">
-          {videos?.length > 0 ? (
-            videos?.map((vidId, index) => (
-              <VideoBox
+          {photos?.length > 0 ? (
+            photos?.map((vidId, index) => (
+              <PhotoContainerForCollection
                 key={index}
-                playlistId={playlistId}
-                videoId={vidId}
-                playlistOwnerId={owner?._id}
+                photoId={vidId}
+                collectionOwnerId={owner?._id}
                 currentUserId={user?._id}
-                removeFn={removeVideo}
+                removeFn={removePhoto}
               />
             ))
           ) : (
@@ -139,18 +141,19 @@ function CollectionPage() {
         {detailModel && (
           <PopupHolder>
             <PlaylistDetails
-              playlist={playlist}
+              playlist={collection}
               owner={owner}
               closeDetailModal={closeDetailModal}
+              type="collection"
             />
           </PopupHolder>
         )}
         {editModal && (
           <PopupHolder>
-            <EditPlaylist
+            <EditCollection
               closeFn={closeEditModal}
               accessToken={accessToken}
-              data={playlist}
+              data={collection}
             />
           </PopupHolder>
         )}
@@ -158,8 +161,8 @@ function CollectionPage() {
           <PopupHolder>
             <DeleteModal
               closeFn={closeDeleteModal}
-              deleteFn={DeletePlaylist}
-              item={"Playlist"}
+              deleteFn={DeleteCollection}
+              item={"Collection"}
             />
           </PopupHolder>
         )}

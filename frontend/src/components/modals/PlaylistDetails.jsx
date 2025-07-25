@@ -2,7 +2,7 @@ import { IoClose } from "react-icons/io5";
 import { getTimeAgo } from "../../utils/getTimeAgo";
 import { Link } from "react-router-dom";
 
-export default function PlaylistDetails({ playlist, owner, closeDetailModal }) {
+export default function PlaylistDetails({ playlist, owner, closeDetailModal,type = "playlist" }) {
 
   return (
     <div className="detail-modal">
@@ -10,10 +10,9 @@ export default function PlaylistDetails({ playlist, owner, closeDetailModal }) {
         <IoClose className="icon" />
       </button>
       <h3>{playlist.name || "Playlist Title"}</h3>
-      <h3>{playlist.name || "Untitled Playlist"}</h3>
       {playlist.description && <p>{playlist.description}</p>}
       <p>
-        <strong>Total Videos:</strong> {playlist?.videos?.length || 0}
+        <strong>{`Total ${type === "collection" ? "Photos" : "Videos" } :`} </strong> { type === "collection" ? playlist?.photos?.length : playlist?.videos?.length}
       </p>
       <p>
         <strong>Created by:</strong>{" "}

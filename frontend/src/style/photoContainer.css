@@ -12,7 +12,14 @@
     margin-bottom: 2vh;
 }
 
-.photo-container img{
+.photo-container a{
+    width: 100%;
+    height: auto;
+    display: flex;
+    
+}
+
+.photo-container  img{
     width: 100%;
     height: auto;
     object-fit: cover;
