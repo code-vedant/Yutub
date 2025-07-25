@@ -19,6 +19,7 @@ import alien from "../assets/alien.jpeg";
 import LogoutBtn from "../components/LogoutBtn.jsx";
 import EditDetails from "../components/Profile/EditDetails.jsx";
 import VideoTab from "../components/Profile/VideoTab.jsx";
+import StudioModal from "../components/modals/StudioModal.jsx";
 
 function Profile() {
   const [playlist, setPlaylist] = useState([]);
@@ -32,6 +33,7 @@ function Profile() {
   const [activeTab, setActiveTab] = useState("Videos");
   const [error, setError] = useState("");
   const [openEdit,setOpenEdit] = useState(false)
+  const [openStudio,setOpenStudio] = useState(false)
 
   const accessToken = useSelector((state) => state.auth.accessToken);
   const userData = useSelector((state) => state.auth.userData);
@@ -70,6 +72,10 @@ function Profile() {
     setOpenEdit(false)
   }
 
+  const closeStudioModal = () => {
+    setOpenStudio(false)
+  }
+
   const handleTabClick = (tab) => setActiveTab(tab);
 
   const toggleSubscription = async () => {
@@ -93,8 +99,12 @@ function Profile() {
         </PopupHolder>
       )}
 
-      {openEdit && <PopupHolder>
+      {isSelf && openEdit && <PopupHolder>
         <EditDetails closeModal={closeModal}/>
+      </PopupHolder>}
+
+      {isSelf && openStudio && <PopupHolder>
+        <StudioModal closeModal={closeStudioModal}/>
       </PopupHolder>}
 
       <section className="coverImageContainer">
@@ -114,14 +124,13 @@ function Profile() {
           <p>{subscribers?.length || "0"} Followers</p>
           </div>
           <div className="profileubscribeButton">
-            
             {!isSelf && <button
               onClick={toggleSubscription}
               className={subscription.includes(user?._id) ? "subscribed" : ""}
             >
               {subscription.includes(user?._id) ? "Following" : "Follow"}
             </button>}
-            {isSelf && <Link className="dashboard" to={"/dashboard"}>Dashboard</Link>}
+            {isSelf && <button onClick={()=>setOpenStudio(true)} className="dashboard">Studio</button>}
             {isSelf && <button onClick={()=>setOpenEdit(true)}>Edit</button>}
             {isSelf && <div>
               <LogoutBtn />
