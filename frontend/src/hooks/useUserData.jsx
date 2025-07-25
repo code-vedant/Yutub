@@ -14,8 +14,8 @@ export const useUserData = () => {
       const [likedVideos, likedPosts, likedComments, subscribedChannels] =
       await Promise.all([
         LikeService.getLikedVideos(accessToken),
-        LikeService.getLikedTweet(accessToken),
-        LikeService.getLikedComment(accessToken),
+        LikeService.getLikedTweets(accessToken),
+        LikeService.getLikedComments(accessToken),
         SubService.getSubscribedChannel(accessToken, userId),
       ]);
       

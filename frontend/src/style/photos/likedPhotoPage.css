@@ -1,0 +1,23 @@
+.liked-photos-page{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2vh 0;
+}
+
+.liked-photos-page h2{
+    font-size: 2rem;
+    width: 100%;
+    font-weight: 600;
+    border-bottom: 0.2rem solid black;
+}
+
+.rendered-liked-photos{
+    width: 100%;
+    columns: 4;
+    gap: 1rem;
+    padding: 2vh 0;
+}
