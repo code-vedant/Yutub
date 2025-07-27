@@ -2,11 +2,11 @@
     position: fixed;
     width: 30vw;
     height: 30vh;
-    left: 40%;
+    left: 50%;
     top: 40%;
-    transform: translate(-50%, -50%);
+    transform: translate(-60%, -50%);
     background-color: #fffefe;
-    box-shadow: 5px 10px 1000px 10px rgba(0, 0, 0);
+    box-shadow: 5px 10px 100px 10px rgba(0, 0, 0,0.125);
     z-index: 1000;
     border-radius: 10px;
     padding: 1.5vh 0;
@@ -17,45 +17,64 @@
 }
 
 .loaderVideo {
-    width: 8vh;
-    aspect-ratio: .75;
-    --c: no-repeat linear-gradient(#000 0 0);
-    background: 
-      var(--c) 0%   50%,
-      var(--c) 50%  50%,
-      var(--c) 100% 50%;
-    background-size: 20% 50%;
-    animation: l6 1s infinite linear;
+  position: relative;
+  width: 8vh;
+  height: calc(8vh / 0.75);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.loaderVideo::before,
+.loaderVideo::after,
+.loaderVideo div {
+  content: '';
+  width: 20%;
+  height: 50%;
+  background: black;
+  border-radius: 5rem;
+  animation: loaderMove 1s infinite ease-in-out;
+}
+
+.loaderVideo div {
+  animation-delay: 0.2s;
+}
+
+.loaderVideo::after {
+  animation-delay: 0.4s;
+}
+
+@keyframes loaderMove {
+  0%, 80%, 100% {
+    transform: scaleY(0.5);
   }
-  @keyframes l6 {
-    20% {background-position: 0% 0%  ,50% 50% ,100% 50% }
-    40% {background-position: 0% 100%,50% 0%  ,100% 50% }
-    60% {background-position: 0% 50% ,50% 100%,100% 0%  }
-    80% {background-position: 0% 50% ,50% 50% ,100% 100%}
+  40% {
+    transform: scaleY(1.5);
   }
+}
+
 
   .UploadingModal-main h1{
-    font-size: 4.5vh;
+    font-size: 2rem;
     font-weight: 500;
     margin-bottom: 1vh;
-    color: black;
+    color: rgb(18, 18, 18);
     text-align: center;
   }
 
   .UploadingModal-main p{
-    margin: 0;
-    font-size: 2.2vh;
+    font-size: 1rem;
     text-align: center;
-    color: black;
+    color: rgb(76, 76, 76);
   }
 
   .UploadedVideo-main{
     position: fixed;
     width: 30vw;
     height: 30vh;
-    left: 40%;
-    top: 40%;
-    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    transform: translate(-60%, -70%);
     background-color: #fffefe;
     box-shadow: 5px 10px 1000px 10px rgba(0, 0, 0);
     z-index: 1000;
@@ -67,29 +86,45 @@
     justify-content: space-evenly;
   }
 
-  .UploadedVideo-main img{
-    width: 15%;
-    height: 30%;
-    object-fit: cover;
-    border-radius: 5px;
+
+  .checkmark-animate {
+    width: 5rem;
+    height: 5rem;
+    animation: popTick 0.6s ease-out forwards;
+    transform: scale(0);
+    opacity: 0;
   }
+  
+  @keyframes popTick {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    60% {
+      transform: scale(1.2);
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
 
   .UploadedVideo-main p{
-    margin: 0;
     font-size: 3.2vh;
-    font-weight: 600;
+    font-weight: 500;
     text-align: center;
     color: black;
   }
 
   .UploadedVideo-main button{
     padding: 0.5vh 1.6vh 1.3vh 1.6vh;
-    font-size: 2.5vh;
+    font-size: 1.2rem;
     border-radius: 50px;
     position: fixed;
     left: 90%;
     top: 5%;
-    border: 2px solid #000000b5;
     color: #000000bd;
     background-color: #fffefe;
     font-weight: 600;

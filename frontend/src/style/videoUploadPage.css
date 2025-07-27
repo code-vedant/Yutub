@@ -1,28 +1,24 @@
 .VideoUploadmain {
-  width: 80vw;
-  height: 80vh;
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 5;
-  box-shadow: #333 3px 5px 100px 0.5px;
+  width: 100%;
+  height: 88vh;
   background-color: #fffefe;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 1vh 0;
 }
-.VU-head{
+.VideoUploadmain h2{
   width: 100%;
-  height: 10vh;
-  border-bottom: 1px solid black;
-  /* background-color: aqua; */
+  height: fit-content;
+  font-size: 2rem;
+  font-weight: 600;
+  padding-left: 2vw;
 }
 
 .VU-Body{
+  flex: 1;
   width: 100%;
   height: 100%;
-  /* background-color: lightblue; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -31,7 +27,15 @@
 .VU-Body form{
   width: 100%;
   height: 100%;
-  /* background-color: lightblue; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.VU-top{
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -39,122 +43,59 @@
 
 .VU-Form {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  /* background-color: yellowgreen; */
-  padding: 2vh 5vh;
+  justify-content: center;
+  align-items: center;
+  padding: 2vh 20vh;
 
-}
-
-.VideoUploadmain h1 {
-  font-size: 4vh;
-  text-align: center;
-  /* background-color: #fffefe; */
-  padding: 2vh;
-  width: fit-content;
 }
 
 .VU-Form label{
-  font-size: 2.6vh;
+  font-size: 1.2rem;
   font-weight: 500;
-  margin-bottom:0.8vh;
-  /* background-color: rgb(142, 183, 66); */
+  margin:0.8vh 0;
+  width: 100%;
 }
 
-.VU-Form  label:nth-child(3){
-  font-size: 2.6vh;
-  font-weight: 500;
-  margin-bottom:0.8vh;
-  margin-top: 4vh;
-  /* background-color: rgb(142, 183, 66); */
-}
 
 .VU-Form  input{
-  width: 80%;
+  width: 100%;
   padding: 1vh;
-  font-size: 2.2vh;
+  font-size: 1rem;
   font-weight: 500;
+  border-radius: 2rem ;
   border: 1px solid black;
-  /* background-color: rgb(103, 153, 62); */
+  background-color: #ececec;
 }
 
 .VU-Form  textarea{
-  width: 80%;
+  width: 100%;
   height: 40vh;
-  resize: vertical;
-  padding: 1vh;
-  font-size: 2.2vh;
-  font-weight: 500;
+  resize: none;
+  padding: 1vh 1vw;
+  font-size: 1rem;
+  border-radius: 1.7rem;
   border: 1px solid black;
-  /* background-color: rgb(103, 153, 62); */
+  background-color: #ececec;
 }
 
 .VU-Graphics {
-  width: 60%;
+  width: 100%;
   height: 100%;
-  /* background-color: rgb(80, 85, 72); */
-}
-
-.VU-Graphics  .VU-btns{
-  width: 100%;
-  height: 15%;
-  /* background-color: rgb(171, 205, 117); */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding-right: 3vh;
-}
-
-.VU-Graphics  .VU-btns button{
-  font-size: 2.5vh;
-  font-weight: 500;
-  padding: 2vh 8vh;
-  background-color: #e93030;
-  color: #fffefe;
-  border-radius: 50px;
-  /* border: 1px solid black; */
-  border: none;
-}
-
-.VU-Graphics  .VU-btns button.CancelBtn{
-  font-size: 2.5vh;
-  font-weight: 500;
-  padding: 2vh 8vh;
-  background-color: #333;
-  color: #fffefe;
-  border-radius: 50px;
-  /* border: 1px solid black; */
-  border: none;
-  margin-right: 2vh;
-}
-
-.VU-Graphics  .VU-btns button:active{
-  font-size: 2.5vh;
-  font-weight: 500;
-  padding: 1.9vh 7.9vh;
+  grid-column: 1/9;
   background-color: #fffefe;
-  color: #333;
-  border-radius: 50px;
-  border: 1px solid black;
-}
-
-.VU-imageHolder {
-  width: 100%;
-  height: 85%;
-  /* background-color: aqua; */
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding-top:2vh;
-  gap: 2vh;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  padding: 1vh 1vw;
+  gap: 1vw;
 }
 
 .VU-VideoContainer {
-  width: 70%;
-  height: 39%;
+  grid-column-start: 1;
+  grid-column-end: 9;
+  aspect-ratio: 16/9;
   border: 1px solid black;
   border-radius: 10px;
 
@@ -191,8 +132,10 @@
 
 .VU-ThumbnailContainer {
   background-color: #fffefe;
-  width: 70%;
-  height: 39%;
+  grid-column-start: 9;
+  grid-column-end: 13;
+  aspect-ratio: 16/9;
+  overflow: hidden;
   border: 1px solid black;
   border-radius: 10px;
 
@@ -229,4 +172,31 @@
 
 .VU-files {
   display: none;
+}
+
+.VU-btns {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 2vh;
+  padding: 0 2vw;
+}
+
+.VU-btns button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 2rem;
+  border: none;
+  cursor: pointer;
+}
+
+.CancelBtn {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.VU-btns button[type="submit"],
+.VU-btns button:not(.CancelBtn) {
+  background-color: #2e1e1e;
+  color: white;
 }

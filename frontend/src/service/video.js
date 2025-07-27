@@ -46,7 +46,7 @@ const VideoService = {
       });
       return response.data;
     } catch (error) {
-      console.error("Error uploading video:", error.message);
+      console.error("Error uploading video:", error.response?.data.message);
       throw error;
     }
   },

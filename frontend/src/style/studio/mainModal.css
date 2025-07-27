@@ -96,10 +96,11 @@
   }
   
   .studio-content {
-    padding: 3vh 2vw;
-    height: 100%;
-    overflow-y: auto;
+    /* padding: 3vh 2vw; */
+    height: 88vh;
+    /* overflow-y: auto; */
     font-size: 2.4vh;
+    overflow: hidden;
     color: #222;
     background-color: #ececec;
     box-shadow: #33333367 0px 0px 10px 0.5px;

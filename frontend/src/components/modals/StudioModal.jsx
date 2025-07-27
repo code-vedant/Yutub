@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../../style/studio/mainModal.css";
 import { IoClose } from "react-icons/io5";
-import uploadVideo from "./studio/uploadVideo.jsx";
+import VideoUploadModal from "../VideoUploadModal.jsx";
 
 function StudioModal({ closeModal }) {
   const [activeTab, setActiveTab] = useState("Dashboard");
@@ -11,7 +11,7 @@ function StudioModal({ closeModal }) {
       case "Dashboard":
         return <div className="tab-content">Welcome to the Dashboard</div>;
       case "Videos":
-        return <div className="tab-content"><uploadVideo /></div>;
+        return <div className="tab-content"><VideoUploadModal /></div>;
       case "Photos":
         return <div className="tab-content">Your photo library goes here.</div>;
       case "Post":
