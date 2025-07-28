@@ -1,28 +1,13 @@
 .ED-Main {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 70vw;
-  height: 80vh;
+  width: 100%;
+  height: 88vh;
   background-color: #fefefe;
-  z-index: 5;
-  border-radius: 1rem;
-  box-shadow: #333 3px 5px 100px 0.5px;
   overflow: hidden;
 }
 
 .ED-Head {
   padding: 0.5vh 2vh;
   width: 100%;
-  height: 17%;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  flex-direction: column;
-  border-bottom: 2px solid black;
-  background-color: #fefefe;
-
 }
 
 .modal-close-button{
@@ -72,16 +57,16 @@
   height: 92.5%;
   display: grid;
   position: relative;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 15% 85%;
   overflow: hidden;
+  gap: 1vw;
 }
 
 .ED-leftNav {
   width: 100%;
-  height: calc(100% - 7vh);
+  height: 100%;
   text-align: start;
   /* border-right: 0.5px solid black; */
-  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .ED-leftNav ul {
@@ -117,6 +102,9 @@
   width: 100%;
   height: 100%;
   position: relative;
+  box-shadow: 4px 2px 4px 10px rgba(0, 0, 0, 0.12);
+  border-radius: 2rem;
+
   /* background-color: rgb(45, 122, 148); */
 }
 

@@ -16,7 +16,6 @@ function EditDetails({closeModal}) {
   return (
     <div className='ED-Main'>
         <div className="ED-Head">
-            <h2>YUTUB</h2>
             <h3>
                 Edit Details
             </h3>
