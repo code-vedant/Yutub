@@ -46,6 +46,10 @@ function VideoUploadModal({ closeFn }) {
     }
   };
 
+  const closeFn2 = () => {
+    setIsUploaded(false);
+  }
+
   const nextStep = () => setStep(2);
   const prevStep = () => setStep(1);
 
@@ -54,7 +58,7 @@ function VideoUploadModal({ closeFn }) {
       {isUploaded && (
         <PopupHolder>
           <UploadedVideo
-            closeFn={closeFn}
+            closeFn={closeFn2}
           />
         </PopupHolder>
       )}
