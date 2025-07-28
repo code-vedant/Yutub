@@ -1,0 +1,89 @@
+.APostM-main{
+    width: 100%;
+    height: 88vh;
+    background-color: #fffefe;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1vh 0;
+}
+
+.APostM-main h2{
+    font-size: 2rem;
+    font-weight: 500;
+    width: 100%;
+    padding-left: 2vw;
+    font-weight:600;
+    color: rgb(18, 18, 18);
+}
+
+.APostM-main form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.APostM-top{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    padding: 0 2vw;
+}
+
+.APostM-Metadata{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1vh 1vw;
+}
+
+.APostM-Metadata textarea{
+    width: 100%;
+    height: 80%;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #ccc;
+    background-color: #ececec;
+    font-size: 1rem;
+    resize: none;
+}
+
+.APostM-files{
+    display: none;
+}
+
+.APostM-bottom{
+    display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 2vh;
+  padding: 0 2vw;
+}
+
+.APostM-bottom button {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 2rem;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .APostM-bottom button.cancel {
+    background-color: #e74c3c;
+    color: white;
+  }
+  
+  .APostM-bottom button[type="submit"] {
+    background-color: #2e1e1e;
+    color: white;
+  }

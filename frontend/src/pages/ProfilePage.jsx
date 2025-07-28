@@ -42,6 +42,16 @@ function Profile() {
   const { id: userId } = useParams();
   const location = useLocation();
 
+  const query = new URLSearchParams(location.search);
+const isStudioOpen = query.get("studio") === "open";
+const tabToOpen = query.get("tab");
+
+  useMemo(() => {
+    if (isStudioOpen) {
+      setOpenStudio(true);
+    }
+  }, [isStudioOpen]);
+
   
 
   const path =
@@ -104,7 +114,7 @@ function Profile() {
       </PopupHolder>}
 
       {isSelf && openStudio && <PopupHolder>
-        <StudioModal closeModal={closeStudioModal}/>
+        <StudioModal closeModal={closeStudioModal} tab={tabToOpen}/>
       </PopupHolder>}
 
       <section className="coverImageContainer">

@@ -3,9 +3,10 @@ import "../../style/studio/mainModal.css";
 import { IoClose } from "react-icons/io5";
 import VideoUploadModal from "../VideoUploadModal.jsx";
 import AddPhotoModal from "./studio/AddPhotoModal.jsx";
+import AddPostModal from "./studio/AddPostModal.jsx";
 
-function StudioModal({ closeModal }) {
-  const [activeTab, setActiveTab] = useState("Dashboard");
+function StudioModal({ closeModal,tab }) {
+  const [activeTab, setActiveTab] = useState(tab || "Dashboard");
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -16,7 +17,7 @@ function StudioModal({ closeModal }) {
       case "Photos":
         return <div className="tab-content"><AddPhotoModal/></div>;
       case "Post":
-        return <div className="tab-content">You can post updates here.</div>;
+        return <div className="tab-content"><AddPostModal/></div>;
       case "Settings":
         return <div className="tab-content">Configure your preferences here.</div>;
       default:

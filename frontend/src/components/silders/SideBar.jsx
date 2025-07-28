@@ -11,7 +11,6 @@ import { BiLike } from "react-icons/bi";
 import { FaRegHeart } from "react-icons/fa6";
 import {
   MdOutlinePhotoSizeSelectActual,
-  MdOutlineBookmarkAdded,
   MdOutlinePostAdd,
 } from "react-icons/md";
 import { RiPagesLine, RiPlayList2Fill } from "react-icons/ri";
@@ -117,7 +116,7 @@ const Sidebar = () => {
           <div className="separator"></div>
           <h4>Posts</h4>
           <ProtectedLink
-            to="/profile"
+            to="/profile?studio=open&tab=Post"
             icon={<MdOutlinePostAdd className="link-icon" />}
             label="Write"
           />
