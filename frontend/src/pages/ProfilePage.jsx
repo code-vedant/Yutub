@@ -12,14 +12,17 @@ import NoPLaylist from "../components/PlaylistComponents/NoPLaylist.jsx";
 import NoSubscribers from "../components/SubscriptionComponents/NoSubscribers.jsx";
 import SubService from "../service/subscription.js";
 import Subscribers from "../components/SubscriptionComponents/Subscribers.jsx";
-import { addSubscribedChannel, removeSubscribedChannel } from "../store/subsStore.js";
+import {
+  addSubscribedChannel,
+  removeSubscribedChannel,
+} from "../store/subsStore.js";
 import cover from "../assets/cover.png";
 import coverUser from "../assets/coverUser.jpg";
 import alien from "../assets/alien.jpeg";
 import LogoutBtn from "../components/LogoutBtn.jsx";
-import EditDetails from "../components/Profile/EditDetails.jsx";
 import VideoTab from "../components/Profile/VideoTab.jsx";
 import StudioModal from "../components/modals/StudioModal.jsx";
+import PhotoTab from "../components/Profile/PhotoTab.jsx";
 
 function Profile() {
   const [playlist, setPlaylist] = useState([]);
@@ -31,28 +34,26 @@ function Profile() {
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("Videos");
-  const [error, setError] = useState("");
-  const [openEdit,setOpenEdit] = useState(false)
-  const [openStudio,setOpenStudio] = useState(false)
+  const [openStudio, setOpenStudio] = useState(false);
 
   const accessToken = useSelector((state) => state.auth.accessToken);
   const userData = useSelector((state) => state.auth.userData);
-  const subscription = useSelector((state) => state.subscription.subscribedChannels);
+  const subscription = useSelector(
+    (state) => state.subscription.subscribedChannels
+  );
   const dispatch = useDispatch();
   const { id: userId } = useParams();
   const location = useLocation();
 
   const query = new URLSearchParams(location.search);
-const isStudioOpen = query.get("studio") === "open";
-const tabToOpen = query.get("tab");
+  const isStudioOpen = query.get("studio") === "open";
+  const tabToOpen = query.get("tab");
 
   useMemo(() => {
     if (isStudioOpen) {
       setOpenStudio(true);
     }
   }, [isStudioOpen]);
-
-  
 
   const path =
     location.pathname.endsWith("/") && location.pathname !== "/"
@@ -78,13 +79,9 @@ const tabToOpen = query.get("tab");
     fetchUser();
   }, []);
 
-  const closeModal = () => {
-    setOpenEdit(false)
-  }
-
   const closeStudioModal = () => {
-    setOpenStudio(false)
-  }
+    setOpenStudio(false);
+  };
 
   const handleTabClick = (tab) => setActiveTab(tab);
 
@@ -109,16 +106,17 @@ const tabToOpen = query.get("tab");
         </PopupHolder>
       )}
 
-      {isSelf && openEdit && <PopupHolder>
-        <EditDetails closeModal={closeModal}/>
-      </PopupHolder>}
-
-      {isSelf && openStudio && <PopupHolder>
-        <StudioModal closeModal={closeStudioModal} tab={tabToOpen}/>
-      </PopupHolder>}
+      {isSelf && openStudio && (
+        <PopupHolder>
+          <StudioModal closeModal={closeStudioModal} tab={tabToOpen} />
+        </PopupHolder>
+      )}
 
       <section className="coverImageContainer">
-        <img src={user?.coverImage  ? user.coverImage  : isSelf ? cover : coverUser} alt="cover" />
+        <img
+          src={user?.coverImage ? user.coverImage : isSelf ? cover : coverUser}
+          alt="cover"
+        />
       </section>
 
       <section className="profileDataContainer">
@@ -130,27 +128,34 @@ const tabToOpen = query.get("tab");
           <h3>@{user?.username || ""}</h3>
           <button>View more</button>
           <div className="profileStats">
-          <p>{subscribed?.length || "0"} Follows</p>
-          <p>{subscribers?.length || "0"} Followers</p>
+            <p>{subscribed?.length || "0"} Follows</p>
+            <p>{subscribers?.length || "0"} Followers</p>
           </div>
           <div className="profileubscribeButton">
-            {!isSelf && <button
-              onClick={toggleSubscription}
-              className={subscription.includes(user?._id) ? "subscribed" : ""}
-            >
-              {subscription.includes(user?._id) ? "Following" : "Follow"}
-            </button>}
-            {isSelf && <button onClick={()=>setOpenStudio(true)} className="dashboard">Studio</button>}
-            {isSelf && <button onClick={()=>setOpenEdit(true)}>Edit</button>}
-            {isSelf && <div>
-              <LogoutBtn />
-              </div>}
+            {!isSelf && (
+              <button
+                onClick={toggleSubscription}
+                className={subscription.includes(user?._id) ? "subscribed" : ""}
+              >
+                {subscription.includes(user?._id) ? "Following" : "Follow"}
+              </button>
+            )}
+            {isSelf && (
+              <button onClick={() => setOpenStudio(true)} className="dashboard">
+                Studio
+              </button>
+            )}
+            {isSelf && (
+              <div>
+                <LogoutBtn />
+              </div>
+            )}
           </div>
         </div>
       </section>
 
       <ul className="profilePageList">
-        {["Videos", "Playlist", "Tweet"].map((tab) => (
+        {["Videos", "Photos", "Post", "Playlist"].map((tab) => (
           <li
             key={tab}
             className={activeTab === tab ? "active" : ""}
@@ -165,6 +170,12 @@ const tabToOpen = query.get("tab");
         {activeTab === "Videos" && (
           <div className="VideoTab">
             <VideoTab id={user?._id} />
+          </div>
+        )}
+
+        {activeTab === "Photos" && (
+          <div className="VideoTab">
+            <PhotoTab id={user?._id} />
           </div>
         )}
 

@@ -13,11 +13,14 @@ export default function VideoTab({ id }) {
 
   const fetchVideos = useCallback(async () => {
     try {
-      const res = await VideoService.getUserVideos(id);
-      //console.log("Fetched Videos:", res.data);
-      setVideos(res.data || []);
+      if (id !== undefined && id !== null) {
+        const res = await VideoService.getUserVideos(id);
+        setVideos(res.data || []);
+      }
     } catch (error) {
-      dispatch(setError(error?.response?.data?.message || "Failed to fetch videos"));
+      dispatch(
+        setError(error?.response?.data?.message || "Failed to fetch videos")
+      );
     }
   }, [id, dispatch]);
 
@@ -31,9 +34,7 @@ export default function VideoTab({ id }) {
         <div className="videoGrid">
           {videos.map((video) => (
             <div key={video._id} className="videoTabItem">
-              <Link to={`/videopage/${video._id}`}>
                 <VideoContainer video={video} />
-              </Link>
             </div>
           ))}
         </div>

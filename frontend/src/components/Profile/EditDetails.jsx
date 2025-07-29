@@ -19,9 +19,6 @@ function EditDetails({closeModal}) {
             <h3>
                 Edit Details
             </h3>
-            <div onClick={closeModal} className='modal-close-button'>
-            <IoClose className='mcb-x' />
-            </div>
         </div>
         <div className="ED-Body">
             <div className="ED-leftNav">

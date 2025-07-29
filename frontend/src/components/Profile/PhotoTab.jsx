@@ -3,40 +3,46 @@ import VideoContainer from "../VideoComponents/VideoContainer";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setError } from "../../store/globalError";
-import VideoService from "../../service/video";
 import "../../style/profile/videoTab.css";
+import PhotoService from "../../service/photo";
+import PhotoContainer from "../Photos/PhotoContainer";
+import NoPhoto from "./NoPhoto";
 
 export default function PhotoTab({ id }) {
-  const [videos, setVideos] = useState([]);
+  const [photos, setPhotos] = useState([]);
   const dispatch = useDispatch();
 
-  const fetchVideos = useCallback(async () => {
+  const fetchPhotos = useCallback(async () => {
     try {
-      const res = await VideoService.getUserVideos(id);
-      setVideos(res.data || []);
+      if (id !== undefined && id !== null) {
+        const res = await PhotoService.getUserPhotos(id);
+        setPhotos(res.data || []);
+      }
     } catch (error) {
-      dispatch(setError(error?.response?.data?.message || "Failed to fetch videos"));
+      dispatch(
+        setError(error?.response?.data?.message || "Failed to fetch photos")
+      );
     }
   }, [id, dispatch]);
 
   useEffect(() => {
-    fetchVideos();
-  }, [fetchVideos]);
+    fetchPhotos();
+  }, [fetchPhotos]);
 
   return (
     <div className="VideoTab_Main">
-      {videos.length ? (
+      {photos.length ? (
         <div className="videoGrid">
-          {videos.map((video) => (
-            <div key={video._id} className="videoTabItem">
-              <Link to={`/videopage/${video._id}`}>
-                <VideoContainer video={video} />
+          {photos.map((photo) => (
+            <div key={photo._id} className="videoTabItem">
+              <Link to={`/photo/${photo._id}`}>
+                <PhotoContainer photo={photo}/>
               </Link>
             </div>
           ))}
         </div>
       ) : (
-        <p>sdada</p>
+        <NoPhoto />
       )}
     </div>
   );

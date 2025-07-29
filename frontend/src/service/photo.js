@@ -89,6 +89,15 @@ const PhotoService = {
       throw error;
     }
   },
+  getUserPhotos: async (userId) => {
+    try {
+      const response = await axios.get(`${API_URL}/user/${userId}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching photos for user with ID ${userId}:`, error);
+      throw error;
+    }
+  },
 };
 
 export default PhotoService;

@@ -8,6 +8,7 @@ import { setError } from "../../store/globalError";
 import LikeService from "../../service/like";
 
 export default function PhotoContainer({ photo }) {
+
   const [liked, setLiked] = useState(false);
 
   const accessToken = useSelector((state) => state.auth.accessToken);
@@ -54,12 +55,12 @@ export default function PhotoContainer({ photo }) {
 
       <div className="photo-info">
         <div className="photo-info-btm">
-          <div className="photo-info-btm-left">
+          {photo.owner.avatar  && <div className="photo-info-btm-left">
             <img src={photo.owner.avatar ? photo.owner.avatar : alien} alt="" />
-          </div>
+          </div>}
           <div className="photo-info-btm-right">
             <h3>{photo.title}</h3>
-            <Link to={"/profile" + photo?.owner?._id}>@{photo.owner.username}</Link >
+           {photo?.owner?._id &&  <Link to={"/profile" + photo?.owner?._id}>@{photo.owner.username}</Link >}
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setError } from "../store/globalError";
 import PhotoService from "../service/photo";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { BsFullscreen } from "react-icons/bs";
 import CommentService from "../service/comment";
 import LikeService from "../service/like";
@@ -190,7 +190,7 @@ export default function PhotoDetails() {
             </div>
           </div>
 
-          <div className="photoDetails-details-right-mid">
+          <Link to={`/profile/${photo?.owner._id}`} className="photoDetails-details-right-mid">
             <div className="photoDetails-owner">
               <img
                 src={photo?.owner.avatar || "https://via.placeholder.com/150"}
@@ -201,7 +201,7 @@ export default function PhotoDetails() {
               <h3>{photo?.owner.fullName}</h3>
               <p>@{photo?.owner.username}</p>
             </div>
-          </div>
+          </Link>
 
           <div className="photoDetails-details-right-bottom">
             <h4>Comments</h4>
