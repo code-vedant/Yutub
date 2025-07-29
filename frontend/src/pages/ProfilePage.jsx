@@ -23,6 +23,7 @@ import LogoutBtn from "../components/LogoutBtn.jsx";
 import VideoTab from "../components/Profile/VideoTab.jsx";
 import StudioModal from "../components/modals/StudioModal.jsx";
 import PhotoTab from "../components/Profile/PhotoTab.jsx";
+import PostTab from "../components/Profile/PostTab.jsx";
 
 function Profile() {
   const [playlist, setPlaylist] = useState([]);
@@ -155,7 +156,7 @@ function Profile() {
       </section>
 
       <ul className="profilePageList">
-        {["Videos", "Photos", "Post", "Playlist"].map((tab) => (
+        {["Videos", "Photos", "Posts", "Playlists"].map((tab) => (
           <li
             key={tab}
             className={activeTab === tab ? "active" : ""}
@@ -179,7 +180,13 @@ function Profile() {
           </div>
         )}
 
-        {activeTab === "Playlist" && (
+        {activeTab === "Posts" && (
+          <div className="VideoTab">
+            <PostTab id={user?._id} />
+          </div>
+        )}
+
+        {activeTab === "Playlists" && (
           <div className="PlaylistTab">
             {playlist.length ? (
               playlist.map((playlist) => (
