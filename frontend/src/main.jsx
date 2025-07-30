@@ -18,7 +18,7 @@ import { PersistGate } from "redux-persist/integration/react";
 import VideoPage from "./pages/VideoPage.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import PhotoPage from "./pages/PhotoPage.jsx";
-import PostPage from "./pages/PostPage.jsx";
+import Posts from "./pages/Posts.jsx";
 import VideoPlayerPage from "./pages/VideoPlayerPage.jsx";
 import Playlists from "./pages/Playlists.jsx";
 import WatchHistoryPage from "./pages/WatchHistoryPage.jsx";
@@ -29,6 +29,7 @@ import Collections from "./pages/Collections.jsx";
 import PopupHolder from "./components/PopupHolder.jsx";
 import PhotoDetails from "./pages/PhotoDetails.jsx";
 import CollectionPage from "./pages/CollectionPage.jsx";
+import PostPage from "./pages/PostPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -106,6 +107,12 @@ const router = createBrowserRouter([
       },
       {
         path: "posts",
+        element: (
+            <Posts />
+        ),
+      },
+      {
+        path: "post/:id",
         element: (
             <PostPage />
         ),
