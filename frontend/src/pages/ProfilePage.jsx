@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "../style/profile.css";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useLocation, useParams } from "react-router-dom";
@@ -24,6 +24,7 @@ import VideoTab from "../components/Profile/VideoTab.jsx";
 import StudioModal from "../components/modals/StudioModal.jsx";
 import PhotoTab from "../components/Profile/PhotoTab.jsx";
 import PostTab from "../components/Profile/PostTab.jsx";
+import { setError } from "../store/globalError.js";
 
 function Profile() {
   const [playlist, setPlaylist] = useState([]);
@@ -36,31 +37,37 @@ function Profile() {
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("Videos");
   const [openStudio, setOpenStudio] = useState(false);
-
+  
   const accessToken = useSelector((state) => state.auth.accessToken);
   const userData = useSelector((state) => state.auth.userData);
   const subscription = useSelector(
     (state) => state.subscription.subscribedChannels
   );
+  
+  useEffect(() => {
+    const isSubscribed = subscription.includes(user?._id);
+    setIsSubscribed(isSubscribed);
+  }, [subscription, user?._id]);
+  
   const dispatch = useDispatch();
   const { id: userId } = useParams();
   const location = useLocation();
-
+  
   const query = new URLSearchParams(location.search);
   const isStudioOpen = query.get("studio") === "open";
   const tabToOpen = query.get("tab");
-
-  useMemo(() => {
+  
+  useEffect(() => {
     if (isStudioOpen) {
       setOpenStudio(true);
     }
   }, [isStudioOpen]);
-
+  
   const path =
     location.pathname.endsWith("/") && location.pathname !== "/"
       ? location.pathname.slice(0, -1)
       : location.pathname;
-
+  
   useEffect(() => {
     const fetchUser = async () => {
       if (path === "/profile" || userId === userData?._id) {
@@ -76,16 +83,16 @@ function Profile() {
         }
       }
     };
-
+  
     fetchUser();
-  }, []);
-
+  }, [path, userId, userData, accessToken]);
+  
   const closeStudioModal = () => {
     setOpenStudio(false);
   };
-
+  
   const handleTabClick = (tab) => setActiveTab(tab);
-
+  
   const toggleSubscription = async () => {
     try {
       const response = await SubService.toggleSubscription(accessToken, userId);
@@ -94,11 +101,41 @@ function Profile() {
       } else {
         dispatch(addSubscribedChannel(user?._id));
       }
+
+      await getSubscribersChannels();
     } catch (error) {
       console.error("Error toggling subscription:", error);
+      dispatch(setError(error?.response?.data?.message || "An error occurred while toggling subscription."));
     }
   };
-
+  
+  const getSubscribedChannels = useCallback(async () => {
+    if (!user?._id) return; 
+    
+    try {
+      const res = await SubService.getSubscribedChannel(user._id);
+      setSubscribed(res.data);
+    } catch (error) {
+      dispatch(setError(error?.response?.data?.message || "An error occurred while fetching subscribed channels."));
+    }
+  }, [user?._id, dispatch]);
+  
+  const getSubscribersChannels = useCallback(async () => {
+    if (!user?._id) return;
+    
+    try {
+      const res = await SubService.getSubscribers(user._id);
+      setSubscribers(res.data);
+    } catch (error) {
+      dispatch(setError(error?.response?.data?.message || "An error occurred while fetching subscribers."));
+    }
+  }, [user?._id, dispatch]);
+  
+  useEffect(() => {
+    getSubscribedChannels();
+    getSubscribersChannels();
+  }, [getSubscribedChannels, getSubscribersChannels]); 
+  
   return (
     <div className="profileMain">
       {loading && (
@@ -129,16 +166,16 @@ function Profile() {
           <h3>@{user?.username || ""}</h3>
           <button>View more</button>
           <div className="profileStats">
-            <p>{subscribed?.length || "0"} Follows</p>
-            <p>{subscribers?.length || "0"} Followers</p>
+            <p>{subscribed?.length} Follows</p>
+            <p>{subscribers?.length} Followers</p>
           </div>
           <div className="profileubscribeButton">
             {!isSelf && (
               <button
                 onClick={toggleSubscription}
-                className={subscription.includes(user?._id) ? "subscribed" : ""}
+                className={isSubscribed ? "subscribed" : ""}
               >
-                {subscription.includes(user?._id) ? "Following" : "Follow"}
+                {isSubscribed ? "Following" : "Follow"}
               </button>
             )}
             {isSelf && (
