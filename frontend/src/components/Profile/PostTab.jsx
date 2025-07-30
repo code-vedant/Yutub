@@ -1,45 +1,47 @@
 import { useCallback, useEffect, useState } from "react";
-import VideoContainer from "../VideoComponents/VideoContainer";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setError } from "../../store/globalError";
-import VideoService from "../../service/video";
-import "../../style/profile/videoTab.css";
+import TweetService from "../../service/tweet";
 
 export default function PostTab({ id }) {
-  const [videos, setVideos] = useState([]);
+  const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
 
-  const fetchVideos = useCallback(async () => {
+  const fetchPosts = useCallback(async () => {
     try {
-      const res = await VideoService.getUserVideos(id);
-      //console.log("Fetched Videos:", res.data);
-      setVideos(res.data || []);
+      const res = await TweetService.getTweets(id);
+      console.log("Fetched Posts:", res.data);
+      setPosts(res.data || []);
     } catch (error) {
-      dispatch(setError(error?.response?.data?.message || "Failed to fetch videos"));
+      dispatch(setError(error?.response?.data?.message || "Failed to fetch posts"));
     }
   }, [id, dispatch]);
 
   useEffect(() => {
-    fetchVideos();
-  }, [fetchVideos]);
+    fetchPosts();
+  }, [fetchPosts]);
 
   return (
-    <div className="VideoTab_Main">
-      {videos.length ? (
-        <div className="videoGrid">
-          {videos.map((video) => (
-            <div key={video._id} className="videoTabItem">
-              <Link to={`/videopage/${video._id}`}>
-                <VideoContainer video={video} />
-              </Link>
+    <div className="PostTab_Main">
+     {posts.length > 0 ? (
+      <div className="PostTab_Container">
+        {posts.map((post) => (
+          <Link to={`/post/${post._id}`} key={post._id} className="PostTab_Post">
+            <div className="PostTab_PostContent">
+              <p>{post.content}</p>
+              {post.images && post.images.length > 0 && (
+                <img src={post.images[0]} alt="Post" />
+              )}
             </div>
-          ))}
-        </div>
-      ) : (
-        // <img/>
-        <p>heel</p>
-      )}
+          </Link>
+        ))}
+      </div>
+     ) : (
+      <div className="PostTab_NoPosts">
+        <p>No posts available.</p>
+      </div>
+     )}
     </div>
   );
 }

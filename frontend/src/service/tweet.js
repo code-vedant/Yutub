@@ -27,14 +27,10 @@ const TweetService = {
             throw error;
         }
     },
-    getTweets: async (accessToken,userId) => {
+    getTweets: async (userId) => {
         try {
             
-            const response = await axios.get(`${API_URL}/user/${userId}`, {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            });
+            const response = await axios.get(`${API_URL}/user/${userId}`);
             return response.data;
         } catch (error) {
             console.error("Error fetching tweets:", error.message);
