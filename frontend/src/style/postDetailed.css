@@ -1,9 +1,60 @@
-.PostPage-main{
+.PostPage-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0 30vw;
+  min-height: 100vh;
+}
+
+.PP-tweetSection {
+  width: 100%;
+  max-width: 40vw;
+  padding: 1.5rem;
+  background-color: #fffefe;
+  box-shadow: -2px 0 3px rgba(0, 0, 0, 0.15), 2px 0 3px rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.PP-commentSection {
+  width: 100%;
+  max-width: 40vw;
+  background-color: #fffefe;
+  box-shadow: -2px 0 3px rgba(0, 0, 0, 0.15), 2px 0 3px rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.comment-form {
+  width: 100%;
+  max-width: 40vw;
+  display: flex;
+  padding: 2vh 0.2vw;
+
+}
+
+.comment-form input {
+  width: 100%;
+  background-color: #ececec;
+  padding: 0.5vh 0.8vw;
+  font-size: 1.2rem;
+  border-radius: 4rem;
+}
+
+.comment-form button {
+  background-color: #2c1b1b;
+  color: rgb(196, 193, 193);
+  border: none;
+  padding: 0.5vh 1vw;
+  font-size: 1.2rem;
+  border-radius: 4rem;
+  margin-left: 0.2vw;
+  cursor: pointer;
+}
+
+.comment-list{
+    width: 100%;
+    max-width: 40vw;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding: 2vh 0;
-    background-color: yellowgreen;
-    min-height: 100vh;
+    padding: 2vh 0.5vw;
 }

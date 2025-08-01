@@ -7,19 +7,29 @@ import { useParams } from "react-router-dom";
 import { FaHeart, FaRegComment, FaRegHeart } from "react-icons/fa";
 import LikeService from "../service/like";
 import CommentService from "../service/comment";
+import { useForm } from "react-hook-form";
+import CommentComponent from "../components/VideoComponents/CommentComponent";
 
 export default function PostPage() {
+  const { id: postId } = useParams();
+
+
+
   const [post, setPost] = useState({});
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState([]);
   const [comments, setComments] = useState([]);
+  const {handleSubmit,register } = useForm()
 
   const accessToken = useSelector((state) => state.auth.accessToken);
 
-  const { id: postId } = useParams();
   const dispatch = useDispatch();
 
   const getPost = async () => {
+    if (!postId) {
+      dispatch(setError("Post ID is required"));
+      return;
+    }
     try {
       console.log(postId);
 
@@ -37,7 +47,7 @@ export default function PostPage() {
 
   const toggleLike = async () => {
     try {
-      const res = await LikeService.toggleTweetLike(accessToken, post._id);
+      const res = await LikeService.toggleTweetLike(accessToken, postId);
       console.log(res.data);
       if (res.data !== null) {
         setLiked(true);
@@ -54,7 +64,7 @@ export default function PostPage() {
 
   const getPostLike = useCallback(async () => {
     try {
-      const res = await LikeService.getTweetLikes(post._id);
+      const res = await LikeService.getTweetLikes(postId);
       setLikes(res.data);
     } catch (error) {
       dispatch(
@@ -65,7 +75,9 @@ export default function PostPage() {
 
   const getPostComment = useCallback(async () => {
     try {
-      const res = await CommentService.getTweetComments(post._id);
+      const res = await CommentService.getTweetComments(postId);
+      console.log(res.data);
+      
       setComments(res.data);
     } catch (error) {
       dispatch(
@@ -76,14 +88,36 @@ export default function PostPage() {
     }
   }, []);
 
-  useEffect(() => {
-    getPostLike();
-    getPostComment();
-  }, [getPostLike, getPostComment]);
+  const AddComment = async (data) => {
+    console.log(data);
+    
+    try {
+      const res = await CommentService.addTweetComment(
+        accessToken,
+        postId,
+        data
+      );
+      getPostComment()
+
+      console.log(res.data);
+      
+    } catch (error) {
+      dispatch(
+        setError(error?.response?.data?.message || "Failed to add comment")
+      );
+    }
+  }
 
   useEffect(() => {
     getPost();
   }, []);
+
+  useEffect(() => {
+    getPostLike();
+    getPostComment();
+  }, [postId,getPostLike, getPostComment]);
+
+
 
   return (
     <section className="PostPage-main">
@@ -114,8 +148,15 @@ export default function PostPage() {
         </div>
       </div>
       <div className="PP-commentSection">
-        <h2>Comments</h2>
+        <form  onSubmit={handleSubmit(AddComment)} className="comment-form">
+            <input type="text" {...register("content")} />
+            <button type="submit">Comment</button>
+        </form>
+        <div className="comment-list">
+            <CommentComponent accessToken={accessToken} comments={comments} />
+        </div>
       </div>
+      
     </section>
   );
 }
