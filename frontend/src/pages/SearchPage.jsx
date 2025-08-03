@@ -95,6 +95,17 @@ const SearchPage = () => {
 
   return (
     <section>
+        <h3>Search Result For : {searchParams.get("q").split("-").join(" ")}</h3>
+        {videos.length > 0 && <div className="section_box">
+        <div className="section_header">
+          <h2>Videos : Found {videos.length}</h2>
+        </div>
+        <div className="video_container">
+          {videos.map((video) => (
+            <VideoContainer key={video._id} video={video} withUser={true} />
+          ))}
+        </div>
+      </div>}
       {videos.length > 0 && <div className="section_box">
         <div className="section_header">
           <h2>Videos : Found {videos.length}</h2>

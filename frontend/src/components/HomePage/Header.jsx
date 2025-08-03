@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 import useDimension from "../../hooks/useDimension";
 import { useState } from "react";
@@ -13,6 +13,8 @@ function Header() {
   const { width } = useDimension();
 
   const {register, handleSubmit} = useForm();
+
+  const [searchParams] = useSearchParams()
 
   const handleSearchOpen = () => {
     setOpenSearch(!openSearch)
@@ -40,7 +42,7 @@ function Header() {
           <FaSearch onClick={handleSearchOpen} className="search-icon" />
           {openSearch && 
           <form onSubmit={handleSubmit(handleSearch)} className="home-header-search-mobile">
-            <input type="text" placeholder="Search here...." {...register("data")} />
+            <input type="text" placeholder="Search here...." {...register("data")} defaultValue={searchParams?.get("q")?.split("-").join(" ") || ""} />
             <button type="submit">
             <FaSearch className="search-icon" />
             </button>
@@ -48,7 +50,7 @@ function Header() {
         </section>
         {width > 450 && (
           <form onSubmit={handleSubmit(handleSearch)} className="home-header-search">
-            <input type="text" placeholder="Search here...."  {...register("data")} />
+            <input type="text" placeholder="Search here...."  {...register("data")} defaultValue={searchParams?.get("q")?.split("-").join(" ") || ""} />
             <button>
             <FaSearch className="search-icon" />
             </button>
