@@ -6,9 +6,11 @@ const API_URL =
     : "http://localhost:8000/api/v1") + "/tweets";
 
 const TweetService = {
-  getAllTweets: async () => {
+  getAllTweets: async (filter) => {
     try {
-      const response = await axios.get(`${API_URL}/`);
+      const response = await axios.get(`${API_URL}/`,{
+        params: filter,
+      });
       return response.data
     } catch (error) {
       console.error("Error fetching all tweets:", error.response.data.message);

@@ -30,6 +30,7 @@ import PopupHolder from "./components/PopupHolder.jsx";
 import PhotoDetails from "./pages/PhotoDetails.jsx";
 import CollectionPage from "./pages/CollectionPage.jsx";
 import PostPage from "./pages/PostPage.jsx";
+import SearchPage from "./pages/SearchPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -157,8 +158,13 @@ const router = createBrowserRouter([
       //   path: "/about",
       //   element: <About />,
       // },
+      {
+        path : "/search",
+        element : <SearchPage />
+      },
     ],
   },
+  
   {
     path: "/auth",
     element: <Auth />,

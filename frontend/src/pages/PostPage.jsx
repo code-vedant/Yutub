@@ -13,13 +13,11 @@ import CommentComponent from "../components/VideoComponents/CommentComponent";
 export default function PostPage() {
   const { id: postId } = useParams();
 
-
-
   const [post, setPost] = useState({});
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState([]);
   const [comments, setComments] = useState([]);
-  const {handleSubmit,register } = useForm()
+  const { handleSubmit, register } = useForm();
 
   const accessToken = useSelector((state) => state.auth.accessToken);
 
@@ -51,10 +49,10 @@ export default function PostPage() {
       console.log(res.data);
       if (res.data !== null) {
         setLiked(true);
-      }else{
+      } else {
         setLiked(false);
       }
-      getPostLike()
+      getPostLike();
     } catch (error) {
       dispatch(
         setError(error?.response?.data?.message || "Failed to toggle like")
@@ -77,7 +75,7 @@ export default function PostPage() {
     try {
       const res = await CommentService.getTweetComments(postId);
       console.log(res.data);
-      
+
       setComments(res.data);
     } catch (error) {
       dispatch(
@@ -90,23 +88,22 @@ export default function PostPage() {
 
   const AddComment = async (data) => {
     console.log(data);
-    
+
     try {
       const res = await CommentService.addTweetComment(
         accessToken,
         postId,
         data
       );
-      getPostComment()
+      getPostComment();
 
       console.log(res.data);
-      
     } catch (error) {
       dispatch(
         setError(error?.response?.data?.message || "Failed to add comment")
       );
     }
-  }
+  };
 
   useEffect(() => {
     getPost();
@@ -115,9 +112,7 @@ export default function PostPage() {
   useEffect(() => {
     getPostLike();
     getPostComment();
-  }, [postId,getPostLike, getPostComment]);
-
-
+  }, [postId, getPostLike, getPostComment]);
 
   return (
     <section className="PostPage-main">
@@ -133,7 +128,16 @@ export default function PostPage() {
             <span className="post-username">{post?.owner?.username}</span>
           </div>
         </div>
-        <div className="post-content">{post?.content}</div>
+        <div className="post-content">
+          <p>{post?.content}</p>
+          { post?.images?.length > 0 && (
+            <div className="post-images">
+              {post?.images.map((image, index) => (
+                <img key={index} src={image} alt={`Post image ${index + 1}`} />
+              ))}
+            </div>
+          )}
+        </div>
 
         <div className="post-actions">
           <div className="post-action" onClick={toggleLike}>
@@ -148,15 +152,14 @@ export default function PostPage() {
         </div>
       </div>
       <div className="PP-commentSection">
-        <form  onSubmit={handleSubmit(AddComment)} className="comment-form">
-            <input type="text" {...register("content")} />
-            <button type="submit">Comment</button>
+        <form onSubmit={handleSubmit(AddComment)} className="comment-form">
+          <input type="text" {...register("content")} placeholder="Write Comment..."/>
+          <button type="submit">Comment</button>
         </form>
         <div className="comment-list">
-            <CommentComponent accessToken={accessToken} comments={comments} />
+          <CommentComponent accessToken={accessToken} comments={comments} />
         </div>
       </div>
-      
     </section>
   );
 }
